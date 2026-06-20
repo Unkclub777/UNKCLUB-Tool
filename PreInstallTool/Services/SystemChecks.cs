@@ -217,7 +217,7 @@ public static class SystemChecks
             return ResolveCommandPath(expanded);
         }
 
-        return Path.GetFullPath(expanded);
+        return DesktopPathService.NormalizeDesktopPath(path);
     }
 
     public static string ResolveCommandPath(string command)

@@ -24,7 +24,7 @@ public static class DefenderExclusionService
             baseDirectory,
             resourceRoot,
             Path.GetFullPath(Path.Combine(resourceRoot, "Installers")),
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Emulator"),
+            DesktopPathService.GetEmulatorFolderPath(),
             Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "UNKCLUB-Tool"),

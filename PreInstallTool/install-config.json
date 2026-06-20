@@ -157,7 +157,7 @@
           "description": "UNKCLUB.exe GitHub release'den indirilir ve masaüstündeki Emulator klasörüne kopyalanır.",
           "type": "deployFile",
           "sourcePath": "github:UNKCLUB.exe",
-          "destinationPath": "%USERPROFILE%\\Desktop\\Emulator\\UNKCLUB.exe",
+          "destinationPath": "%DESKTOP%\\Emulator\\UNKCLUB.exe",
           "downloadFromGitHub": true,
           "phase": "post-reboot"
         },
@@ -315,7 +315,7 @@
           "description": "UNKCLUB.exe GitHub release'den indirilir ve masaüstündeki Emulator klasörüne kopyalanır.",
           "type": "deployFile",
           "sourcePath": "github:UNKCLUB.exe",
-          "destinationPath": "%USERPROFILE%\\Desktop\\Emulator\\UNKCLUB.exe",
+          "destinationPath": "%DESKTOP%\\Emulator\\UNKCLUB.exe",
           "downloadFromGitHub": true,
           "phase": "post-reboot"
         },

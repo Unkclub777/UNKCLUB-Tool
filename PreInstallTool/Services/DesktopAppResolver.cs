@@ -6,7 +6,7 @@ public static class DesktopAppResolver
 {
     public static string? FindDesktopApp(string folderName, string fileName)
     {
-        var desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+        var desktop = DesktopPathService.GetDesktopDirectory();
         if (!Directory.Exists(desktop))
         {
             return null;
@@ -31,7 +31,7 @@ public static class DesktopAppResolver
 
     public static string? FindAnyDesktopApp(string folderName)
     {
-        var desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+        var desktop = DesktopPathService.GetDesktopDirectory();
         if (!Directory.Exists(desktop))
         {
             return null;

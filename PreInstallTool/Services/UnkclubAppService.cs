@@ -17,8 +17,7 @@ public static class UnkclubAppService
 
     public static string DefaultDesktopPath =>
         Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-            "Emulator",
+            DesktopPathService.GetEmulatorFolderPath(),
             UpdateConstants.UnkclubAppFileName);
 
     public static async Task<string> DownloadToPathAsync(
@@ -139,6 +138,9 @@ public static class UnkclubAppService
 
     public static string ResolveDestinationPath(InstallStep step)
     {
+        const string defaultFolderName = "Emulator";
+        const string defaultFileName = UpdateConstants.UnkclubAppFileName;
+
         if (!string.IsNullOrWhiteSpace(step.DestinationPath))
         {
             return SystemChecks.ExpandPath(step.DestinationPath);
@@ -147,12 +149,24 @@ public static class UnkclubAppService
         if (!string.IsNullOrWhiteSpace(step.DestinationFolder) &&
             !string.IsNullOrWhiteSpace(step.FileName))
         {
-            return Path.Combine(
-                SystemChecks.ExpandPath(step.DestinationFolder),
-                step.FileName);
+            var destinationFolder = SystemChecks.ExpandPath(step.DestinationFolder);
+            if (!string.IsNullOrWhiteSpace(step.DuplicateFolderStrategy))
+            {
+                destinationFolder = DesktopPathService.ResolveUniqueDestinationFolder(
+                    destinationFolder,
+                    step.DuplicateFolderStrategy);
+            }
+
+            return Path.Combine(destinationFolder, step.FileName);
         }
 
-        return DefaultDesktopPath;
+        var folderName = string.IsNullOrWhiteSpace(step.DesktopFolderName)
+            ? defaultFolderName
+            : step.DesktopFolderName;
+
+        return Path.Combine(
+            DesktopPathService.GetEmulatorFolderPath(folderName),
+            defaultFileName);
     }
 
     private static List<string> ResolveDownloadUrls(string versionLabel)

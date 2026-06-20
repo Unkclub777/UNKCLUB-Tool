@@ -440,7 +440,7 @@ public sealed class InstallOrchestrator
         if (!string.IsNullOrWhiteSpace(step.DestinationFolder) &&
             !string.IsNullOrWhiteSpace(step.FileName))
         {
-            var destinationFolder = ResolveUniqueDestinationFolder(
+            var destinationFolder = DesktopPathService.ResolveUniqueDestinationFolder(
                 SystemChecks.ExpandPath(step.DestinationFolder),
                 step.DuplicateFolderStrategy);
 
@@ -526,39 +526,6 @@ public sealed class InstallOrchestrator
         }
 
         return path;
-    }
-
-    private static string ResolveUniqueDestinationFolder(string destinationFolder, string? duplicateFolderStrategy)
-    {
-        var parentDirectory = Path.GetDirectoryName(destinationFolder);
-        var folderName = Path.GetFileName(destinationFolder);
-
-        if (string.IsNullOrWhiteSpace(parentDirectory) || string.IsNullOrWhiteSpace(folderName))
-        {
-            return destinationFolder;
-        }
-
-        if (!Directory.Exists(destinationFolder))
-        {
-            return destinationFolder;
-        }
-
-        var strategy = duplicateFolderStrategy?.Trim().ToLowerInvariant() ?? "windows";
-        if (strategy is not ("windows" or "increment"))
-        {
-            return destinationFolder;
-        }
-
-        for (var index = 2; index <= 999; index++)
-        {
-            var candidate = Path.Combine(parentDirectory, $"{folderName} ({index})");
-            if (!Directory.Exists(candidate))
-            {
-                return candidate;
-            }
-        }
-
-        return Path.Combine(parentDirectory, $"{folderName} (New)");
     }
 
     private static InstallStep BuildInstallerRunStep(InstallStep parentStep, string filePath)
