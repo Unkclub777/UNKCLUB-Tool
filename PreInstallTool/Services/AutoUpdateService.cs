@@ -62,11 +62,6 @@ public static class AutoUpdateService
 
             Directory.CreateDirectory(versionFolder);
 
-            var zipPath = Path.Combine(versionFolder, UpdateConstants.ReleaseAssetFileName);
-            progress?.Report(update.DownloadUrl);
-
-            await DownloadFileAsync(update.DownloadUrl, zipPath, cancellationToken).ConfigureAwait(false);
-
             var stagingDirectory = Path.Combine(versionFolder, "staging");
             if (Directory.Exists(stagingDirectory))
             {
@@ -74,9 +69,21 @@ public static class AutoUpdateService
             }
 
             Directory.CreateDirectory(stagingDirectory);
-            ZipFile.ExtractToDirectory(zipPath, stagingDirectory, overwriteFiles: true);
+            progress?.Report(update.DownloadUrl);
 
-            var payloadExe = ResolvePayloadExecutable(stagingDirectory);
+            string payloadExe;
+            if (IsZipDownload(update.DownloadUrl))
+            {
+                var zipPath = Path.Combine(versionFolder, UpdateConstants.ReleaseAssetFileName);
+                await DownloadFileAsync(update.DownloadUrl, zipPath, cancellationToken).ConfigureAwait(false);
+                ZipFile.ExtractToDirectory(zipPath, stagingDirectory, overwriteFiles: true);
+                payloadExe = ResolvePayloadExecutable(stagingDirectory);
+            }
+            else
+            {
+                payloadExe = Path.Combine(stagingDirectory, UpdateConstants.ReleaseExecutableFileName);
+                await DownloadFileAsync(update.DownloadUrl, payloadExe, cancellationToken).ConfigureAwait(false);
+            }
             var updaterScript = Path.Combine(versionFolder, "apply-update.cmd");
             WriteUpdaterScript(updaterScript, payloadExe, executablePath);
 
@@ -117,16 +124,7 @@ public static class AutoUpdateService
                 return new UpdateCheckResult(UpdateStatus.CheckFailed, ErrorMessage: "Invalid release metadata.");
             }
 
-            var downloadUrl = release.Assets?
-                .FirstOrDefault(a => a.Name.Equals(UpdateConstants.ReleaseAssetFileName, StringComparison.OrdinalIgnoreCase))
-                ?.BrowserDownloadUrl;
-
-            if (string.IsNullOrWhiteSpace(downloadUrl))
-            {
-                downloadUrl = release.Assets?
-                    .FirstOrDefault(a => a.Name.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
-                    ?.BrowserDownloadUrl;
-            }
+            var downloadUrl = FindReleaseAssetUrl(release.Assets);
 
             if (CurrentVersion >= remoteVersion)
             {
@@ -192,6 +190,36 @@ public static class AutoUpdateService
             return new UpdateCheckResult(UpdateStatus.CheckFailed, ErrorMessage: ex.Message);
         }
     }
+
+    private static string? FindReleaseAssetUrl(List<GitHubReleaseAsset>? assets)
+    {
+        if (assets is null || assets.Count == 0)
+        {
+            return null;
+        }
+
+        var zipAsset = assets.FirstOrDefault(a =>
+            a.Name.Equals(UpdateConstants.ReleaseAssetFileName, StringComparison.OrdinalIgnoreCase));
+        if (zipAsset is not null)
+        {
+            return zipAsset.BrowserDownloadUrl;
+        }
+
+        var exeAsset = assets.FirstOrDefault(a =>
+            a.Name.Equals(UpdateConstants.ReleaseExecutableFileName, StringComparison.OrdinalIgnoreCase));
+        if (exeAsset is not null)
+        {
+            return exeAsset.BrowserDownloadUrl;
+        }
+
+        return assets
+            .FirstOrDefault(a => a.Name.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
+            ?.BrowserDownloadUrl;
+    }
+
+    private static bool IsZipDownload(string downloadUrl) =>
+        downloadUrl.Contains(UpdateConstants.ReleaseAssetFileName, StringComparison.OrdinalIgnoreCase) ||
+        downloadUrl.EndsWith(".zip", StringComparison.OrdinalIgnoreCase);
 
     private static async Task DownloadFileAsync(string url, string destinationPath, CancellationToken cancellationToken)
     {
@@ -303,7 +331,7 @@ public static class AutoUpdateService
         {
             Timeout = TimeSpan.FromMinutes(5)
         };
-        client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("UNKCLUB-Tool-Updater", "1.1"));
+        client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("UNKCLUB-Tool-Updater", "1.1.1"));
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         return client;
     }

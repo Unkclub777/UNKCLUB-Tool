@@ -1,6 +1,7 @@
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
+using System.Text;
 
 namespace PreInstallTool.Services;
 
@@ -10,7 +11,7 @@ namespace PreInstallTool.Services;
 /// </summary>
 public static class AppResourceService
 {
-    private const string EmbeddedBundleName = "embedded.bundle.zip";
+    private const string EmbeddedBundleLogicalName = "embedded.bundle.zip";
     private const string ExtractedVersionFileName = ".extracted-version";
 
     private static readonly object InitLock = new();
@@ -104,9 +105,8 @@ public static class AppResourceService
     private static void ExtractEmbeddedBundle(string targetRoot)
     {
         var assembly = Assembly.GetExecutingAssembly();
-        using var resourceStream = assembly.GetManifestResourceStream(EmbeddedBundleName)
-            ?? throw new InvalidOperationException(
-                $"Embedded bundle '{EmbeddedBundleName}' was not found in the application assembly.");
+        using var resourceStream = OpenEmbeddedBundleStream(assembly)
+            ?? throw CreateBundleNotFoundException(assembly);
 
         if (Directory.Exists(targetRoot))
         {
@@ -117,6 +117,71 @@ public static class AppResourceService
 
         using var archive = new ZipArchive(resourceStream, ZipArchiveMode.Read);
         archive.ExtractToDirectory(targetRoot, overwriteFiles: true);
+    }
+
+    private static Stream? OpenEmbeddedBundleStream(Assembly assembly)
+    {
+        var direct = assembly.GetManifestResourceStream(EmbeddedBundleLogicalName);
+        if (direct != null)
+        {
+            return direct;
+        }
+
+        var defaultName = $"{assembly.GetName().Name}.{EmbeddedBundleLogicalName}";
+        var defaultStream = assembly.GetManifestResourceStream(defaultName);
+        if (defaultStream != null)
+        {
+            return defaultStream;
+        }
+
+        var suffixMatch = assembly.GetManifestResourceNames()
+            .FirstOrDefault(name => name.EndsWith(EmbeddedBundleLogicalName, StringComparison.OrdinalIgnoreCase));
+
+        return suffixMatch != null
+            ? assembly.GetManifestResourceStream(suffixMatch)
+            : null;
+    }
+
+    private static InvalidOperationException CreateBundleNotFoundException(Assembly assembly)
+    {
+        var available = assembly.GetManifestResourceNames();
+        WriteResourceDebugLog(available);
+
+        var listed = available.Length == 0
+            ? "(none)"
+            : string.Join(", ", available);
+
+        return new InvalidOperationException(
+            $"Embedded bundle '{EmbeddedBundleLogicalName}' was not found in the application assembly. " +
+            $"Available manifest resources: {listed}");
+    }
+
+    private static void WriteResourceDebugLog(string[] availableResources)
+    {
+        try
+        {
+            var logDir = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "UNKCLUB-Tool");
+            Directory.CreateDirectory(logDir);
+
+            var logPath = Path.Combine(logDir, "embedded-resource-debug.log");
+            var builder = new StringBuilder();
+            builder.AppendLine($"Timestamp: {DateTimeOffset.Now:O}");
+            builder.AppendLine($"Assembly: {Assembly.GetExecutingAssembly().FullName}");
+            builder.AppendLine($"Expected: {EmbeddedBundleLogicalName}");
+            builder.AppendLine("Available manifest resources:");
+            foreach (var name in availableResources)
+            {
+                builder.AppendLine($"  - {name}");
+            }
+
+            File.WriteAllText(logPath, builder.ToString());
+        }
+        catch
+        {
+            // Best-effort debug logging only.
+        }
     }
 
     private static string GetCurrentAssemblyVersionLabel()

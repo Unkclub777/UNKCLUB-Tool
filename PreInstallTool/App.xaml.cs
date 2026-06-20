@@ -8,7 +8,6 @@ public partial class App : Application
 {
     private const string SingleInstanceMutexName = "Global\\UNKCLUB_PreInstallTool_SingleInstance_v1";
     private static Mutex? _singleInstanceMutex;
-    private static bool _ownsSingleInstanceMutex;
 
     public static bool ContinueErrorFixRequested { get; private set; }
 
@@ -19,11 +18,17 @@ public partial class App : Application
         {
             _singleInstanceMutex.Dispose();
             _singleInstanceMutex = null;
+
+            LocalizationService.Initialize();
+            MessageBox.Show(
+                LocalizationService.GetString("App_AlreadyRunningMessage"),
+                LocalizationService.GetString("App_AlreadyRunningTitle"),
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+
             Shutdown();
             return;
         }
-
-        _ownsSingleInstanceMutex = true;
 
         LocalizationService.Initialize();
 
@@ -44,12 +49,8 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
-        if (_ownsSingleInstanceMutex)
-        {
-            _singleInstanceMutex?.ReleaseMutex();
-        }
-
         _singleInstanceMutex?.Dispose();
+        _singleInstanceMutex = null;
         base.OnExit(e);
     }
 }

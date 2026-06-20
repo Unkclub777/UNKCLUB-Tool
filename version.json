@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
-  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.1.0/UNKCLUB-Tool.zip",
-  "releaseNotes": "Single EXE distribution, auto-update on launch, merged first-install Vanguard flow, Win10/11 support."
+  "version": "1.1.1",
+  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.1.1/UNKCLUB-Tool.zip",
+  "releaseNotes": "Embedded bundle fix (MSBuild ZipDirectory), GitHub-only distribution, auto-update supports zip or exe assets."
 }

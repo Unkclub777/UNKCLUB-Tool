@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version (e.g. 1.0.1)'
+        description: 'Release version (e.g. 1.1.1)'
         required: true
         type: string
 
@@ -39,6 +39,7 @@ jobs:
       - name: Publish app
         shell: pwsh
         run: |
+          # PackEmbeddedResources (MSBuild ZipDirectory) runs during publish and embeds install payloads.
           dotnet publish PreInstallTool/PreInstallTool.csproj `
             -c Release `
             -r win-x64 `
@@ -48,7 +49,7 @@ jobs:
             /p:FileVersion=${{ steps.version.outputs.version }}.0 `
             /p:InformationalVersion=${{ steps.version.outputs.version }}
 
-          New-Item -ItemType Directory -Path publish | Out-Null
+          New-Item -ItemType Directory -Path publish -Force | Out-Null
           Move-Item -Path publish-staging/PreInstallTool.exe -Destination "publish/UNKCLUB Tool.exe" -Force
           Remove-Item publish-staging -Recurse -Force -ErrorAction SilentlyContinue
 
@@ -71,6 +72,7 @@ jobs:
           tag_name: v${{ steps.version.outputs.version }}
           name: UNKCLUB Tool v${{ steps.version.outputs.version }}
           files: |
+            publish/UNKCLUB Tool.exe
             UNKCLUB-Tool.zip
             version.json
           generate_release_notes: true

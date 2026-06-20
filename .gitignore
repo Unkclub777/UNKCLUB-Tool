@@ -5,6 +5,8 @@
 Dagitim/
 publish/
 PreInstallTool.zip
+PreInstallTool/embedded-bundle.zip
+PreInstallTool/embedded-staging/
 
 # User-specific IDE / secrets
 *.user
