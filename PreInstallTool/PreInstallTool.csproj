@@ -48,6 +48,7 @@
 
   <!-- Builds installers-bundle.zip for GitHub Release upload (prerequisites only; UNKCLUB.exe is a separate release asset). -->
   <Target Name="PackInstallersBundle">
+    <RemoveDir Directories="$(InstallersStagingDir)" Condition="Exists('$(InstallersStagingDir)')" />
     <MakeDir Directories="$(InstallersStagingDir)Installers\IlkKurulum" />
 
     <Copy SourceFiles="install-config.json" DestinationFolder="$(InstallersStagingDir)" SkipUnchangedFiles="true" />
