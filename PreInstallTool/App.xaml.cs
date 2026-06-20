@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http;
 using System.Windows;
 using PreInstallTool.Localization;
@@ -102,6 +103,11 @@ public partial class App : Application
 
         if (FindHttpRequestException(ex) is { } networkEx)
         {
+            if (networkEx.StatusCode == HttpStatusCode.NotFound)
+            {
+                return LocalizationService.GetString("Bundle_ErrorNotFoundPrivateRepo");
+            }
+
             return LocalizationService.Format("Bundle_ErrorNetwork", networkEx.Message);
         }
 

@@ -60,6 +60,7 @@
   <data name="Bundle_ErrorInvalidContent" xml:space="preserve"><value>İndirilen kurulum dosyaları geçersiz veya eksik.</value></data>
   <data name="Bundle_ErrorNetwork" xml:space="preserve"><value>Ağ hatası: {0}</value></data>
   <data name="Bundle_ErrorNetworkGeneric" xml:space="preserve"><value>İnternet bağlantısı kurulamadı veya sunucuya erişilemedi.</value></data>
+  <data name="Bundle_ErrorNotFoundPrivateRepo" xml:space="preserve"><value>Kurulum dosyaları bulunamadı (HTTP 404).&#10;&#10;GitHub deposu gizli olabilir veya release'e installers-bundle.zip eklenmemiş olabilir.&#10;&#10;Depoyu herkese açık yapın veya version.json içinde herkese açık bir installersBundleUrl tanımlayın.</value></data>
   <data name="DefenderStatusTitle" xml:space="preserve"><value>Defender Durumu</value></data>
   <data name="DefenderNotReadYet" xml:space="preserve"><value>Henüz okunmadı</value></data>
   <data name="DefenderLastUpdated" xml:space="preserve"><value>Son güncelleme: {0}</value></data>

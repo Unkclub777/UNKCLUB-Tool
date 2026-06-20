@@ -254,6 +254,7 @@
   <data name="Bundle_ErrorInvalidContent" xml:space="preserve"><value>Os arquivos baixados são inválidos ou incompletos.</value></data>
   <data name="Bundle_ErrorNetwork" xml:space="preserve"><value>Erro de rede: {0}</value></data>
   <data name="Bundle_ErrorNetworkGeneric" xml:space="preserve"><value>Não foi possível conectar à internet ou alcançar o servidor.</value></data>
+  <data name="Bundle_ErrorNotFoundPrivateRepo" xml:space="preserve"><value>Arquivos de instalação não encontrados (HTTP 404).&#10;&#10;O repositório GitHub pode ser privado, ou installers-bundle.zip pode estar ausente no release.&#10;&#10;Torne o repositório público ou defina uma installersBundleUrl pública em version.json.</value></data>
   <data name="AppVersionLabel" xml:space="preserve"><value>Versão {0}</value></data>
   <data name="Update_Checking" xml:space="preserve"><value>Verificando atualizações...</value></data>
   <data name="Update_UpToDate" xml:space="preserve"><value>UNKCLUB Tool está atualizado (versão {0}).</value></data>

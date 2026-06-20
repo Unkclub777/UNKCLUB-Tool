@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 namespace PreInstallTool.Services;
 
 /// <summary>
-/// Resolves release asset download URLs via the GitHub Releases API.
+/// Resolves release asset download URLs via direct GitHub release links or the Releases API.
 /// </summary>
 internal static class GitHubReleaseAssetResolver
 {
@@ -17,6 +17,20 @@ internal static class GitHubReleaseAssetResolver
         PropertyNameCaseInsensitive = true
     };
 
+    /// <summary>
+    /// Builds the public release download URL (no API auth required for public repos/releases).
+    /// </summary>
+    public static string BuildDirectDownloadUrl(string versionLabel, string assetFileName)
+    {
+        var tag = NormalizeTag(versionLabel);
+        return
+            $"https://github.com/{UpdateConstants.GitHubOwner}/{UpdateConstants.GitHubRepo}/releases/download/{tag}/{assetFileName}";
+    }
+
+    /// <summary>
+    /// Resolves an asset URL via the GitHub Releases API (fallback when direct download fails).
+    /// Returns null when the repo is private or the release/asset is missing.
+    /// </summary>
     public static string? ResolveAssetUrl(string versionLabel, string assetFileName)
     {
         var normalizedTag = NormalizeTag(versionLabel);

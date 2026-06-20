@@ -1,5 +1,6 @@
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -149,41 +150,55 @@ public static class AppResourceService
 
     private static void DownloadAndExtractInstallersBundle(string targetRoot, string versionLabel)
     {
-        var downloadUrl = ResolveInstallersBundleDownloadUrl(versionLabel)
-            ?? throw new InvalidOperationException("BUNDLE_URL_UNRESOLVED");
-
-        var tempZip = Path.Combine(
-            Path.GetTempPath(),
-            $"unkclub-installers-{Guid.NewGuid():N}.zip");
+        var downloadUrls = ResolveInstallersBundleDownloadUrls(versionLabel);
+        if (downloadUrls.Count == 0)
+        {
+            throw new InvalidOperationException("BUNDLE_URL_UNRESOLVED");
+        }
 
         Exception? lastError = null;
-        for (var attempt = 1; attempt <= DownloadRetryCount; attempt++)
+        foreach (var downloadUrl in downloadUrls)
         {
+            var tempZip = Path.Combine(
+                Path.GetTempPath(),
+                $"unkclub-installers-{Guid.NewGuid():N}.zip");
+
             try
             {
-                DownloadFileAsync(downloadUrl, tempZip).GetAwaiter().GetResult();
-
-                if (Directory.Exists(targetRoot))
+                for (var attempt = 1; attempt <= DownloadRetryCount; attempt++)
                 {
-                    Directory.Delete(targetRoot, recursive: true);
-                }
+                    try
+                    {
+                        DownloadFileAsync(downloadUrl, tempZip).GetAwaiter().GetResult();
 
-                Directory.CreateDirectory(targetRoot);
-                ZipFile.ExtractToDirectory(tempZip, targetRoot, overwriteFiles: true);
+                        if (Directory.Exists(targetRoot))
+                        {
+                            Directory.Delete(targetRoot, recursive: true);
+                        }
 
-                if (!IsValidResourceRoot(targetRoot))
-                {
-                    throw new InvalidOperationException("BUNDLE_INVALID_CONTENT");
-                }
+                        Directory.CreateDirectory(targetRoot);
+                        ZipFile.ExtractToDirectory(tempZip, targetRoot, overwriteFiles: true);
 
-                return;
-            }
-            catch (Exception ex)
-            {
-                lastError = ex;
-                if (attempt < DownloadRetryCount)
-                {
-                    Thread.Sleep(TimeSpan.FromSeconds(attempt * 2));
+                        if (!IsValidResourceRoot(targetRoot))
+                        {
+                            throw new InvalidOperationException("BUNDLE_INVALID_CONTENT");
+                        }
+
+                        return;
+                    }
+                    catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        lastError = ex;
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        lastError = ex;
+                        if (attempt < DownloadRetryCount)
+                        {
+                            Thread.Sleep(TimeSpan.FromSeconds(attempt * 2));
+                        }
+                    }
                 }
             }
             finally
@@ -200,50 +215,46 @@ public static class AppResourceService
             lastError);
     }
 
-    private static string? ResolveInstallersBundleDownloadUrl(string versionLabel)
+    private static List<string> ResolveInstallersBundleDownloadUrls(string versionLabel)
     {
+        var urls = new List<string>();
         var manifest = TryFetchVersionManifest();
-        if (manifest is not null)
+
+        if (manifest is not null && !string.IsNullOrWhiteSpace(manifest.InstallersBundleVersion))
         {
-            if (!string.IsNullOrWhiteSpace(manifest.InstallersBundleVersion))
-            {
-                versionLabel = manifest.InstallersBundleVersion;
-            }
-
-            var apiUrl = GitHubReleaseAssetResolver.ResolveAssetUrl(
-                versionLabel,
-                UpdateConstants.InstallersBundleFileName);
-            if (!string.IsNullOrWhiteSpace(apiUrl))
-            {
-                return apiUrl;
-            }
-
-            if (!string.IsNullOrWhiteSpace(manifest.InstallersBundleUrl))
-            {
-                return manifest.InstallersBundleUrl;
-            }
+            versionLabel = manifest.InstallersBundleVersion.Trim();
         }
 
-        var fallbackApiUrl = GitHubReleaseAssetResolver.ResolveAssetUrl(
+        if (!string.IsNullOrWhiteSpace(manifest?.InstallersBundleUrl))
+        {
+            AddUniqueUrl(urls, manifest.InstallersBundleUrl);
+        }
+
+        AddUniqueUrl(
+            urls,
+            GitHubReleaseAssetResolver.BuildDirectDownloadUrl(
+                versionLabel,
+                UpdateConstants.InstallersBundleFileName));
+
+        var apiUrl = GitHubReleaseAssetResolver.ResolveAssetUrl(
             versionLabel,
             UpdateConstants.InstallersBundleFileName);
-        if (!string.IsNullOrWhiteSpace(fallbackApiUrl))
+        if (!string.IsNullOrWhiteSpace(apiUrl))
         {
-            return fallbackApiUrl;
+            AddUniqueUrl(urls, apiUrl);
         }
 
-        return BuildReleaseAssetUrl(versionLabel, UpdateConstants.InstallersBundleFileName);
+        return urls;
     }
 
-    internal static string BuildReleaseAssetUrl(string versionLabel, string assetFileName)
+    private static void AddUniqueUrl(List<string> urls, string url)
     {
-        var normalized = versionLabel.Trim();
-        if (normalized.StartsWith("v", StringComparison.OrdinalIgnoreCase))
+        if (urls.Any(existing => existing.Equals(url, StringComparison.OrdinalIgnoreCase)))
         {
-            normalized = normalized[1..];
+            return;
         }
 
-        return $"https://github.com/{UpdateConstants.GitHubOwner}/{UpdateConstants.GitHubRepo}/releases/download/v{normalized}/{assetFileName}";
+        urls.Add(url);
     }
 
     private static VersionManifestInfo? TryFetchVersionManifest()
@@ -277,12 +288,26 @@ public static class AppResourceService
     {
         using var response = await HttpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead)
             .ConfigureAwait(false);
+
+        if (response.StatusCode == HttpStatusCode.NotFound)
+        {
+            throw new HttpRequestException(
+                BuildNotFoundDownloadMessage(url),
+                inner: null,
+                statusCode: HttpStatusCode.NotFound);
+        }
+
         response.EnsureSuccessStatusCode();
 
         await using var source = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
         await using var destination = File.Create(destinationPath);
         await source.CopyToAsync(destination).ConfigureAwait(false);
     }
+
+    internal static string BuildNotFoundDownloadMessage(string url) =>
+        $"HTTP 404 Not Found ({url}). " +
+        "The installers bundle may be missing from the release, or the GitHub repository may be private. " +
+        "Make the repository public or set a publicly reachable installersBundleUrl in version.json.";
 
     private static string GetCurrentAssemblyVersionLabel()
     {

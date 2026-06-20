@@ -254,6 +254,7 @@
   <data name="Bundle_ErrorInvalidContent" xml:space="preserve"><value>Heruntergeladene Setup-Dateien sind ungültig oder unvollständig.</value></data>
   <data name="Bundle_ErrorNetwork" xml:space="preserve"><value>Netzwerkfehler: {0}</value></data>
   <data name="Bundle_ErrorNetworkGeneric" xml:space="preserve"><value>Keine Internetverbindung oder Server nicht erreichbar.</value></data>
+  <data name="Bundle_ErrorNotFoundPrivateRepo" xml:space="preserve"><value>Setup-Dateien nicht gefunden (HTTP 404).&#10;&#10;Das GitHub-Repository ist möglicherweise privat, oder installers-bundle.zip fehlt im Release.&#10;&#10;Repository öffentlich machen oder eine öffentlich erreichbare installersBundleUrl in version.json setzen.</value></data>
   <data name="AppVersionLabel" xml:space="preserve"><value>Version {0}</value></data>
   <data name="Update_Checking" xml:space="preserve"><value>Updates werden gesucht...</value></data>
   <data name="Update_UpToDate" xml:space="preserve"><value>UNKCLUB Tool ist aktuell (Version {0}).</value></data>

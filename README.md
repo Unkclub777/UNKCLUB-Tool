@@ -63,7 +63,9 @@ The [Release workflow](.github/workflows/release.yml) publishes `UNKCLUB Tool.ex
 gh release upload v1.2.1 PreInstallTool/installers-bundle.zip --clobber
 ```
 
-**Important:** Every release must include `installers-bundle.zip` on GitHub (not listed for end users) so the app can fetch installers silently via the Releases API.
+**Important:** Every release must include `installers-bundle.zip` on GitHub (not listed for end users) so the app can fetch installers silently.
+
+The app downloads the bundle using direct release URLs first (`/releases/download/vTAG/installers-bundle.zip`), then falls back to the GitHub Releases API. **The repository must be public** (or `version.json` must point `installersBundleUrl` to a publicly reachable URL). Private repos return HTTP 404 for unauthenticated downloads and the GitHub API without a token.
 
 ## Dağıtım modeli (TR)
 

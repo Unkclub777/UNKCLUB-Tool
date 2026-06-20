@@ -14,6 +14,7 @@
   <data name="Bundle_ErrorInvalidContent" xml:space="preserve"><value>Downloaded setup files are invalid or incomplete.</value></data>
   <data name="Bundle_ErrorNetwork" xml:space="preserve"><value>Network error: {0}</value></data>
   <data name="Bundle_ErrorNetworkGeneric" xml:space="preserve"><value>Could not connect to the internet or reach the server.</value></data>
+  <data name="Bundle_ErrorNotFoundPrivateRepo" xml:space="preserve"><value>Setup files were not found (HTTP 404).&#10;&#10;The GitHub repository may be private, or installers-bundle.zip may be missing from the release.&#10;&#10;Make the repository public or set a publicly reachable installersBundleUrl in version.json.</value></data>
   <data name="DefenderStatusTitle" xml:space="preserve"><value>Defender Status</value></data>
   <data name="DefenderNotReadYet" xml:space="preserve"><value>Not read yet</value></data>
   <data name="DefenderLastUpdated" xml:space="preserve"><value>Last updated: {0}</value></data>

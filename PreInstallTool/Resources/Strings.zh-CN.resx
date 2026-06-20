@@ -254,6 +254,7 @@
   <data name="Bundle_ErrorInvalidContent" xml:space="preserve"><value>下载的安装文件无效或不完整。</value></data>
   <data name="Bundle_ErrorNetwork" xml:space="preserve"><value>网络错误：{0}</value></data>
   <data name="Bundle_ErrorNetworkGeneric" xml:space="preserve"><value>无法连接互联网或访问服务器。</value></data>
+  <data name="Bundle_ErrorNotFoundPrivateRepo" xml:space="preserve"><value>未找到安装文件 (HTTP 404)。&#10;&#10;GitHub 仓库可能是私有的，或 release 中缺少 installers-bundle.zip。&#10;&#10;请将仓库设为公开，或在 version.json 中设置可公开访问的 installersBundleUrl。</value></data>
   <data name="AppVersionLabel" xml:space="preserve"><value>版本 {0}</value></data>
   <data name="Update_Checking" xml:space="preserve"><value>正在检查更新...</value></data>
   <data name="Update_UpToDate" xml:space="preserve"><value>UNKCLUB Tool 已是最新版本（{0}）。</value></data>
