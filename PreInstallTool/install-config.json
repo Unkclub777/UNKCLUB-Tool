@@ -74,16 +74,6 @@
           "phase": "pre-reboot"
         },
         {
-          "id": "deploy-unkclub",
-          "name": "UNKCLUB uygulamasını indir ve dağıt",
-          "description": "UNKCLUB.exe GitHub release'den indirilir ve masaüstündeki Emulator klasörüne kopyalanır.",
-          "type": "deployFile",
-          "sourcePath": "github:UNKCLUB.exe",
-          "destinationPath": "%USERPROFILE%\\Desktop\\Emulator\\UNKCLUB.exe",
-          "downloadFromGitHub": true,
-          "phase": "pre-reboot"
-        },
-        {
           "id": "first-install-stop-all",
           "name": "Vanguard ve Riot servislerini durdur",
           "description": "Görev Yöneticisi yöntemiyle tüm Vanguard süreçleri zorla sonlandırılır, sc stop vgk/vgc/vgm uygulanır, ardından Riot Client süreçleri kapatılır.",
@@ -162,9 +152,19 @@
           "processNames": ["vgtray", "vgc", "vgk", "vgm", "RiotClientCrashHandler", "RiotClientServices", "Riot Client", "RiotClientUx", "RiotClientUxRender", "LeagueClient", "LeagueClientUx"]
         },
         {
+          "id": "deploy-unkclub",
+          "name": "UNKCLUB uygulamasını indir ve dağıt",
+          "description": "UNKCLUB.exe GitHub release'den indirilir ve masaüstündeki Emulator klasörüne kopyalanır.",
+          "type": "deployFile",
+          "sourcePath": "github:UNKCLUB.exe",
+          "destinationPath": "%USERPROFILE%\\Desktop\\Emulator\\UNKCLUB.exe",
+          "downloadFromGitHub": true,
+          "phase": "post-reboot"
+        },
+        {
           "id": "first-install-run-app",
           "name": "UNKCLUB uygulamasını çalıştır",
-          "description": "Masaüstündeki Emulator klasöründen UNKCLUB.exe yönetici olarak başlatılır; yoksa GitHub'dan indirilir.",
+          "description": "Masaüstündeki Emulator klasöründen UNKCLUB.exe yönetici olarak başlatılır.",
           "type": "runDesktopApp",
           "phase": "post-reboot",
           "desktopFolderName": "Emulator",
