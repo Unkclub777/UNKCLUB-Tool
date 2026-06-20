@@ -53,6 +53,13 @@
   <data name="WindowTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
   <data name="App_AlreadyRunningTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
   <data name="App_AlreadyRunningMessage" xml:space="preserve"><value>UNKCLUB Tool zaten çalışıyor.</value></data>
+  <data name="Bundle_Downloading" xml:space="preserve"><value>Gerekli dosyalar indiriliyor...</value></data>
+  <data name="Bundle_DownloadFailed" xml:space="preserve"><value>Gerekli dosyalar indirilemedi.&#10;&#10;{0}&#10;&#10;İnternet bağlantınızı kontrol edip Tamam'a basarak tekrar deneyin.</value></data>
+  <data name="Bundle_PrepareFailedTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="Bundle_ErrorUrlUnresolved" xml:space="preserve"><value>Kurulum dosyalarına şu anda erişilemiyor.</value></data>
+  <data name="Bundle_ErrorInvalidContent" xml:space="preserve"><value>İndirilen kurulum dosyaları geçersiz veya eksik.</value></data>
+  <data name="Bundle_ErrorNetwork" xml:space="preserve"><value>Ağ hatası: {0}</value></data>
+  <data name="Bundle_ErrorNetworkGeneric" xml:space="preserve"><value>İnternet bağlantısı kurulamadı veya sunucuya erişilemedi.</value></data>
   <data name="DefenderStatusTitle" xml:space="preserve"><value>Defender Durumu</value></data>
   <data name="DefenderNotReadYet" xml:space="preserve"><value>Henüz okunmadı</value></data>
   <data name="DefenderLastUpdated" xml:space="preserve"><value>Son güncelleme: {0}</value></data>

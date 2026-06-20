@@ -7,6 +7,13 @@
   <data name="WindowTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
   <data name="App_AlreadyRunningTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
   <data name="App_AlreadyRunningMessage" xml:space="preserve"><value>UNKCLUB Tool is already running.</value></data>
+  <data name="Bundle_Downloading" xml:space="preserve"><value>Downloading required files...</value></data>
+  <data name="Bundle_DownloadFailed" xml:space="preserve"><value>Required files could not be downloaded.&#10;&#10;{0}&#10;&#10;Check your internet connection and press OK to try again.</value></data>
+  <data name="Bundle_PrepareFailedTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="Bundle_ErrorUrlUnresolved" xml:space="preserve"><value>Setup files are not available right now.</value></data>
+  <data name="Bundle_ErrorInvalidContent" xml:space="preserve"><value>Downloaded setup files are invalid or incomplete.</value></data>
+  <data name="Bundle_ErrorNetwork" xml:space="preserve"><value>Network error: {0}</value></data>
+  <data name="Bundle_ErrorNetworkGeneric" xml:space="preserve"><value>Could not connect to the internet or reach the server.</value></data>
   <data name="DefenderStatusTitle" xml:space="preserve"><value>Defender Status</value></data>
   <data name="DefenderNotReadYet" xml:space="preserve"><value>Not read yet</value></data>
   <data name="DefenderLastUpdated" xml:space="preserve"><value>Last updated: {0}</value></data>
@@ -55,7 +62,7 @@
   <data name="Reseller_OtherPromptTitle" xml:space="preserve"><value>Emulator Application</value></data>
   <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>Please place your reseller application's .exe file in the Desktop Emulator folder. It will be launched as administrator in the final step.</value></data>
   <data name="Mode_first-install_Name" xml:space="preserve"><value>First Install</value></data>
-  <data name="Mode_first-install_Description" xml:space="preserve"><value>All required components are installed in order when setting up for the first time. Setup files are bundled with the application.</value></data>
+  <data name="Mode_first-install_Description" xml:space="preserve"><value>All required components are installed in order when setting up for the first time. Setup files are downloaded automatically in the background.</value></data>
   <data name="Mode_error-fix_Name" xml:space="preserve"><value>Error Fix</value></data>
   <data name="Mode_error-fix_Description" xml:space="preserve"><value>Fixes Vanguard and Riot Client issues. Installation continues automatically after reboot.</value></data>
   <data name="Step_set-uac-lowest_Name" xml:space="preserve"><value>Set UAC level to lowest</value></data>

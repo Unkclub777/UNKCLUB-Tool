@@ -247,6 +247,13 @@
   <data name="DirectXAutomationError" xml:space="preserve"><value>Erro de automação do DirectX: {0}</value></data>
   <data name="StepResultLog" xml:space="preserve"><value>[{0}] {1}</value></data>
   <data name="BtnCheckForUpdates" xml:space="preserve"><value>Verificar atualizações</value></data>
+  <data name="Bundle_Downloading" xml:space="preserve"><value>Baixando arquivos necessários...</value></data>
+  <data name="Bundle_DownloadFailed" xml:space="preserve"><value>Não foi possível baixar os arquivos necessários.&#10;&#10;{0}&#10;&#10;Verifique sua conexão com a internet e pressione OK para tentar novamente.</value></data>
+  <data name="Bundle_PrepareFailedTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="Bundle_ErrorUrlUnresolved" xml:space="preserve"><value>Os arquivos de instalação não estão disponíveis no momento.</value></data>
+  <data name="Bundle_ErrorInvalidContent" xml:space="preserve"><value>Os arquivos baixados são inválidos ou incompletos.</value></data>
+  <data name="Bundle_ErrorNetwork" xml:space="preserve"><value>Erro de rede: {0}</value></data>
+  <data name="Bundle_ErrorNetworkGeneric" xml:space="preserve"><value>Não foi possível conectar à internet ou alcançar o servidor.</value></data>
   <data name="AppVersionLabel" xml:space="preserve"><value>Versão {0}</value></data>
   <data name="Update_Checking" xml:space="preserve"><value>Verificando atualizações...</value></data>
   <data name="Update_UpToDate" xml:space="preserve"><value>UNKCLUB Tool está atualizado (versão {0}).</value></data>

@@ -9,13 +9,14 @@ namespace PreInstallTool.Services;
 
 /// <summary>
 /// Resolves installer/config paths: beside the exe (legacy/dev), extracted cache under
-/// %LocalAppData%\UNKCLUB-Tool\, or downloaded once from the GitHub Release asset
+/// %LocalAppData%\UNKCLUB-Tool\, or downloaded silently from the GitHub Release asset
 /// installers-bundle.zip.
 /// </summary>
 public static class AppResourceService
 {
     private const string ExtractedVersionFileName = ".installers-bundle-version";
     private const string LocalAppFolderName = "UNKCLUB-Tool";
+    private const int DownloadRetryCount = 3;
 
     private static readonly HttpClient HttpClient = CreateHttpClient();
     private static readonly object InitLock = new();
@@ -56,6 +57,15 @@ public static class AppResourceService
         }
     }
 
+    public static void ResetForRetry()
+    {
+        lock (InitLock)
+        {
+            _resourceRoot = null;
+            _initialized = false;
+        }
+    }
+
     private static string ResolveResourceRoot()
     {
         var devRoot = TryResolveDevResourceRoot();
@@ -66,16 +76,16 @@ public static class AppResourceService
 
         var extractRoot = GetLocalCacheRoot();
         var versionMarker = Path.Combine(extractRoot, ExtractedVersionFileName);
-        var currentVersion = GetCurrentAssemblyVersionLabel();
+        var requiredBundleVersion = GetRequiredBundleVersion();
 
-        if (IsExtractedBundleValid(extractRoot, versionMarker, currentVersion))
+        if (IsExtractedBundleValid(extractRoot, versionMarker, requiredBundleVersion))
         {
             return extractRoot;
         }
 
         Directory.CreateDirectory(extractRoot);
-        DownloadAndExtractInstallersBundle(extractRoot, currentVersion);
-        File.WriteAllText(versionMarker, currentVersion);
+        DownloadAndExtractInstallersBundle(extractRoot, requiredBundleVersion);
+        File.WriteAllText(versionMarker, requiredBundleVersion);
         return extractRoot;
     }
 
@@ -126,10 +136,10 @@ public static class AppResourceService
                Directory.EnumerateFileSystemEntries(installersRoot).Any();
     }
 
-    private static bool IsExtractedBundleValid(string extractRoot, string versionMarker, string currentVersion)
+    private static bool IsExtractedBundleValid(string extractRoot, string versionMarker, string requiredBundleVersion)
     {
         if (!File.Exists(versionMarker) ||
-            !File.ReadAllText(versionMarker).Trim().Equals(currentVersion, StringComparison.Ordinal))
+            !File.ReadAllText(versionMarker).Trim().Equals(requiredBundleVersion, StringComparison.Ordinal))
         {
             return false;
         }
@@ -140,68 +150,86 @@ public static class AppResourceService
     private static void DownloadAndExtractInstallersBundle(string targetRoot, string versionLabel)
     {
         var downloadUrl = ResolveInstallersBundleDownloadUrl(versionLabel)
-            ?? throw new InvalidOperationException(
-                $"Could not resolve a download URL for {UpdateConstants.InstallersBundleFileName} (v{versionLabel}).");
+            ?? throw new InvalidOperationException("BUNDLE_URL_UNRESOLVED");
 
         var tempZip = Path.Combine(
             Path.GetTempPath(),
             $"unkclub-installers-{Guid.NewGuid():N}.zip");
 
-        try
+        Exception? lastError = null;
+        for (var attempt = 1; attempt <= DownloadRetryCount; attempt++)
         {
-            DownloadFileAsync(downloadUrl, tempZip).GetAwaiter().GetResult();
-
-            if (Directory.Exists(targetRoot))
+            try
             {
-                Directory.Delete(targetRoot, recursive: true);
+                DownloadFileAsync(downloadUrl, tempZip).GetAwaiter().GetResult();
+
+                if (Directory.Exists(targetRoot))
+                {
+                    Directory.Delete(targetRoot, recursive: true);
+                }
+
+                Directory.CreateDirectory(targetRoot);
+                ZipFile.ExtractToDirectory(tempZip, targetRoot, overwriteFiles: true);
+
+                if (!IsValidResourceRoot(targetRoot))
+                {
+                    throw new InvalidOperationException("BUNDLE_INVALID_CONTENT");
+                }
+
+                return;
             }
-
-            Directory.CreateDirectory(targetRoot);
-            ZipFile.ExtractToDirectory(tempZip, targetRoot, overwriteFiles: true);
-
-            if (!IsValidResourceRoot(targetRoot))
+            catch (Exception ex)
             {
-                throw new InvalidOperationException(
-                    $"Downloaded {UpdateConstants.InstallersBundleFileName} does not contain install-config.json and Installers.");
+                lastError = ex;
+                if (attempt < DownloadRetryCount)
+                {
+                    Thread.Sleep(TimeSpan.FromSeconds(attempt * 2));
+                }
+            }
+            finally
+            {
+                if (File.Exists(tempZip))
+                {
+                    File.Delete(tempZip);
+                }
             }
         }
-        finally
-        {
-            if (File.Exists(tempZip))
-            {
-                File.Delete(tempZip);
-            }
-        }
+
+        throw new InvalidOperationException(
+            lastError?.Message ?? "BUNDLE_DOWNLOAD_FAILED",
+            lastError);
     }
 
     private static string? ResolveInstallersBundleDownloadUrl(string versionLabel)
     {
-        var manifestUrl =
-            $"https://raw.githubusercontent.com/{UpdateConstants.GitHubOwner}/{UpdateConstants.GitHubRepo}/{UpdateConstants.DefaultBranch}/version.json";
-
-        try
+        var manifest = TryFetchVersionManifest();
+        if (manifest is not null)
         {
-            var manifestJson = HttpClient.GetStringAsync(manifestUrl).GetAwaiter().GetResult();
-            using var document = JsonDocument.Parse(manifestJson);
-            var root = document.RootElement;
-
-            if (root.TryGetProperty("installersBundleUrl", out var bundleUrlElement))
+            if (!string.IsNullOrWhiteSpace(manifest.InstallersBundleVersion))
             {
-                var bundleUrl = bundleUrlElement.GetString();
-                if (!string.IsNullOrWhiteSpace(bundleUrl))
-                {
-                    return bundleUrl;
-                }
+                versionLabel = manifest.InstallersBundleVersion;
             }
 
-            if (root.TryGetProperty("installersBundleVersion", out var bundleVersionElement))
+            var apiUrl = GitHubReleaseAssetResolver.ResolveAssetUrl(
+                versionLabel,
+                UpdateConstants.InstallersBundleFileName);
+            if (!string.IsNullOrWhiteSpace(apiUrl))
             {
-                versionLabel = bundleVersionElement.GetString() ?? versionLabel;
+                return apiUrl;
+            }
+
+            if (!string.IsNullOrWhiteSpace(manifest.InstallersBundleUrl))
+            {
+                return manifest.InstallersBundleUrl;
             }
         }
-        catch
+
+        var fallbackApiUrl = GitHubReleaseAssetResolver.ResolveAssetUrl(
+            versionLabel,
+            UpdateConstants.InstallersBundleFileName);
+        if (!string.IsNullOrWhiteSpace(fallbackApiUrl))
         {
-            // Fall back to the release asset URL derived from the app version.
+            return fallbackApiUrl;
         }
 
         return BuildReleaseAssetUrl(versionLabel, UpdateConstants.InstallersBundleFileName);
@@ -216,6 +244,33 @@ public static class AppResourceService
         }
 
         return $"https://github.com/{UpdateConstants.GitHubOwner}/{UpdateConstants.GitHubRepo}/releases/download/v{normalized}/{assetFileName}";
+    }
+
+    private static VersionManifestInfo? TryFetchVersionManifest()
+    {
+        var manifestUrl =
+            $"https://raw.githubusercontent.com/{UpdateConstants.GitHubOwner}/{UpdateConstants.GitHubRepo}/{UpdateConstants.DefaultBranch}/version.json";
+
+        try
+        {
+            var manifestJson = HttpClient.GetStringAsync(manifestUrl).GetAwaiter().GetResult();
+            return JsonSerializer.Deserialize<VersionManifestInfo>(manifestJson);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static string GetRequiredBundleVersion()
+    {
+        var manifest = TryFetchVersionManifest();
+        if (!string.IsNullOrWhiteSpace(manifest?.InstallersBundleVersion))
+        {
+            return manifest.InstallersBundleVersion.Trim();
+        }
+
+        return GetCurrentAssemblyVersionLabel();
     }
 
     private static async Task DownloadFileAsync(string url, string destinationPath)
@@ -243,12 +298,19 @@ public static class AppResourceService
 
     private static HttpClient CreateHttpClient()
     {
+        var versionLabel = GetCurrentAssemblyVersionLabel();
         var client = new HttpClient
         {
             Timeout = TimeSpan.FromMinutes(15)
         };
-        client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("UNKCLUB-Tool", "1.2.0"));
+        client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("UNKCLUB-Tool", versionLabel));
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         return client;
+    }
+
+    private sealed class VersionManifestInfo
+    {
+        public string? InstallersBundleUrl { get; set; }
+        public string? InstallersBundleVersion { get; set; }
     }
 }

@@ -247,6 +247,13 @@
   <data name="DirectXAutomationError" xml:space="preserve"><value>DirectX 자동화 오류: {0}</value></data>
   <data name="StepResultLog" xml:space="preserve"><value>[{0}] {1}</value></data>
   <data name="BtnCheckForUpdates" xml:space="preserve"><value>업데이트 확인</value></data>
+  <data name="Bundle_Downloading" xml:space="preserve"><value>필요한 파일을 다운로드하는 중...</value></data>
+  <data name="Bundle_DownloadFailed" xml:space="preserve"><value>필요한 파일을 다운로드할 수 없습니다.&#10;&#10;{0}&#10;&#10;인터넷 연결을 확인하고 확인을 눌러 다시 시도하세요.</value></data>
+  <data name="Bundle_PrepareFailedTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="Bundle_ErrorUrlUnresolved" xml:space="preserve"><value>설치 파일을 현재 사용할 수 없습니다.</value></data>
+  <data name="Bundle_ErrorInvalidContent" xml:space="preserve"><value>다운로드한 설치 파일이 유효하지 않거나 불완전합니다.</value></data>
+  <data name="Bundle_ErrorNetwork" xml:space="preserve"><value>네트워크 오류: {0}</value></data>
+  <data name="Bundle_ErrorNetworkGeneric" xml:space="preserve"><value>인터넷에 연결하거나 서버에 접근할 수 없습니다.</value></data>
   <data name="AppVersionLabel" xml:space="preserve"><value>버전 {0}</value></data>
   <data name="Update_Checking" xml:space="preserve"><value>업데이트 확인 중...</value></data>
   <data name="Update_UpToDate" xml:space="preserve"><value>UNKCLUB Tool이 최신 상태입니다(버전 {0}).</value></data>

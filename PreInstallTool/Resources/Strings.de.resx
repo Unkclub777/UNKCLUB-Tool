@@ -247,6 +247,13 @@
   <data name="DirectXAutomationError" xml:space="preserve"><value>DirectX-Automatisierungsfehler: {0}</value></data>
   <data name="StepResultLog" xml:space="preserve"><value>[{0}] {1}</value></data>
   <data name="BtnCheckForUpdates" xml:space="preserve"><value>Nach Updates suchen</value></data>
+  <data name="Bundle_Downloading" xml:space="preserve"><value>Erforderliche Dateien werden heruntergeladen...</value></data>
+  <data name="Bundle_DownloadFailed" xml:space="preserve"><value>Erforderliche Dateien konnten nicht heruntergeladen werden.&#10;&#10;{0}&#10;&#10;Überprüfen Sie Ihre Internetverbindung und klicken Sie auf OK, um es erneut zu versuchen.</value></data>
+  <data name="Bundle_PrepareFailedTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="Bundle_ErrorUrlUnresolved" xml:space="preserve"><value>Setup-Dateien sind derzeit nicht verfügbar.</value></data>
+  <data name="Bundle_ErrorInvalidContent" xml:space="preserve"><value>Heruntergeladene Setup-Dateien sind ungültig oder unvollständig.</value></data>
+  <data name="Bundle_ErrorNetwork" xml:space="preserve"><value>Netzwerkfehler: {0}</value></data>
+  <data name="Bundle_ErrorNetworkGeneric" xml:space="preserve"><value>Keine Internetverbindung oder Server nicht erreichbar.</value></data>
   <data name="AppVersionLabel" xml:space="preserve"><value>Version {0}</value></data>
   <data name="Update_Checking" xml:space="preserve"><value>Updates werden gesucht...</value></data>
   <data name="Update_UpToDate" xml:space="preserve"><value>UNKCLUB Tool ist aktuell (Version {0}).</value></data>

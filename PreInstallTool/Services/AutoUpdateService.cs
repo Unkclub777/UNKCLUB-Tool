@@ -198,22 +198,8 @@ public static class AutoUpdateService
             return null;
         }
 
-        var exeAsset = assets.FirstOrDefault(a =>
-            a.Name.Equals(UpdateConstants.ReleaseExecutableFileName, StringComparison.OrdinalIgnoreCase));
-        if (exeAsset is not null)
-        {
-            return exeAsset.BrowserDownloadUrl;
-        }
-
-        var zipAsset = assets.FirstOrDefault(a =>
-            a.Name.Equals(UpdateConstants.ReleaseAssetFileName, StringComparison.OrdinalIgnoreCase));
-        if (zipAsset is not null)
-        {
-            return zipAsset.BrowserDownloadUrl;
-        }
-
         return assets
-            .FirstOrDefault(a => a.Name.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
+            .FirstOrDefault(a => a.Name.Equals(UpdateConstants.ReleaseExecutableFileName, StringComparison.OrdinalIgnoreCase))
             ?.BrowserDownloadUrl;
     }
 
@@ -331,7 +317,7 @@ public static class AutoUpdateService
         {
             Timeout = TimeSpan.FromMinutes(5)
         };
-        client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("UNKCLUB-Tool-Updater", "1.2.0"));
+        client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("UNKCLUB-Tool-Updater", CurrentVersionLabel));
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         return client;
     }

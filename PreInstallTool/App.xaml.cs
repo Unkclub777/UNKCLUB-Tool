@@ -1,3 +1,4 @@
+using System.Net.Http;
 using System.Windows;
 using PreInstallTool.Localization;
 using PreInstallTool.Services;
@@ -32,17 +33,8 @@ public partial class App : Application
 
         LocalizationService.Initialize();
 
-        try
+        if (!TryEnsureResourceBundle())
         {
-            AppResourceService.EnsureInitialized();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(
-                $"Installer files could not be prepared.\n\n{ex.Message}",
-                "UNKCLUB Tool",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
             Shutdown();
             return;
         }
@@ -66,5 +58,68 @@ public partial class App : Application
         _singleInstanceMutex?.Dispose();
         _singleInstanceMutex = null;
         base.OnExit(e);
+    }
+
+    private static bool TryEnsureResourceBundle()
+    {
+        while (true)
+        {
+            try
+            {
+                AppResourceService.EnsureInitialized();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                var detail = MapBundleErrorDetail(ex);
+                var result = MessageBox.Show(
+                    LocalizationService.Format("Bundle_DownloadFailed", detail),
+                    LocalizationService.GetString("Bundle_PrepareFailedTitle"),
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Error);
+
+                if (result != MessageBoxResult.OK)
+                {
+                    return false;
+                }
+
+                AppResourceService.ResetForRetry();
+            }
+        }
+    }
+
+    private static string MapBundleErrorDetail(Exception ex)
+    {
+        if (ex.Message is "BUNDLE_URL_UNRESOLVED")
+        {
+            return LocalizationService.GetString("Bundle_ErrorUrlUnresolved");
+        }
+
+        if (ex.Message is "BUNDLE_INVALID_CONTENT")
+        {
+            return LocalizationService.GetString("Bundle_ErrorInvalidContent");
+        }
+
+        if (FindHttpRequestException(ex) is { } networkEx)
+        {
+            return LocalizationService.Format("Bundle_ErrorNetwork", networkEx.Message);
+        }
+
+        return string.IsNullOrWhiteSpace(ex.Message) || ex.Message.StartsWith("BUNDLE_", StringComparison.Ordinal)
+            ? LocalizationService.GetString("Bundle_ErrorNetworkGeneric")
+            : ex.Message;
+    }
+
+    private static HttpRequestException? FindHttpRequestException(Exception ex)
+    {
+        for (var current = ex; current is not null; current = current.InnerException)
+        {
+            if (current is HttpRequestException httpEx)
+            {
+                return httpEx;
+            }
+        }
+
+        return null;
     }
 }

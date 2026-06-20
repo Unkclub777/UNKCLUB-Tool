@@ -247,6 +247,13 @@
   <data name="DirectXAutomationError" xml:space="preserve"><value>DirectX 自动化错误：{0}</value></data>
   <data name="StepResultLog" xml:space="preserve"><value>[{0}] {1}</value></data>
   <data name="BtnCheckForUpdates" xml:space="preserve"><value>检查更新</value></data>
+  <data name="Bundle_Downloading" xml:space="preserve"><value>正在下载所需文件...</value></data>
+  <data name="Bundle_DownloadFailed" xml:space="preserve"><value>无法下载所需文件。&#10;&#10;{0}&#10;&#10;请检查网络连接后按确定重试。</value></data>
+  <data name="Bundle_PrepareFailedTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="Bundle_ErrorUrlUnresolved" xml:space="preserve"><value>安装文件目前不可用。</value></data>
+  <data name="Bundle_ErrorInvalidContent" xml:space="preserve"><value>下载的安装文件无效或不完整。</value></data>
+  <data name="Bundle_ErrorNetwork" xml:space="preserve"><value>网络错误：{0}</value></data>
+  <data name="Bundle_ErrorNetworkGeneric" xml:space="preserve"><value>无法连接互联网或访问服务器。</value></data>
   <data name="AppVersionLabel" xml:space="preserve"><value>版本 {0}</value></data>
   <data name="Update_Checking" xml:space="preserve"><value>正在检查更新...</value></data>
   <data name="Update_UpToDate" xml:space="preserve"><value>UNKCLUB Tool 已是最新版本（{0}）。</value></data>
