@@ -278,4 +278,46 @@
   <data name="Update_RestartTitle" xml:space="preserve"><value>Mise à jour</value></data>
   <data name="Update_CheckFailed" xml:space="preserve"><value>Impossible de vérifier les mises à jour : {0}</value></data>
   <data name="Update_CheckFailedTitle" xml:space="preserve"><value>Erreur de mise à jour</value></data>
+  <data name="CurrentStepLabel" xml:space="preserve"><value>Étape en cours : {0}</value></data>
+  <data name="PostReboot_BannerMessage" xml:space="preserve"><value>L'installation reprend après le redémarrage...</value></data>
+  <data name="PreFlight_Title" xml:space="preserve"><value>Vérification préalable</value></data>
+  <data name="PreFlight_Checking" xml:space="preserve"><value>Vérifications préalables en cours...</value></data>
+  <data name="PreFlight_NotAdmin" xml:space="preserve"><value>Non exécuté en tant qu'administrateur</value></data>
+  <data name="PreFlight_NotAdminWarning" xml:space="preserve"><value>UNKCLUB Tool n'est pas exécuté en tant qu'administrateur. De nombreuses étapes nécessitent des droits admin. Continuer quand même ?</value></data>
+  <data name="PreFlight_NoInternet" xml:space="preserve"><value>Pas de connexion Internet (github.com inaccessible)</value></data>
+  <data name="PreFlight_LowDiskSpace" xml:space="preserve"><value>Espace disque insuffisant (500 Mo minimum requis pour LocalAppData)</value></data>
+  <data name="PreFlight_FreeSpaceDetail" xml:space="preserve"><value>{0} Mo libres</value></data>
+  <data name="PreFlight_BundleUnreachable" xml:space="preserve"><value>Asset release GitHub inaccessible : installers-bundle.zip</value></data>
+  <data name="PreFlight_UnkclubUnreachable" xml:space="preserve"><value>Asset release GitHub inaccessible : UNKCLUB.exe</value></data>
+  <data name="PreFlight_FailedGeneric" xml:space="preserve"><value>Échec des vérifications préalables. Corrigez les problèmes et réessayez.</value></data>
+  <data name="PreFlight_FailedMessage" xml:space="preserve"><value>Impossible de démarrer l'installation :{0}{0}{1}{0}{0}OK = Réessayer, Annuler = Abandonner</value></data>
+  <data name="PreFlight_Cancelled" xml:space="preserve"><value>Installation annulée (vérifications préalables échouées).</value></data>
+  <data name="BtnCopyLog" xml:space="preserve"><value>Copier le journal</value></data>
+  <data name="BtnSaveLog" xml:space="preserve"><value>Enregistrer le journal</value></data>
+  <data name="LogCopied" xml:space="preserve"><value>Journal copié dans le presse-papiers.</value></data>
+  <data name="LogSaved" xml:space="preserve"><value>Journal enregistré : {0}</value></data>
+  <data name="LogCopyFailedTitle" xml:space="preserve"><value>Impossible de copier le journal</value></data>
+  <data name="LogSaveFailedTitle" xml:space="preserve"><value>Impossible d'enregistrer le journal</value></data>
+  <data name="InstallSummary_SuccessTitle" xml:space="preserve"><value>Installation terminée</value></data>
+  <data name="InstallSummary_Success" xml:space="preserve"><value>Installation terminée avec succès.{0}{0}UNKCLUB : {1}{0}{0}Suivez les étapes Emulator.</value></data>
+  <data name="InstallSummary_FailureTitle" xml:space="preserve"><value>Échec de l'installation</value></data>
+  <data name="InstallSummary_Failure" xml:space="preserve"><value>L'installation a échoué.{0}{0}Étape échouée : {1}{0}{0}Consultez le journal ou enregistrez-le pour plus de détails.</value></data>
+  <data name="InstallSummary_UnknownStep" xml:space="preserve"><value>Étape inconnue</value></data>
+  <data name="InstallSummary_UnkclubNotDeployed" xml:space="preserve"><value>(UNKCLUB.exe pas encore déployé)</value></data>
+  <data name="Bundle_AppVersionCacheInvalidated" xml:space="preserve"><value>Version de l'application modifiée ; nettoyage du cache...</value></data>
+  <data name="NonMsService_NotAdmin" xml:space="preserve"><value>Des droits administrateur sont requis pour désactiver les services non Microsoft.</value></data>
+  <data name="NonMsService_Starting" xml:space="preserve"><value>Analyse des services non Microsoft (msconfig : masquer Microsoft + tout désactiver)...</value></data>
+  <data name="NonMsService_RegistryOpenFailed" xml:space="preserve"><value>Impossible d'ouvrir la clé de registre des services.</value></data>
+  <data name="NonMsService_SkippedExcluded" xml:space="preserve"><value>Exclu : {0}</value></data>
+  <data name="NonMsService_Disabling" xml:space="preserve"><value>Désactivation : {0}</value></data>
+  <data name="NonMsService_Disabled" xml:space="preserve"><value>Désactivé : {0}</value></data>
+  <data name="NonMsService_DisableFailed" xml:space="preserve"><value>Échec de désactivation : {0}</value></data>
+  <data name="NonMsService_DisableFailedDetail" xml:space="preserve"><value>Échec de désactivation : {0} — {1}</value></data>
+  <data name="NonMsService_Summary" xml:space="preserve"><value>Résumé : {0} désactivé(s), {1} Microsoft ignoré(s), {2} exclu(s), {3} déjà désactivé(s), {4} échec(s).</value></data>
+  <data name="NonMsService_DisabledEntry" xml:space="preserve"><value>  • {0}</value></data>
+  <data name="NonMsService_Result" xml:space="preserve"><value>{0} service(s) désactivé(s) ({1} échec(s)).</value></data>
+  <data name="Step_first-install-disable-non-ms-services_Name" xml:space="preserve"><value>Désactiver les services non Microsoft</value></data>
+  <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Services : masquer Microsoft, désactiver tous les services tiers. Vanguard/Riot exclus.</value></data>
+  <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>Désactiver les services non Microsoft</value></data>
+  <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Services : masquer Microsoft, désactiver tous les services tiers. Vanguard/Riot exclus.</value></data>
 </root>

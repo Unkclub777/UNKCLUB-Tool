@@ -385,6 +385,21 @@
   <data name="UserProcessStop_Completed" xml:space="preserve"><value>{0} kullanıcı uygulaması sonlandırıldı.</value></data>
   <data name="UserProcessStop_Result" xml:space="preserve"><value>{0} kullanıcı uygulaması sonlandırıldı.</value></data>
   <data name="EnsureServicesAutomatic_Completed" xml:space="preserve"><value>{0}/{1} servis otomatik başlatmaya alındı.</value></data>
+  <data name="NonMsService_NotAdmin" xml:space="preserve"><value>Microsoft dışı servisleri devre dışı bırakmak için yönetici yetkisi gerekli.</value></data>
+  <data name="NonMsService_Starting" xml:space="preserve"><value>Microsoft dışı servisler taranıyor (msconfig: Microsoft hizmetlerini gizle + tümünü devre dışı bırak)...</value></data>
+  <data name="NonMsService_RegistryOpenFailed" xml:space="preserve"><value>Servis kayıt defteri anahtarı açılamadı.</value></data>
+  <data name="NonMsService_SkippedExcluded" xml:space="preserve"><value>Hariç tutuldu: {0}</value></data>
+  <data name="NonMsService_Disabling" xml:space="preserve"><value>Devre dışı bırakılıyor: {0}</value></data>
+  <data name="NonMsService_Disabled" xml:space="preserve"><value>Devre dışı bırakıldı: {0}</value></data>
+  <data name="NonMsService_DisableFailed" xml:space="preserve"><value>Devre dışı bırakılamadı: {0}</value></data>
+  <data name="NonMsService_DisableFailedDetail" xml:space="preserve"><value>Devre dışı bırakılamadı: {0} — {1}</value></data>
+  <data name="NonMsService_Summary" xml:space="preserve"><value>Özet: {0} devre dışı, {1} Microsoft atlandı, {2} hariç tutuldu, {3} zaten devre dışı, {4} başarısız.</value></data>
+  <data name="NonMsService_DisabledEntry" xml:space="preserve"><value>  • {0}</value></data>
+  <data name="NonMsService_Result" xml:space="preserve"><value>{0} servis devre dışı bırakıldı ({1} başarısız).</value></data>
+  <data name="Step_first-install-disable-non-ms-services_Name" xml:space="preserve"><value>Microsoft dışı servisleri devre dışı bırak</value></data>
+  <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Hizmetler: Microsoft hizmetleri gizlenir, üçüncü taraf servisler Disabled olarak ayarlanır. Vanguard/Riot hariç.</value></data>
+  <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>Microsoft dışı servisleri devre dışı bırak</value></data>
+  <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Hizmetler: Microsoft hizmetleri gizlenir, üçüncü taraf servisler Disabled olarak ayarlanır. Vanguard/Riot hariç.</value></data>
   <data name="UnkclubApp_Downloading" xml:space="preserve"><value>{0} GitHub'dan indiriliyor...</value></data>
   <data name="UnkclubApp_Downloaded" xml:space="preserve"><value>{0} indirildi.</value></data>
   <data name="UnkclubApp_Deployed" xml:space="preserve"><value>UNKCLUB uygulaması dağıtıldı: {0}</value></data>
@@ -399,4 +414,31 @@
   <data name="Step_error-fix-ensure-vanguard-auto_Description" xml:space="preserve"><value>vgk, vgc, vgm ve Riot Client servisleri Automatic olarak ayarlanır.</value></data>
   <data name="Step_error-fix-deploy-unkclub_Name" xml:space="preserve"><value>UNKCLUB uygulamasını indir ve dağıt</value></data>
   <data name="Step_error-fix-deploy-unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe GitHub release'den indirilir ve masaüstü Emulator klasörüne kopyalanır.</value></data>
+  <data name="CurrentStepLabel" xml:space="preserve"><value>Mevcut adım: {0}</value></data>
+  <data name="PostReboot_BannerMessage" xml:space="preserve"><value>Kurulum yeniden başlatma sonrası devam ediyor...</value></data>
+  <data name="PreFlight_Title" xml:space="preserve"><value>Kurulum Ön Kontrolü</value></data>
+  <data name="PreFlight_Checking" xml:space="preserve"><value>Ön kontroller yapılıyor...</value></data>
+  <data name="PreFlight_NotAdmin" xml:space="preserve"><value>Yönetici olarak çalışmıyor</value></data>
+  <data name="PreFlight_NotAdminWarning" xml:space="preserve"><value>UNKCLUB Tool yönetici olarak çalışmıyor. Birçok kurulum adımı yönetici yetkisi gerektirir. Yine de devam etmek istiyor musunuz?</value></data>
+  <data name="PreFlight_NoInternet" xml:space="preserve"><value>İnternet bağlantısı yok (github.com erişilemiyor)</value></data>
+  <data name="PreFlight_LowDiskSpace" xml:space="preserve"><value>Yetersiz disk alanı (LocalAppData için en az 500 MB gerekli)</value></data>
+  <data name="PreFlight_FreeSpaceDetail" xml:space="preserve"><value>{0} MB boş</value></data>
+  <data name="PreFlight_BundleUnreachable" xml:space="preserve"><value>GitHub release varlığına erişilemiyor: installers-bundle.zip</value></data>
+  <data name="PreFlight_UnkclubUnreachable" xml:space="preserve"><value>GitHub release varlığına erişilemiyor: UNKCLUB.exe</value></data>
+  <data name="PreFlight_FailedGeneric" xml:space="preserve"><value>Ön kontroller başarısız. Lütfen sorunları giderip tekrar deneyin.</value></data>
+  <data name="PreFlight_FailedMessage" xml:space="preserve"><value>Kurulum başlatılamıyor:{0}{0}{1}{0}{0}Tamam = Tekrar dene, İptal = Vazgeç</value></data>
+  <data name="PreFlight_Cancelled" xml:space="preserve"><value>Kurulum iptal edildi (ön kontroller başarısız).</value></data>
+  <data name="BtnCopyLog" xml:space="preserve"><value>Logu Kopyala</value></data>
+  <data name="BtnSaveLog" xml:space="preserve"><value>Logu Kaydet</value></data>
+  <data name="LogCopied" xml:space="preserve"><value>Log panoya kopyalandı.</value></data>
+  <data name="LogSaved" xml:space="preserve"><value>Log kaydedildi: {0}</value></data>
+  <data name="LogCopyFailedTitle" xml:space="preserve"><value>Log Kopyalanamadı</value></data>
+  <data name="LogSaveFailedTitle" xml:space="preserve"><value>Log Kaydedilemedi</value></data>
+  <data name="InstallSummary_SuccessTitle" xml:space="preserve"><value>Kurulum Tamamlandı</value></data>
+  <data name="InstallSummary_Success" xml:space="preserve"><value>Kurulum başarıyla tamamlandı.{0}{0}UNKCLUB: {1}{0}{0}Emulator adımlarını takip edin.</value></data>
+  <data name="InstallSummary_FailureTitle" xml:space="preserve"><value>Kurulum Başarısız</value></data>
+  <data name="InstallSummary_Failure" xml:space="preserve"><value>Kurulum başarısız oldu.{0}{0}Başarısız adım: {1}{0}{0}Ayrıntılar için günlük penceresini kontrol edin veya logu kaydedin.</value></data>
+  <data name="InstallSummary_UnknownStep" xml:space="preserve"><value>Bilinmeyen adım</value></data>
+  <data name="InstallSummary_UnkclubNotDeployed" xml:space="preserve"><value>(UNKCLUB.exe henüz dağıtılmadı)</value></data>
+  <data name="Bundle_AppVersionCacheInvalidated" xml:space="preserve"><value>Uygulama sürümü değişti; kurulum önbelleği temizleniyor...</value></data>
 </root>

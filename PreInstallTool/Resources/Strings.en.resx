@@ -315,6 +315,21 @@
   <data name="UserProcessStop_Completed" xml:space="preserve"><value>{0} user application(s) terminated.</value></data>
   <data name="UserProcessStop_Result" xml:space="preserve"><value>{0} user application(s) terminated.</value></data>
   <data name="EnsureServicesAutomatic_Completed" xml:space="preserve"><value>{0}/{1} service(s) set to automatic startup.</value></data>
+  <data name="NonMsService_NotAdmin" xml:space="preserve"><value>Administrator rights are required to disable non-Microsoft services.</value></data>
+  <data name="NonMsService_Starting" xml:space="preserve"><value>Scanning non-Microsoft services (msconfig: hide Microsoft services + disable all)...</value></data>
+  <data name="NonMsService_RegistryOpenFailed" xml:space="preserve"><value>Could not open the services registry key.</value></data>
+  <data name="NonMsService_SkippedExcluded" xml:space="preserve"><value>Excluded: {0}</value></data>
+  <data name="NonMsService_Disabling" xml:space="preserve"><value>Disabling: {0}</value></data>
+  <data name="NonMsService_Disabled" xml:space="preserve"><value>Disabled: {0}</value></data>
+  <data name="NonMsService_DisableFailed" xml:space="preserve"><value>Failed to disable: {0}</value></data>
+  <data name="NonMsService_DisableFailedDetail" xml:space="preserve"><value>Failed to disable: {0} — {1}</value></data>
+  <data name="NonMsService_Summary" xml:space="preserve"><value>Summary: {0} disabled, {1} Microsoft skipped, {2} excluded, {3} already disabled, {4} failed.</value></data>
+  <data name="NonMsService_DisabledEntry" xml:space="preserve"><value>  • {0}</value></data>
+  <data name="NonMsService_Result" xml:space="preserve"><value>{0} service(s) disabled ({1} failed).</value></data>
+  <data name="Step_first-install-disable-non-ms-services_Name" xml:space="preserve"><value>Disable non-Microsoft services</value></data>
+  <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Services: hide Microsoft services, disable all third-party services. Vanguard/Riot excluded.</value></data>
+  <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>Disable non-Microsoft services</value></data>
+  <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Services: hide Microsoft services, disable all third-party services. Vanguard/Riot excluded.</value></data>
   <data name="UnkclubApp_Downloading" xml:space="preserve"><value>Downloading {0} from GitHub...</value></data>
   <data name="UnkclubApp_Downloaded" xml:space="preserve"><value>Downloaded to {0}.</value></data>
   <data name="UnkclubApp_Deployed" xml:space="preserve"><value>UNKCLUB app deployed: {0}</value></data>
@@ -329,4 +344,31 @@
   <data name="Step_error-fix-ensure-vanguard-auto_Description" xml:space="preserve"><value>Sets vgk, vgc, vgm and Riot Client services to Automatic startup.</value></data>
   <data name="Step_error-fix-deploy-unkclub_Name" xml:space="preserve"><value>Download and deploy UNKCLUB app</value></data>
   <data name="Step_error-fix-deploy-unkclub_Description" xml:space="preserve"><value>Downloads UNKCLUB.exe from GitHub release and copies it to the desktop Emulator folder.</value></data>
+  <data name="CurrentStepLabel" xml:space="preserve"><value>Current step: {0}</value></data>
+  <data name="PostReboot_BannerMessage" xml:space="preserve"><value>Installation is continuing after reboot...</value></data>
+  <data name="PreFlight_Title" xml:space="preserve"><value>Pre-Install Check</value></data>
+  <data name="PreFlight_Checking" xml:space="preserve"><value>Running pre-flight checks...</value></data>
+  <data name="PreFlight_NotAdmin" xml:space="preserve"><value>Not running as administrator</value></data>
+  <data name="PreFlight_NotAdminWarning" xml:space="preserve"><value>UNKCLUB Tool is not running as administrator. Many install steps require admin rights. Do you want to continue anyway?</value></data>
+  <data name="PreFlight_NoInternet" xml:space="preserve"><value>No internet connection (cannot reach github.com)</value></data>
+  <data name="PreFlight_LowDiskSpace" xml:space="preserve"><value>Insufficient disk space (at least 500 MB required for LocalAppData)</value></data>
+  <data name="PreFlight_FreeSpaceDetail" xml:space="preserve"><value>{0} MB free</value></data>
+  <data name="PreFlight_BundleUnreachable" xml:space="preserve"><value>GitHub release asset unreachable: installers-bundle.zip</value></data>
+  <data name="PreFlight_UnkclubUnreachable" xml:space="preserve"><value>GitHub release asset unreachable: UNKCLUB.exe</value></data>
+  <data name="PreFlight_FailedGeneric" xml:space="preserve"><value>Pre-flight checks failed. Please resolve the issues and try again.</value></data>
+  <data name="PreFlight_FailedMessage" xml:space="preserve"><value>Cannot start installation:{0}{0}{1}{0}{0}OK = Retry, Cancel = Abort</value></data>
+  <data name="PreFlight_Cancelled" xml:space="preserve"><value>Installation cancelled (pre-flight checks failed).</value></data>
+  <data name="BtnCopyLog" xml:space="preserve"><value>Copy Log</value></data>
+  <data name="BtnSaveLog" xml:space="preserve"><value>Save Log</value></data>
+  <data name="LogCopied" xml:space="preserve"><value>Log copied to clipboard.</value></data>
+  <data name="LogSaved" xml:space="preserve"><value>Log saved: {0}</value></data>
+  <data name="LogCopyFailedTitle" xml:space="preserve"><value>Could Not Copy Log</value></data>
+  <data name="LogSaveFailedTitle" xml:space="preserve"><value>Could Not Save Log</value></data>
+  <data name="InstallSummary_SuccessTitle" xml:space="preserve"><value>Installation Complete</value></data>
+  <data name="InstallSummary_Success" xml:space="preserve"><value>Installation completed successfully.{0}{0}UNKCLUB: {1}{0}{0}Follow the Emulator steps.</value></data>
+  <data name="InstallSummary_FailureTitle" xml:space="preserve"><value>Installation Failed</value></data>
+  <data name="InstallSummary_Failure" xml:space="preserve"><value>Installation failed.{0}{0}Failed step: {1}{0}{0}Check the log panel for details or save the log.</value></data>
+  <data name="InstallSummary_UnknownStep" xml:space="preserve"><value>Unknown step</value></data>
+  <data name="InstallSummary_UnkclubNotDeployed" xml:space="preserve"><value>(UNKCLUB.exe not deployed yet)</value></data>
+  <data name="Bundle_AppVersionCacheInvalidated" xml:space="preserve"><value>App version changed; clearing setup cache...</value></data>
 </root>

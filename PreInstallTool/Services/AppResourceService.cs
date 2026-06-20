@@ -71,6 +71,35 @@ public static class AppResourceService
         }
     }
 
+    /// <summary>
+    /// Clears cached bundle when the app version changes so a fresh bundle is fetched on next init.
+    /// </summary>
+    public static void InvalidateCacheIfAppVersionChanged()
+    {
+        var extractRoot = GetLocalCacheRoot();
+        var versionMarker = Path.Combine(extractRoot, ExtractedVersionFileName);
+        if (!File.Exists(versionMarker))
+        {
+            return;
+        }
+
+        var (cachedAppVersion, _) = ReadVersionMarker(versionMarker);
+        var currentAppVersion = GetCurrentAssemblyVersionLabel();
+        if (cachedAppVersion.Equals(currentAppVersion, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        ReportProgress(Localization.LocalizationService.Get("Bundle_AppVersionCacheInvalidated"));
+        ClearExtractedCache(extractRoot, versionMarker);
+
+        lock (InitLock)
+        {
+            _resourceRoot = null;
+            _initialized = false;
+        }
+    }
+
     private static string ResolveResourceRoot()
     {
         var devRoot = TryResolveDevResourceRoot();
@@ -96,7 +125,7 @@ public static class AppResourceService
 
         Directory.CreateDirectory(extractRoot);
         DownloadAndExtractInstallersBundle(extractRoot, requiredBundleVersion);
-        File.WriteAllText(versionMarker, requiredBundleVersion);
+        WriteVersionMarker(versionMarker, GetCurrentAssemblyVersionLabel(), requiredBundleVersion);
         return extractRoot;
     }
 
@@ -167,14 +196,62 @@ public static class AppResourceService
 
     private static bool IsExtractedBundleValid(string extractRoot, string versionMarker, string requiredBundleVersion)
     {
-        if (!File.Exists(versionMarker) ||
-            !File.ReadAllText(versionMarker).Trim().Equals(requiredBundleVersion, StringComparison.Ordinal))
+        if (!File.Exists(versionMarker))
+        {
+            return false;
+        }
+
+        var (cachedAppVersion, cachedBundleVersion) = ReadVersionMarker(versionMarker);
+        var currentAppVersion = GetCurrentAssemblyVersionLabel();
+
+        if (!cachedAppVersion.Equals(currentAppVersion, StringComparison.Ordinal) ||
+            !cachedBundleVersion.Equals(requiredBundleVersion, StringComparison.Ordinal))
         {
             return false;
         }
 
         return IsValidResourceRoot(extractRoot);
     }
+
+    private static (string AppVersion, string BundleVersion) ReadVersionMarker(string versionMarkerPath)
+    {
+        var content = File.ReadAllText(versionMarkerPath).Trim();
+        if (content.Contains('='))
+        {
+            var appVersion = string.Empty;
+            var bundleVersion = string.Empty;
+
+            foreach (var line in content.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries))
+            {
+                var parts = line.Split('=', 2);
+                if (parts.Length != 2)
+                {
+                    continue;
+                }
+
+                if (parts[0].Equals("app", StringComparison.OrdinalIgnoreCase))
+                {
+                    appVersion = parts[1].Trim();
+                }
+                else if (parts[0].Equals("bundle", StringComparison.OrdinalIgnoreCase))
+                {
+                    bundleVersion = parts[1].Trim();
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(appVersion) && !string.IsNullOrWhiteSpace(bundleVersion))
+            {
+                return (appVersion, bundleVersion);
+            }
+        }
+
+        return (string.Empty, content);
+    }
+
+    private static void WriteVersionMarker(string versionMarkerPath, string appVersion, string bundleVersion) =>
+        File.WriteAllText(
+            versionMarkerPath,
+            $"app={appVersion}{Environment.NewLine}bundle={bundleVersion}");
 
     private static void ClearExtractedCache(string extractRoot, string versionMarker)
     {

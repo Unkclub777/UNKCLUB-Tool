@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -14,16 +15,19 @@ namespace PreInstallTool.ViewModels;
 public sealed class MainViewModel : INotifyPropertyChanged
 {
     private readonly InstallOrchestrator _orchestrator = new();
+    private readonly PreFlightCheckService _preFlightCheckService = new();
     private CancellationTokenSource? _cancellationTokenSource;
 
     private string _appTitle = string.Empty;
     private string _description = string.Empty;
     private string _selectedModeDescription = string.Empty;
     private string _statusText = string.Empty;
+    private string _currentStepLabel = string.Empty;
     private double _progressValue;
     private bool _isRunning;
     private bool _isCompleted;
     private bool _hasFailed;
+    private bool _showPostRebootBanner;
     private InstallConfig? _config;
     private InstallMode? _selectedMode;
     private LanguageOption? _selectedLanguage;
@@ -49,6 +53,8 @@ public sealed class MainViewModel : INotifyPropertyChanged
         CheckForUpdatesCommand = new RelayCommand(
             async () => await CheckForUpdatesAsync(silent: false),
             () => !IsRunning && !IsCheckingForUpdates);
+        CopyLogCommand = new RelayCommand(CopyLog, () => LogLines.Count > 0);
+        SaveLogCommand = new RelayCommand(SaveLog, () => LogLines.Count > 0);
 
         _selectedLanguage = Languages.FirstOrDefault(l =>
             l.CultureName.Equals(LocalizationService.CurrentCultureName, StringComparison.OrdinalIgnoreCase))
@@ -59,6 +65,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
         ApplyLocalization();
         InitializeResellers();
         LoadConfig();
+        RefreshPostRebootBanner();
     }
 
     private void OnResourceDownloadProgress(string message)
@@ -80,6 +87,8 @@ public sealed class MainViewModel : INotifyPropertyChanged
     public ICommand CancelCommand { get; }
     public ICommand LaunchMainProgramCommand { get; }
     public ICommand CheckForUpdatesCommand { get; }
+    public ICommand CopyLogCommand { get; }
+    public ICommand SaveLogCommand { get; }
 
     public string AppVersionLabel =>
         LocalizationService.Format("AppVersionLabel", AutoUpdateService.CurrentVersionLabel);
@@ -121,6 +130,9 @@ public sealed class MainViewModel : INotifyPropertyChanged
     public string BtnStartInstall => LocalizationService.Get("BtnStartInstall");
     public string BtnCancel => LocalizationService.Get("BtnCancel");
     public string BtnLaunchMainProgram => LocalizationService.Get("BtnLaunchMainProgram");
+    public string BtnCopyLog => LocalizationService.Get("BtnCopyLog");
+    public string BtnSaveLog => LocalizationService.Get("BtnSaveLog");
+    public string PostRebootBannerText => LocalizationService.Get("PostReboot_BannerMessage");
 
     public InstallMode? SelectedMode
     {
@@ -175,6 +187,18 @@ public sealed class MainViewModel : INotifyPropertyChanged
         private set => SetProperty(ref _statusText, value);
     }
 
+    public string CurrentStepLabel
+    {
+        get => _currentStepLabel;
+        private set => SetProperty(ref _currentStepLabel, value);
+    }
+
+    public bool ShowPostRebootBanner
+    {
+        get => _showPostRebootBanner;
+        private set => SetProperty(ref _showPostRebootBanner, value);
+    }
+
     public double ProgressValue
     {
         get => _progressValue;
@@ -191,6 +215,13 @@ public sealed class MainViewModel : INotifyPropertyChanged
                 ((RelayCommand)StartCommand).RaiseCanExecuteChanged();
                 ((RelayCommand)CancelCommand).RaiseCanExecuteChanged();
                 ((RelayCommand<string>)SelectModeCommand).RaiseCanExecuteChanged();
+                ((RelayCommand<string>)SelectResellerCommand).RaiseCanExecuteChanged();
+                ((RelayCommand)CheckForUpdatesCommand).RaiseCanExecuteChanged();
+
+                if (!value)
+                {
+                    CurrentStepLabel = string.Empty;
+                }
             }
         }
     }
@@ -387,6 +418,15 @@ public sealed class MainViewModel : INotifyPropertyChanged
             return;
         }
 
+        _cancellationTokenSource = new CancellationTokenSource();
+
+        if (!await RunPreFlightChecksWithRetryAsync().ConfigureAwait(true))
+        {
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null;
+            return;
+        }
+
         IsRunning = true;
         IsCompleted = false;
         HasFailed = false;
@@ -401,10 +441,11 @@ public sealed class MainViewModel : INotifyPropertyChanged
             step.Reset();
         }
 
-        _cancellationTokenSource = new CancellationTokenSource();
         var modeName = GetLocalizedModeName(SelectedMode);
         InstallSessionService.CurrentModeId = SelectedMode.Id;
         AddLog(LocalizationService.Format("InstallStarted", modeName));
+
+        IReadOnlyList<StepProgress> results = [];
 
         try
         {
@@ -417,6 +458,8 @@ public sealed class MainViewModel : INotifyPropertyChanged
                 var stepName = LocalizationService.GetLocalizedStepName(
                     report.step.Step.Id,
                     report.step.Step.Name);
+
+                CurrentStepLabel = LocalizationService.Format("CurrentStepLabel", stepName);
 
                 StatusText = LocalizationService.Format(
                     "ProgressFormat",
@@ -435,9 +478,14 @@ public sealed class MainViewModel : INotifyPropertyChanged
                 }
             });
 
-            var log = new Progress<string>(AddLog);
+            var log = new Progress<string>(message =>
+            {
+                AddLog(message);
+                ((RelayCommand)CopyLogCommand).RaiseCanExecuteChanged();
+                ((RelayCommand)SaveLogCommand).RaiseCanExecuteChanged();
+            });
 
-            var results = await _orchestrator.RunAsync(
+            results = await _orchestrator.RunAsync(
                 GetStepsForExecution(),
                 progress,
                 log,
@@ -454,6 +502,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
             if (!HasFailed && !rebootScheduled)
             {
                 ErrorFixStateService.MarkComplete();
+                ShowPostRebootBanner = false;
             }
 
             IsCompleted = true;
@@ -467,6 +516,8 @@ public sealed class MainViewModel : INotifyPropertyChanged
             {
                 LaunchMainProgram();
             }
+
+            ShowInstallCompletionDialog(!HasFailed, rebootScheduled, results);
         }
         catch (OperationCanceledException)
         {
@@ -479,6 +530,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
             IsCompleted = true;
             StatusText = LocalizationService.Get("UnexpectedError");
             AddLog($"{LocalizationService.Get("ErrorPrefix")} {ex.Message}");
+            ShowInstallCompletionDialog(false, rebootScheduled: false, results);
         }
         finally
         {
@@ -489,6 +541,154 @@ public sealed class MainViewModel : INotifyPropertyChanged
             _cancellationTokenSource = null;
             DefenderStatus.Refresh();
         }
+    }
+
+    private async Task<bool> RunPreFlightChecksWithRetryAsync()
+    {
+        while (true)
+        {
+            StatusText = LocalizationService.Get("PreFlight_Checking");
+            var token = _cancellationTokenSource?.Token ?? CancellationToken.None;
+            var result = await _preFlightCheckService.RunAsync(token).ConfigureAwait(true);
+
+            if (result.CanProceed)
+            {
+                if (!result.IsAdmin)
+                {
+                    var adminChoice = MessageBox.Show(
+                        LocalizationService.GetString("PreFlight_NotAdminWarning"),
+                        LocalizationService.GetString("PreFlight_Title"),
+                        MessageBoxButton.OKCancel,
+                        MessageBoxImage.Warning);
+
+                    if (adminChoice != MessageBoxResult.OK)
+                    {
+                        StatusText = LocalizationService.Get("PreFlight_Cancelled");
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            var failureMessage = BuildPreFlightFailureMessage(result);
+            var retryChoice = MessageBox.Show(
+                failureMessage,
+                LocalizationService.GetString("PreFlight_Title"),
+                MessageBoxButton.OKCancel,
+                MessageBoxImage.Warning);
+
+            if (retryChoice != MessageBoxResult.OK)
+            {
+                StatusText = LocalizationService.Get("PreFlight_Cancelled");
+                return false;
+            }
+        }
+    }
+
+    private static string BuildPreFlightFailureMessage(PreFlightCheckResult result)
+    {
+        var lines = result.Issues
+            .Where(static issue => issue.IsCritical)
+            .Select(FormatPreFlightIssue)
+            .Where(static line => !string.IsNullOrWhiteSpace(line))
+            .ToList();
+
+        if (lines.Count == 0)
+        {
+            return LocalizationService.Get("PreFlight_FailedGeneric");
+        }
+
+        return LocalizationService.Format(
+            "PreFlight_FailedMessage",
+            string.Join(Environment.NewLine, lines));
+    }
+
+    private static string FormatPreFlightIssue(PreFlightIssue issue)
+    {
+        var message = LocalizationService.Get(issue.MessageKey);
+        return string.IsNullOrWhiteSpace(issue.Detail)
+            ? $"• {message}"
+            : $"• {message} ({issue.Detail})";
+    }
+
+    private static void ShowInstallCompletionDialog(
+        bool success,
+        bool rebootScheduled,
+        IReadOnlyList<StepProgress> results)
+    {
+        if (rebootScheduled)
+        {
+            return;
+        }
+
+        if (success)
+        {
+            var unkclubPath = File.Exists(UnkclubAppService.DefaultDesktopPath)
+                ? UnkclubAppService.DefaultDesktopPath
+                : LocalizationService.Get("InstallSummary_UnkclubNotDeployed");
+
+            MessageBox.Show(
+                LocalizationService.Format("InstallSummary_Success", Environment.NewLine, unkclubPath),
+                LocalizationService.GetString("InstallSummary_SuccessTitle"),
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            return;
+        }
+
+        var failedStep = results.FirstOrDefault(r =>
+            r.Status == StepStatus.Failed && !r.Step.Optional);
+        var stepName = failedStep is not null
+            ? LocalizationService.GetLocalizedStepName(failedStep.Step.Id, failedStep.Step.Name)
+            : LocalizationService.Get("InstallSummary_UnknownStep");
+
+        MessageBox.Show(
+            LocalizationService.Format("InstallSummary_Failure", Environment.NewLine, stepName),
+            LocalizationService.GetString("InstallSummary_FailureTitle"),
+            MessageBoxButton.OK,
+            MessageBoxImage.Error);
+    }
+
+    private void CopyLog()
+    {
+        try
+        {
+            InstallLogService.CopyToClipboard(LogLines);
+            StatusText = LocalizationService.Get("LogCopied");
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                ex.Message,
+                LocalizationService.GetString("LogCopyFailedTitle"),
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+        }
+    }
+
+    private void SaveLog()
+    {
+        try
+        {
+            var savedPath = InstallLogService.SaveToDesktopEmulatorFolder(LogLines);
+            StatusText = LocalizationService.Format("LogSaved", savedPath);
+            AddLog(StatusText);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                ex.Message,
+                LocalizationService.GetString("LogSaveFailedTitle"),
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+        }
+    }
+
+    private void RefreshPostRebootBanner()
+    {
+        ShowPostRebootBanner =
+            App.ContinueErrorFixRequested ||
+            ErrorFixStateService.IsPostRebootContinuation();
     }
 
     private void CancelInstall()
@@ -599,6 +799,9 @@ public sealed class MainViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(BtnCancel));
         OnPropertyChanged(nameof(BtnLaunchMainProgram));
         OnPropertyChanged(nameof(BtnCheckForUpdates));
+        OnPropertyChanged(nameof(BtnCopyLog));
+        OnPropertyChanged(nameof(BtnSaveLog));
+        OnPropertyChanged(nameof(PostRebootBannerText));
         OnPropertyChanged(nameof(AppVersionLabel));
 
         if (_config is not null)
@@ -659,6 +862,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
         }
 
         _postRebootResumeAttempted = true;
+        RefreshPostRebootBanner();
 
         var pendingState = await Task.Run(ErrorFixStateService.IsPostRebootContinuation)
             .ConfigureAwait(true);

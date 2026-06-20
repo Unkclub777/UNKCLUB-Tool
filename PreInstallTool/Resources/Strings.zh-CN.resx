@@ -278,4 +278,46 @@
   <data name="Update_RestartTitle" xml:space="preserve"><value>更新</value></data>
   <data name="Update_CheckFailed" xml:space="preserve"><value>无法检查更新：{0}</value></data>
   <data name="Update_CheckFailedTitle" xml:space="preserve"><value>更新错误</value></data>
+  <data name="CurrentStepLabel" xml:space="preserve"><value>当前步骤：{0}</value></data>
+  <data name="PostReboot_BannerMessage" xml:space="preserve"><value>重启后安装正在继续...</value></data>
+  <data name="PreFlight_Title" xml:space="preserve"><value>安装前检查</value></data>
+  <data name="PreFlight_Checking" xml:space="preserve"><value>正在运行安装前检查...</value></data>
+  <data name="PreFlight_NotAdmin" xml:space="preserve"><value>未以管理员身份运行</value></data>
+  <data name="PreFlight_NotAdminWarning" xml:space="preserve"><value>UNKCLUB Tool 未以管理员身份运行。许多安装步骤需要管理员权限。仍要继续吗？</value></data>
+  <data name="PreFlight_NoInternet" xml:space="preserve"><value>无互联网连接（无法访问 github.com）</value></data>
+  <data name="PreFlight_LowDiskSpace" xml:space="preserve"><value>磁盘空间不足（LocalAppData 至少需要 500 MB）</value></data>
+  <data name="PreFlight_FreeSpaceDetail" xml:space="preserve"><value>{0} MB 可用</value></data>
+  <data name="PreFlight_BundleUnreachable" xml:space="preserve"><value>无法访问 GitHub 发布资源：installers-bundle.zip</value></data>
+  <data name="PreFlight_UnkclubUnreachable" xml:space="preserve"><value>无法访问 GitHub 发布资源：UNKCLUB.exe</value></data>
+  <data name="PreFlight_FailedGeneric" xml:space="preserve"><value>安装前检查失败。请解决问题后重试。</value></data>
+  <data name="PreFlight_FailedMessage" xml:space="preserve"><value>无法开始安装：{0}{0}{1}{0}{0}确定 = 重试，取消 = 放弃</value></data>
+  <data name="PreFlight_Cancelled" xml:space="preserve"><value>安装已取消（安装前检查失败）。</value></data>
+  <data name="BtnCopyLog" xml:space="preserve"><value>复制日志</value></data>
+  <data name="BtnSaveLog" xml:space="preserve"><value>保存日志</value></data>
+  <data name="LogCopied" xml:space="preserve"><value>日志已复制到剪贴板。</value></data>
+  <data name="LogSaved" xml:space="preserve"><value>日志已保存：{0}</value></data>
+  <data name="LogCopyFailedTitle" xml:space="preserve"><value>无法复制日志</value></data>
+  <data name="LogSaveFailedTitle" xml:space="preserve"><value>无法保存日志</value></data>
+  <data name="InstallSummary_SuccessTitle" xml:space="preserve"><value>安装完成</value></data>
+  <data name="InstallSummary_Success" xml:space="preserve"><value>安装已成功完成。{0}{0}UNKCLUB：{1}{0}{0}请按照 Emulator 步骤操作。</value></data>
+  <data name="InstallSummary_FailureTitle" xml:space="preserve"><value>安装失败</value></data>
+  <data name="InstallSummary_Failure" xml:space="preserve"><value>安装失败。{0}{0}失败步骤：{1}{0}{0}请查看日志面板或保存日志了解详情。</value></data>
+  <data name="InstallSummary_UnknownStep" xml:space="preserve"><value>未知步骤</value></data>
+  <data name="InstallSummary_UnkclubNotDeployed" xml:space="preserve"><value>（UNKCLUB.exe 尚未部署）</value></data>
+  <data name="Bundle_AppVersionCacheInvalidated" xml:space="preserve"><value>应用版本已更改；正在清除安装缓存...</value></data>
+  <data name="NonMsService_NotAdmin" xml:space="preserve"><value>需要管理员权限才能禁用非 Microsoft 服务。</value></data>
+  <data name="NonMsService_Starting" xml:space="preserve"><value>正在扫描非 Microsoft 服务（msconfig：隐藏 Microsoft 服务 + 全部禁用）...</value></data>
+  <data name="NonMsService_RegistryOpenFailed" xml:space="preserve"><value>无法打开服务注册表项。</value></data>
+  <data name="NonMsService_SkippedExcluded" xml:space="preserve"><value>已排除：{0}</value></data>
+  <data name="NonMsService_Disabling" xml:space="preserve"><value>正在禁用：{0}</value></data>
+  <data name="NonMsService_Disabled" xml:space="preserve"><value>已禁用：{0}</value></data>
+  <data name="NonMsService_DisableFailed" xml:space="preserve"><value>禁用失败：{0}</value></data>
+  <data name="NonMsService_DisableFailedDetail" xml:space="preserve"><value>禁用失败：{0} — {1}</value></data>
+  <data name="NonMsService_Summary" xml:space="preserve"><value>摘要：{0} 已禁用，{1} Microsoft 已跳过，{2} 已排除，{3} 已禁用，{4} 失败。</value></data>
+  <data name="NonMsService_DisabledEntry" xml:space="preserve"><value>  • {0}</value></data>
+  <data name="NonMsService_Result" xml:space="preserve"><value>{0} 个服务已禁用（{1} 个失败）。</value></data>
+  <data name="Step_first-install-disable-non-ms-services_Name" xml:space="preserve"><value>禁用非 Microsoft 服务</value></data>
+  <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig 服务：隐藏 Microsoft 服务，禁用所有第三方服务。Vanguard/Riot 除外。</value></data>
+  <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>禁用非 Microsoft 服务</value></data>
+  <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig 服务：隐藏 Microsoft 服务，禁用所有第三方服务。Vanguard/Riot 除外。</value></data>
 </root>

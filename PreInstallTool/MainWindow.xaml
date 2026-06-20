@@ -176,6 +176,8 @@
 
                 <RowDefinition Height="Auto"/>
 
+                <RowDefinition Height="Auto"/>
+
                 <RowDefinition Height="*"/>
 
                 <RowDefinition Height="Auto"/>
@@ -184,7 +186,26 @@
 
 
 
-            <Grid Grid.Row="0" Margin="0,0,0,16">
+            <Border Grid.Row="0"
+                    Background="#422006"
+                    BorderBrush="#F59E0B"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="14,10"
+                    Margin="0,0,0,16"
+                    Visibility="{Binding ShowPostRebootBanner, Converter={StaticResource BoolToVisibilityConverter}}">
+
+                <TextBlock Text="{Binding PostRebootBannerText}"
+                           Foreground="#FDE68A"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           TextWrapping="Wrap"/>
+
+            </Border>
+
+
+
+            <Grid Grid.Row="1" Margin="0,0,0,16">
 
                 <Grid.ColumnDefinitions>
 
@@ -280,7 +301,7 @@
 
 
 
-            <StackPanel Grid.Row="1" Margin="0,0,0,16">
+            <StackPanel Grid.Row="2" Margin="0,0,0,16">
 
                 <TextBlock Text="{Binding ResellerLabel}"
 
@@ -317,6 +338,8 @@
                                     Background="Transparent"
 
                                     BorderThickness="0"
+
+                                    IsEnabled="{Binding DataContext.IsRunning, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource InverseBoolConverter}}"
 
                                     Command="{Binding DataContext.SelectResellerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 
@@ -376,7 +399,7 @@
 
 
 
-            <StackPanel Grid.Row="2" Margin="0,0,0,16">
+            <StackPanel Grid.Row="3" Margin="0,0,0,16">
 
                 <TextBlock Text="{Binding OptionLabel}"
 
@@ -413,6 +436,8 @@
                                     Background="Transparent"
 
                                     BorderThickness="0"
+
+                                    IsEnabled="{Binding DataContext.IsRunning, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource InverseBoolConverter}}"
 
                                     Command="{Binding DataContext.SelectModeCommand, RelativeSource={RelativeSource AncestorType=Window}}"
 
@@ -472,7 +497,7 @@
 
 
 
-            <Border Grid.Row="3"
+            <Border Grid.Row="4"
 
                     Background="{StaticResource PanelBrush}"
 
@@ -491,6 +516,18 @@
                                TextWrapping="Wrap"
 
                                Margin="0,0,0,12"/>
+
+                    <TextBlock Text="{Binding CurrentStepLabel}"
+
+                               Foreground="#93C5FD"
+
+                               FontSize="13"
+
+                               FontWeight="SemiBold"
+
+                               Margin="0,0,0,8"
+
+                               Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
                     <TextBlock Text="{Binding StatusText}"
 
@@ -514,7 +551,7 @@
 
 
 
-            <Border Grid.Row="4"
+            <Border Grid.Row="5"
 
                     Background="{StaticResource PanelBrush}"
 
@@ -526,15 +563,43 @@
 
                 <DockPanel LastChildFill="True">
 
-                    <TextBlock DockPanel.Dock="Top"
+                    <StackPanel DockPanel.Dock="Top"
+                                Orientation="Horizontal"
+                                Margin="0,0,0,8">
 
-                               Text="{Binding LogLabel}"
+                        <TextBlock Text="{Binding LogLabel}"
 
-                               FontWeight="SemiBold"
+                                   FontWeight="SemiBold"
 
-                               Foreground="{StaticResource TextBrush}"
+                                   Foreground="{StaticResource TextBrush}"
 
-                               Margin="0,0,0,8"/>
+                                   VerticalAlignment="Center"/>
+
+                        <Button Content="{Binding BtnCopyLog}"
+
+                                Command="{Binding CopyLogCommand}"
+
+                                Background="#334155"
+
+                                Padding="10,6"
+
+                                FontSize="12"
+
+                                Margin="12,0,0,0"/>
+
+                        <Button Content="{Binding BtnSaveLog}"
+
+                                Command="{Binding SaveLogCommand}"
+
+                                Background="#334155"
+
+                                Padding="10,6"
+
+                                FontSize="12"
+
+                                Margin="8,0,0,0"/>
+
+                    </StackPanel>
 
                     <ListBox ItemsSource="{Binding LogLines}"
 
@@ -554,7 +619,7 @@
 
 
 
-            <StackPanel Grid.Row="5"
+            <StackPanel Grid.Row="6"
 
                         Orientation="Horizontal"
 

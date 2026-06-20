@@ -5,6 +5,7 @@
              xmlns:converters="clr-namespace:PreInstallTool.Converters">
     <Application.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
         <SolidColorBrush x:Key="BackgroundBrush" Color="#0F172A"/>
         <SolidColorBrush x:Key="PanelBrush" Color="#1E293B"/>
         <SolidColorBrush x:Key="AccentBrush" Color="#3B82F6"/>

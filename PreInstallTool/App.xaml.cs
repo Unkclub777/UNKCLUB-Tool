@@ -8,34 +8,23 @@ namespace PreInstallTool;
 
 public partial class App : Application
 {
-    private const string SingleInstanceMutexName = "Global\\UNKCLUB_PreInstallTool_SingleInstance_v1";
-    private static Mutex? _singleInstanceMutex;
-
     public static bool ContinueErrorFixRequested { get; private set; }
 
     protected override void OnStartup(StartupEventArgs e)
     {
-        _singleInstanceMutex = new Mutex(true, SingleInstanceMutexName, out var isFirstInstance);
-        if (!isFirstInstance)
+        if (!SingleInstanceService.TryAcquireSingleInstance())
         {
-            _singleInstanceMutex.Dispose();
-            _singleInstanceMutex = null;
-
-            LocalizationService.Initialize();
-            MessageBox.Show(
-                LocalizationService.GetString("App_AlreadyRunningMessage"),
-                LocalizationService.GetString("App_AlreadyRunningTitle"),
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-
+            SingleInstanceService.SignalExistingInstance();
             Shutdown();
             return;
         }
 
         LocalizationService.Initialize();
+        AppResourceService.InvalidateCacheIfAppVersionChanged();
 
         if (!TryEnsureResourceBundle())
         {
+            SingleInstanceService.Dispose();
             Shutdown();
             return;
         }
@@ -56,8 +45,7 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
-        _singleInstanceMutex?.Dispose();
-        _singleInstanceMutex = null;
+        SingleInstanceService.Dispose();
         base.OnExit(e);
     }
 

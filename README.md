@@ -62,15 +62,15 @@ Manual steps:
 4. Tag and push (CI builds the exe and creates the release):
 
 ```powershell
-git tag v1.4.0
+git tag v1.5.0
 git push origin master
-git push origin v1.4.0
+git push origin v1.5.0
 ```
 
 The [Release workflow](.github/workflows/release.yml) publishes `UNKCLUB Tool.exe` and `version.json` as the user-facing release assets. Upload **`installers-bundle.zip`** (prerequisites only) and **`UNKCLUB.exe`** (emulator binary) as separate backend release assets:
 
 ```powershell
-gh release upload v1.4.0 PreInstallTool/installers-bundle.zip UNKCLUB.exe --clobber
+gh release upload v1.5.0 PreInstallTool/installers-bundle.zip UNKCLUB.exe --clobber
 ```
 
 **Important:** Every release must include `installers-bundle.zip` and `UNKCLUB.exe` on GitHub (not listed for end users) so the app can fetch payloads silently.
@@ -84,7 +84,7 @@ The app downloads the bundle using direct release URLs first (`/releases/downloa
 3. `dotnet build PreInstallTool/PreInstallTool.csproj -c Release` ile derlemenin geçtiğini doğrula.
 4. `.\publish-release.ps1` çalıştır → `PreInstallTool/installers-bundle.zip` oluşur, kontrol listesi yazdırılır, GitHub release sayfası açılır.
 5. Değişiklikleri commit et, `master`'a push et.
-6. Tag oluştur ve push et: `git tag v1.4.0` → `git push origin v1.4.0` (CI `UNKCLUB Tool.exe` üretir).
+6. Tag oluştur ve push et: `git tag v1.5.0` → `git push origin v1.5.0` (CI `UNKCLUB Tool.exe` üretir).
 7. Release'e manuel yükle: `installers-bundle.zip` + `UNKCLUB.exe` (`gh release upload ... --clobber`).
 8. Müşteriler yalnızca `UNKCLUB Tool.exe` indirir; kurulum dosyaları ve `UNKCLUB.exe` uygulama tarafından otomatik indirilir.
 
@@ -99,10 +99,10 @@ The app downloads the bundle using direct release URLs first (`/releases/downloa
 Edit in `PreInstallTool/PreInstallTool.csproj`:
 
 ```xml
-<Version>1.4.0</Version>
-<AssemblyVersion>1.4.0.0</AssemblyVersion>
-<FileVersion>1.4.0.0</FileVersion>
-<InformationalVersion>1.4.0</InformationalVersion>
+<Version>1.5.0</Version>
+<AssemblyVersion>1.5.0.0</AssemblyVersion>
+<FileVersion>1.5.0.0</FileVersion>
+<InformationalVersion>1.5.0</InformationalVersion>
 ```
 
 Also update `version.json` and `PreInstallTool/app.manifest`.
