@@ -25,7 +25,7 @@ public sealed class DefenderStatusViewModel : INotifyPropertyChanged, IDisposabl
         Features = new ObservableCollection<FeatureStatusItem>();
         _refreshTimer = new DispatcherTimer
         {
-            Interval = TimeSpan.FromSeconds(4)
+            Interval = TimeSpan.FromSeconds(5)
         };
         _refreshTimer.Tick += (_, _) => Refresh();
         _refreshTimer.Start();

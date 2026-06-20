@@ -16,6 +16,7 @@ public partial class MainWindow : Window
         DataContext = _viewModel;
         _viewModel.PropertyChanged += OnViewModelPropertyChanged;
         Loaded += OnLoaded;
+        Activated += (_, _) => _viewModel.DefenderStatus.Refresh();
         Closed += (_, _) => _viewModel.DefenderStatus.Dispose();
     }
 

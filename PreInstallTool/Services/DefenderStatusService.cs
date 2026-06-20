@@ -20,7 +20,7 @@ public static class DefenderStatusService
             new()
             {
                 Id = "defender-service",
-                IsEnabled = IsDefenderServiceActive()
+                IsEnabled = IsDefenderServiceActive(mpStatus)
             },
             new()
             {
@@ -50,7 +50,7 @@ public static class DefenderStatusService
             new()
             {
                 Id = "tamper-protection",
-                IsEnabled = ReadTamperProtection()
+                IsEnabled = ReadTamperProtection(mpStatus)
             },
             new()
             {
@@ -85,7 +85,7 @@ public static class DefenderStatusService
                 $status = $null
                 $pref = $null
                 if (Get-Command Get-MpComputerStatus -ErrorAction SilentlyContinue) {
-                    $status = Get-MpComputerStatus | Select-Object RealTimeProtectionEnabled, AntivirusEnabled, IsTamperProtected
+                    $status = Get-MpComputerStatus | Select-Object RealTimeProtectionEnabled, AntivirusEnabled, AMServiceEnabled, IsTamperProtected
                 }
                 if (Get-Command Get-MpPreference -ErrorAction SilentlyContinue) {
                     $pref = Get-MpPreference | Select-Object DisableBehaviorMonitoring, EnableNetworkProtection, MAPSReporting, PUAProtection
@@ -112,6 +112,7 @@ public static class DefenderStatusService
                 return MpStatusSnapshot.Empty;
             }
 
+            var outputTask = process.StandardOutput.ReadToEndAsync();
             if (!process.WaitForExit(TimeSpan.FromSeconds(10)))
             {
                 try
@@ -126,7 +127,7 @@ public static class DefenderStatusService
                 return MpStatusSnapshot.Empty;
             }
 
-            var json = process.StandardOutput.ReadToEnd().Trim();
+            var json = outputTask.GetAwaiter().GetResult().Trim();
             if (string.IsNullOrWhiteSpace(json))
             {
                 return MpStatusSnapshot.Empty;
@@ -136,6 +137,8 @@ public static class DefenderStatusService
             var root = document.RootElement;
 
             bool? realTime = null;
+            bool? antivirusEnabled = null;
+            bool? amServiceEnabled = null;
             bool? behaviorDisabled = null;
             int? networkProtection = null;
             int? mapsReporting = null;
@@ -146,6 +149,8 @@ public static class DefenderStatusService
                 statusElement.ValueKind == JsonValueKind.Object)
             {
                 realTime = ReadNullableBool(statusElement, "RealTimeProtectionEnabled");
+                antivirusEnabled = ReadNullableBool(statusElement, "AntivirusEnabled");
+                amServiceEnabled = ReadNullableBool(statusElement, "AMServiceEnabled");
                 tamperProtected = ReadNullableBool(statusElement, "IsTamperProtected");
             }
 
@@ -160,6 +165,8 @@ public static class DefenderStatusService
 
             return new MpStatusSnapshot(
                 realTime,
+                antivirusEnabled,
+                amServiceEnabled,
                 behaviorDisabled,
                 networkProtection,
                 mapsReporting,
@@ -172,11 +179,11 @@ public static class DefenderStatusService
         }
     }
 
-    private static bool IsDefenderServiceActive()
+    private static bool IsDefenderServiceActive(MpStatusSnapshot mpStatus)
     {
-        if (ReadRegistryDword("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows Defender", "DisableAntiSpyware") == 1)
+        if (mpStatus.AntivirusEnabled == true || mpStatus.AmServiceEnabled == true)
         {
-            return false;
+            return true;
         }
 
         foreach (var serviceName in DefenderServices)
@@ -187,7 +194,18 @@ public static class DefenderStatusService
             }
         }
 
-        return ReadRegistryDword($"HKLM\\SYSTEM\\CurrentControlSet\\Services\\WinDefend", "Start") is not 4;
+        var startType = ReadRegistryDword(@"HKLM\SYSTEM\CurrentControlSet\Services\WinDefend", "Start");
+        if (startType is 2 or 3)
+        {
+            return true;
+        }
+
+        if (ReadRegistryDword(@"HKLM\SOFTWARE\Policies\Microsoft\Windows Defender", "DisableAntiSpyware") == 1)
+        {
+            return false;
+        }
+
+        return startType is not 4;
     }
 
     private static bool ReadRealTimeProtection(MpStatusSnapshot mpStatus)
@@ -197,6 +215,14 @@ public static class DefenderStatusService
             return mpStatus.RealTimeProtectionEnabled.Value;
         }
 
+        var runtime = ReadRegistryDword(
+            @"HKLM\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection",
+            "DisableRealtimeMonitoring");
+        if (runtime.HasValue)
+        {
+            return runtime.Value != 1;
+        }
+
         if (ReadRegistryDword(
                 @"HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection",
                 "DisableRealtimeMonitoring") == 1)
@@ -204,9 +230,7 @@ public static class DefenderStatusService
             return false;
         }
 
-        return ReadRegistryDword(
-                   @"HKLM\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection",
-                   "DisableRealtimeMonitoring") != 1;
+        return true;
     }
 
     private static bool ReadBehaviorMonitoring(MpStatusSnapshot mpStatus)
@@ -214,6 +238,14 @@ public static class DefenderStatusService
         if (mpStatus.DisableBehaviorMonitoring.HasValue)
         {
             return !mpStatus.DisableBehaviorMonitoring.Value;
+        }
+
+        var runtime = ReadRegistryDword(
+            @"HKLM\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection",
+            "DisableBehaviorMonitoring");
+        if (runtime.HasValue)
+        {
+            return runtime.Value != 1;
         }
 
         return ReadRegistryDword(
@@ -240,6 +272,14 @@ public static class DefenderStatusService
             return mpStatus.MapsReporting.Value is 1 or 2;
         }
 
+        var runtime = ReadRegistryDword(
+            @"HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet",
+            "SpynetReporting");
+        if (runtime.HasValue)
+        {
+            return runtime.Value is 1 or 2;
+        }
+
         return ReadRegistryDword(
                    @"HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet",
                    "SpynetReporting") is 1 or 2;
@@ -252,40 +292,41 @@ public static class DefenderStatusService
             return mpStatus.PuaProtection.Value is 1 or 2;
         }
 
-        return ReadRegistryDword(
-                   @"HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine",
-                   "MpEnablePus") == 1;
-    }
-
-    private static bool ReadTamperProtection()
-    {
-        var policy = ReadRegistryDword(
-            @"HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Features",
-            "TamperProtection");
-
-        if (policy.HasValue)
+        var runtime = ReadRegistryDword(
+            @"HKLM\SOFTWARE\Microsoft\Windows Defender\MpEngine",
+            "MpEnablePus");
+        if (runtime.HasValue)
         {
-            return policy.Value == 1;
+            return runtime.Value is 1 or 2;
         }
 
-        var feature = ReadRegistryDword(
+        return ReadRegistryDword(
+                   @"HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine",
+                   "MpEnablePus") is 1 or 2;
+    }
+
+    private static bool ReadTamperProtection(MpStatusSnapshot mpStatus)
+    {
+        if (mpStatus.IsTamperProtected.HasValue)
+        {
+            return mpStatus.IsTamperProtected.Value;
+        }
+
+        var runtime = ReadRegistryDword(
             @"HKLM\SOFTWARE\Microsoft\Windows Defender\Features",
             "TamperProtection");
+        if (runtime.HasValue)
+        {
+            return runtime.Value == 1;
+        }
 
-        return feature == 1;
+        return ReadRegistryDword(
+                   @"HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Features",
+                   "TamperProtection") == 1;
     }
 
     private static bool ReadAppSmartScreen()
     {
-        var policy = ReadRegistryDword(
-            @"HKLM\SOFTWARE\Policies\Microsoft\Windows\System",
-            "EnableSmartScreen");
-
-        if (policy.HasValue)
-        {
-            return policy.Value == 1;
-        }
-
         var explorer = ReadRegistryString(
             @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer",
             "SmartScreenEnabled");
@@ -295,24 +336,39 @@ public static class DefenderStatusService
             return !explorer.Equals("Off", StringComparison.OrdinalIgnoreCase);
         }
 
+        var policy = ReadRegistryDword(
+            @"HKLM\SOFTWARE\Policies\Microsoft\Windows\System",
+            "EnableSmartScreen");
+
+        if (policy.HasValue)
+        {
+            return policy.Value == 1;
+        }
+
         return true;
     }
 
     private static bool ReadEdgeSmartScreen()
     {
-        var edge = ReadRegistryDword(
+        var userEdge = ReadRegistryDword(
+            @"HKCU\SOFTWARE\Policies\Microsoft\Edge",
+            "SmartScreenEnabled");
+        if (userEdge.HasValue)
+        {
+            return userEdge.Value == 1;
+        }
+
+        var machineEdge = ReadRegistryDword(
             @"HKLM\SOFTWARE\Policies\Microsoft\Edge",
             "SmartScreenEnabled");
-
-        if (edge.HasValue)
+        if (machineEdge.HasValue)
         {
-            return edge.Value == 1;
+            return machineEdge.Value == 1;
         }
 
         var legacy = ReadRegistryDword(
             @"HKLM\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter",
             "EnabledV9");
-
         if (legacy.HasValue)
         {
             return legacy.Value == 1;
@@ -450,12 +506,14 @@ public static class DefenderStatusService
 
     private readonly record struct MpStatusSnapshot(
         bool? RealTimeProtectionEnabled,
+        bool? AntivirusEnabled,
+        bool? AmServiceEnabled,
         bool? DisableBehaviorMonitoring,
         int? EnableNetworkProtection,
         int? MapsReporting,
         int? PuaProtection,
         bool? IsTamperProtected)
     {
-        public static MpStatusSnapshot Empty { get; } = new(null, null, null, null, null, null);
+        public static MpStatusSnapshot Empty { get; } = new(null, null, null, null, null, null, null, null);
     }
 }
