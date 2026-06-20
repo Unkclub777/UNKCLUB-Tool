@@ -6,7 +6,7 @@ namespace PreInstallTool.Services;
 /// </summary>
 public static class UpdateConstants
 {
-    public const string GitHubOwner = "YOUR_GITHUB_USERNAME";
+    public const string GitHubOwner = "Unkclub777";
     public const string GitHubRepo = "UNKCLUB-Tool";
     public const string DefaultBranch = "main";
     public const string ReleaseAssetFileName = "PreInstallTool.zip";
