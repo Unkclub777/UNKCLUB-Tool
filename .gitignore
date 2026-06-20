@@ -2,6 +2,9 @@
 **/bin/
 **/obj/
 **/.vs/
+Dagitim/
+publish/
+PreInstallTool.zip
 
 # User-specific IDE / secrets
 *.user

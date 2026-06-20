@@ -11,24 +11,58 @@ namespace PreInstallTool.Services;
 /// </summary>
 public static class DefenderExclusionService
 {
-    public static readonly string[] ExclusionProcesses = ["PreInstallTool.exe", "UNKCLUB.exe"];
+    public static readonly string[] ExclusionProcesses =
+        ["PreInstallTool.exe", "UNKCLUB Tool.exe", "UNKCLUB.exe"];
 
     public static IReadOnlyList<string> GetExclusionPaths()
     {
+        var baseDirectory = Path.GetFullPath(AppContext.BaseDirectory);
         var paths = new List<string>
         {
-            Path.GetFullPath(AppContext.BaseDirectory),
-            Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "Installers")),
+            baseDirectory,
+            Path.GetFullPath(Path.Combine(baseDirectory, "Installers")),
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Emulator"),
             Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "PreInstallTool")
         };
 
+        var parentDirectory = Path.GetDirectoryName(baseDirectory);
+        if (!string.IsNullOrWhiteSpace(parentDirectory))
+        {
+            paths.Add(Path.GetFullPath(parentDirectory));
+        }
+
+        foreach (var relativePath in new[] { "Dagitim", "publish" })
+        {
+            var candidate = FindAncestorDirectory(baseDirectory, relativePath);
+            if (!string.IsNullOrWhiteSpace(candidate))
+            {
+                paths.Add(candidate);
+            }
+        }
+
         return paths
             .Where(static path => !string.IsNullOrWhiteSpace(path))
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToList();
+    }
+
+    private static string? FindAncestorDirectory(string startDirectory, string folderName)
+    {
+        var current = startDirectory;
+        while (!string.IsNullOrWhiteSpace(current))
+        {
+            var candidate = Path.Combine(current, folderName);
+            if (Directory.Exists(candidate))
+            {
+                return Path.GetFullPath(candidate);
+            }
+
+            current = Path.GetDirectoryName(current);
+        }
+
+        return null;
     }
 
     public static InstallResult AddExclusions(IProgress<string>? log = null)
