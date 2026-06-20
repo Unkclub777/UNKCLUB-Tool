@@ -1,7 +1,7 @@
 {
-  "version": "1.2.1",
-  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.2.1/UNKCLUB Tool.exe",
-  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.2.1/installers-bundle.zip",
-  "installersBundleVersion": "1.2.1",
-  "releaseNotes": "Exe-only download for customers; installer payloads fetched silently in the background via GitHub Releases API."
+  "version": "1.2.2",
+  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.2.2/UNKCLUB Tool.exe",
+  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.2.2/installers-bundle.zip",
+  "installersBundleVersion": "1.2.2",
+  "releaseNotes": "Defender status panel refresh fix; exe-only customer download with silent background bundle fetch."
 }
