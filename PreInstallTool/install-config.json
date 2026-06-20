@@ -8,7 +8,7 @@
     {
       "id": "first-install",
       "name": "İlk Kurulum",
-      "description": "Programı ilk kez kurarken gerekli tüm bileşenler sırayla yüklenir. Kurulum dosyaları uygulama ile birlikte gelir.",
+      "description": "Tam kurulum: ön koşullar, UNKCLUB dağıtımı ve Vanguard/Riot hata düzeltme akışı. Yeniden başlatma sonrası otomatik devam eder.",
       "steps": [
         {
           "id": "set-uac-lowest",
@@ -20,23 +20,33 @@
           "runAsAdmin": true,
           "waitForExit": true,
           "timeoutSeconds": 60,
-          "successExitCodes": [0]
+          "successExitCodes": [0],
+          "phase": "pre-reboot"
         },
         {
           "id": "disable-defender",
           "name": "Windows Defender korumasını devre dışı bırak",
-          "description": "Önce Defender istisnaları eklenir (yanlış virüs uyarısını önlemek için), ardından bulut koruması kapatılır ve Defender Control yöntemiyle tüm özellikler devre dışı bırakılır. Sol panelde tüm özellikler kapalı (kırmızı) olana kadar doğrulanır. SmartScreen de devre dışı bırakılır.",
+          "description": "Önce Defender istisnaları eklenir, ardından Defender Control yöntemiyle tüm özellikler devre dışı bırakılır. SmartScreen de devre dışı bırakılır.",
           "type": "disableDefender",
           "runAsAdmin": true,
           "waitForExit": true,
           "timeoutSeconds": 180,
           "successExitCodes": [0],
-          "optional": true
+          "optional": true,
+          "phase": "pre-reboot"
+        },
+        {
+          "id": "first-install-check-vanguard",
+          "name": "Vanguard kurulumunu kontrol et",
+          "description": "Riot Vanguard klasörü, vgk/vgc servisleri ve kayıt defteri otomatik taranır. Temiz Vanguard kurulumu gerekir.",
+          "type": "checkVanguard",
+          "optional": true,
+          "phase": "pre-reboot"
         },
         {
           "id": "install-first-setup",
           "name": "İlk kurulum dosyalarını yükle",
-          "description": "Gömülü kurulum dosyaları alfabetik sırayla yönetici olarak çalıştırılır.",
+          "description": "vcredist, DirectX ve diğer ön koşul dosyaları yüklenir; kurulu olanlar atlanır.",
           "type": "installFolder",
           "folderPath": "Installers/IlkKurulum",
           "fileExtensions": [".exe", ".msi", ".bat", ".cmd"],
@@ -45,15 +55,106 @@
           "successExitCodes": [0, 1638, 3010, 5100],
           "runAsAdmin": true,
           "waitForExit": true,
-          "timeoutSeconds": 1800
+          "timeoutSeconds": 1800,
+          "phase": "pre-reboot"
         },
         {
           "id": "deploy-unkclub",
           "name": "UNKCLUB uygulamasını masaüstüne kopyala",
-          "description": "UNKCLUB.exe dosyası masaüstündeki Emulator klasörüne kopyalanır. Klasör yoksa oluşturulur; dosya varsa üzerine yazılır.",
+          "description": "UNKCLUB.exe dosyası masaüstündeki Emulator klasörüne kopyalanır.",
           "type": "deployFile",
           "sourcePath": "Installers/App/UNKCLUB.exe",
-          "destinationPath": "%USERPROFILE%\\Desktop\\Emulator\\UNKCLUB.exe"
+          "destinationPath": "%USERPROFILE%\\Desktop\\Emulator\\UNKCLUB.exe",
+          "phase": "pre-reboot"
+        },
+        {
+          "id": "first-install-stop-all",
+          "name": "Vanguard ve Riot servislerini durdur",
+          "description": "Görev Yöneticisi yöntemiyle tüm Vanguard süreçleri zorla sonlandırılır, sc stop vgk/vgc/vgm uygulanır, ardından Riot Client süreçleri kapatılır.",
+          "type": "stopVanguardProcesses",
+          "phase": "pre-reboot",
+          "services": ["vgk", "vgc", "vgm"],
+          "stopProcesses": true,
+          "processNames": ["vgtray", "vgc", "vgk", "vgm", "RiotClientCrashHandler", "RiotClientServices", "Riot Client", "RiotClientUx", "RiotClientUxRender", "LeagueClient", "LeagueClientUx"]
+        },
+        {
+          "id": "first-install-sc-stop",
+          "name": "vgk, vgc ve vgm servislerini sc stop ile durdur",
+          "description": "Yönetici komut satırında sc stop vgk, sc stop vgc ve sc stop vgm çalıştırılır.",
+          "type": "runScStop",
+          "phase": "pre-reboot",
+          "services": ["vgk", "vgc", "vgm"]
+        },
+        {
+          "id": "first-install-delete-vanguard",
+          "name": "Vanguard klasörünü sil",
+          "description": "Riot Vanguard kurulum klasörü kalıcı olarak silinir.",
+          "type": "deleteFolder",
+          "phase": "pre-reboot",
+          "folderPaths": ["C:\\Program Files\\Riot Vanguard"]
+        },
+        {
+          "id": "first-install-launch-riot",
+          "name": "Riot Client'ı başlat",
+          "description": "Riot Client açılır; Vanguard yeniden kurulum istemi görünecektir.",
+          "type": "launchProgram",
+          "phase": "pre-reboot",
+          "programPaths": [
+            "C:\\Riot Games\\Riot Client\\RiotClientServices.exe",
+            "C:\\Program Files\\Riot Games\\Riot Client\\RiotClientServices.exe",
+            "C:\\Program Files (x86)\\Riot Games\\Riot Client\\RiotClientServices.exe"
+          ],
+          "messageKey": "ErrorFix_RiotClientWaitMessage",
+          "messageTitleKey": "ErrorFix_InfoTitle"
+        },
+        {
+          "id": "first-install-restart",
+          "name": "Bilgisayarı yeniden başlat",
+          "description": "Vanguard kurulumu tamamlandıktan sonra bilgisayar yeniden başlatılır.",
+          "type": "restartComputer",
+          "phase": "pre-reboot",
+          "confirmBeforeRestart": true,
+          "restartDelaySeconds": 10
+        },
+        {
+          "id": "first-install-verify-services",
+          "name": "Vanguard servislerini doğrula",
+          "description": "Yeniden başlatma sonrası vgk/vgc durdurulmuşsa otomatik başlatmaya alınır ve başlatılır; en fazla 3 dakika beklenir.",
+          "type": "waitForServices",
+          "phase": "post-reboot",
+          "services": ["vgk", "vgc"],
+          "setStartupAutomatic": true,
+          "waitTimeoutSeconds": 180,
+          "optional": true
+        },
+        {
+          "id": "first-install-stop-vanguard",
+          "name": "Vanguard servislerini tekrar durdur",
+          "description": "Görev Yöneticisi yöntemiyle tüm Vanguard süreçleri zorla sonlandırılır; sc stop vgk/vgc/vgm uygulanır.",
+          "type": "stopVanguardProcesses",
+          "phase": "post-reboot",
+          "services": ["vgk", "vgc", "vgm"]
+        },
+        {
+          "id": "first-install-stop-riot",
+          "name": "Riot Client'ı durdur",
+          "description": "Kalan Vanguard süreçleri taskkill /F ile kapatılır; Riot Client ve ilgili servisler/süreçler sonlandırılır.",
+          "type": "stopServices",
+          "phase": "post-reboot",
+          "services": ["vgk", "vgc", "vgm", "RiotClientServices", "Riot Client"],
+          "stopProcesses": true,
+          "processNames": ["vgtray", "vgc", "vgk", "vgm", "RiotClientCrashHandler", "RiotClientServices", "Riot Client", "RiotClientUx", "RiotClientUxRender", "LeagueClient", "LeagueClientUx"]
+        },
+        {
+          "id": "first-install-run-app",
+          "name": "UNKCLUB uygulamasını çalıştır",
+          "description": "Masaüstündeki Emulator klasöründen UNKCLUB.exe yönetici olarak başlatılır.",
+          "type": "runDesktopApp",
+          "phase": "post-reboot",
+          "desktopFolderName": "Emulator",
+          "desktopAppName": "UNKCLUB.exe",
+          "messageKey": "ErrorFix_UnkclubFollowSteps",
+          "messageTitleKey": "ErrorFix_UnkclubFollowStepsTitle"
         }
       ]
     },
@@ -86,6 +187,14 @@
           "waitForExit": true,
           "timeoutSeconds": 180,
           "successExitCodes": [0],
+          "optional": true,
+          "phase": "pre-reboot"
+        },
+        {
+          "id": "error-fix-check-vanguard",
+          "name": "Vanguard kurulumunu kontrol et",
+          "description": "Riot Vanguard klasörü, vgk/vgc servisleri ve kayıt defteri otomatik taranır.",
+          "type": "checkVanguard",
           "optional": true,
           "phase": "pre-reboot"
         },

@@ -9,5 +9,5 @@ public static class UpdateConstants
     public const string GitHubOwner = "Unkclub777";
     public const string GitHubRepo = "UNKCLUB-Tool";
     public const string DefaultBranch = "main";
-    public const string ReleaseAssetFileName = "PreInstallTool.zip";
+    public const string ReleaseAssetFileName = "UNKCLUB-Tool.zip";
 }

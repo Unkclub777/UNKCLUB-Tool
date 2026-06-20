@@ -275,4 +275,17 @@
   <data name="Update_RestartTitle" xml:space="preserve"><value>Update</value></data>
   <data name="Update_CheckFailed" xml:space="preserve"><value>Could not check for updates: {0}</value></data>
   <data name="Update_CheckFailedTitle" xml:space="preserve"><value>Update Error</value></data>
+  <data name="Update_SilentApplying" xml:space="preserve"><value>Applying update in background (version {0})...</value></data>
+  <data name="Vanguard_WarningTitle" xml:space="preserve"><value>Vanguard Required</value></data>
+  <data name="Vanguard_NotInstalledMessage" xml:space="preserve"><value>Riot Vanguard does not appear to be properly installed. First install requires a clean, working Vanguard installation.&#10;&#10;Install Vanguard via Valorant or Riot Client, then continue. Setup will proceed anyway.</value></data>
+  <data name="Vanguard_PartialInstallMessage" xml:space="preserve"><value>Riot Vanguard appears partially installed (folder, service, or registry missing). A clean Vanguard install is recommended.&#10;&#10;Continuing; Vanguard steps will run automatically.</value></data>
+  <data name="Vanguard_DetectedOk" xml:space="preserve"><value>Vanguard detected; Vanguard steps will continue automatically.</value></data>
+  <data name="Vanguard_WarningShownContinuing" xml:space="preserve"><value>Vanguard warning shown; setup continuing.</value></data>
+  <data name="Vanguard_NotReady" xml:space="preserve"><value>Vanguard is not ready.</value></data>
+  <data name="Vanguard_DetectionSummary" xml:space="preserve"><value>Vanguard scan — Folder: {0}, vgk: {1}, vgc: {2}, Registry: {3}</value></data>
+  <data name="Vanguard_Yes" xml:space="preserve"><value>Yes</value></data>
+  <data name="Vanguard_No" xml:space="preserve"><value>No</value></data>
+  <data name="Os_UnsupportedTitle" xml:space="preserve"><value>Unsupported Windows Version</value></data>
+  <data name="Os_UnsupportedMessage" xml:space="preserve"><value>UNKCLUB Tool is designed for Windows 10 (10240+) and Windows 11 x64. Your system may not be supported.</value></data>
+  <data name="Os_VersionLabel" xml:space="preserve"><value>Windows {0}.{1} (build {2})</value></data>
 </root>

@@ -16,12 +16,18 @@ public static class DefenderExclusionService
 
     public static IReadOnlyList<string> GetExclusionPaths()
     {
+        AppResourceService.EnsureInitialized();
         var baseDirectory = Path.GetFullPath(AppContext.BaseDirectory);
+        var resourceRoot = AppResourceService.ResourceRoot;
         var paths = new List<string>
         {
             baseDirectory,
-            Path.GetFullPath(Path.Combine(baseDirectory, "Installers")),
+            resourceRoot,
+            Path.GetFullPath(Path.Combine(resourceRoot, "Installers")),
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Emulator"),
+            Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "UNKCLUB-Tool"),
             Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "PreInstallTool")

@@ -14,12 +14,6 @@ public static class AutoUpdateService
 {
     private static readonly HttpClient HttpClient = CreateHttpClient();
 
-    private static readonly string[] PreservedRelativePaths =
-    [
-        "Installers",
-        "install-config.json"
-    ];
-
     public static Version CurrentVersion => GetCurrentVersion();
 
     public static string CurrentVersionLabel =>
@@ -50,10 +44,13 @@ public static class AutoUpdateService
 
         try
         {
-            var installDirectory = AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var executablePath = GetExecutablePath();
+            var installDirectory = Path.GetDirectoryName(executablePath)
+                ?? AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
             var updatesRoot = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "PreInstallTool",
+                "UNKCLUB-Tool",
                 "Updates");
             Directory.CreateDirectory(updatesRoot);
 
@@ -79,9 +76,9 @@ public static class AutoUpdateService
             Directory.CreateDirectory(stagingDirectory);
             ZipFile.ExtractToDirectory(zipPath, stagingDirectory, overwriteFiles: true);
 
-            var payloadRoot = ResolvePayloadRoot(stagingDirectory);
+            var payloadExe = ResolvePayloadExecutable(stagingDirectory);
             var updaterScript = Path.Combine(versionFolder, "apply-update.cmd");
-            WriteUpdaterScript(updaterScript, payloadRoot, installDirectory, GetExecutablePath());
+            WriteUpdaterScript(updaterScript, payloadExe, executablePath);
 
             Process.Start(new ProcessStartInfo
             {
@@ -207,52 +204,57 @@ public static class AutoUpdateService
         await source.CopyToAsync(destination, cancellationToken).ConfigureAwait(false);
     }
 
-    private static string ResolvePayloadRoot(string stagingDirectory)
+    private static string ResolvePayloadExecutable(string stagingDirectory)
     {
-        var directExe = Path.Combine(stagingDirectory, "PreInstallTool.exe");
-        if (File.Exists(directExe))
+        var preferredNames = new[]
         {
-            return stagingDirectory;
+            "UNKCLUB Tool.exe",
+            "PreInstallTool.exe"
+        };
+
+        foreach (var name in preferredNames)
+        {
+            var directPath = Path.Combine(stagingDirectory, name);
+            if (File.Exists(directPath))
+            {
+                return directPath;
+            }
         }
 
-        var nestedExe = Directory
-            .EnumerateFiles(stagingDirectory, "PreInstallTool.exe", SearchOption.AllDirectories)
-            .FirstOrDefault();
+        var nestedMatch = Directory
+            .EnumerateFiles(stagingDirectory, "*.exe", SearchOption.AllDirectories)
+            .FirstOrDefault(path =>
+                path.EndsWith("UNKCLUB Tool.exe", StringComparison.OrdinalIgnoreCase) ||
+                path.EndsWith("PreInstallTool.exe", StringComparison.OrdinalIgnoreCase));
 
-        return nestedExe is null
-            ? stagingDirectory
-            : Path.GetDirectoryName(nestedExe)!;
+        if (nestedMatch is not null)
+        {
+            return nestedMatch;
+        }
+
+        var anyExe = Directory.EnumerateFiles(stagingDirectory, "*.exe", SearchOption.AllDirectories).FirstOrDefault();
+        if (anyExe is null)
+        {
+            throw new FileNotFoundException("Update package does not contain an executable.");
+        }
+
+        return anyExe;
     }
 
     private static void WriteUpdaterScript(
         string scriptPath,
-        string payloadRoot,
-        string installDirectory,
-        string executablePath)
+        string payloadExecutable,
+        string targetExecutable)
     {
-        var preservedPatterns = string.Join(
-            ", ",
-            PreservedRelativePaths.Select(static path => $"'{path.Replace("'", "''")}'"));
-
         var script = $$"""
             @echo off
             setlocal
             timeout /t 2 /nobreak >nul
+            taskkill /F /IM "UNKCLUB Tool.exe" >nul 2>&1
             taskkill /F /IM PreInstallTool.exe >nul 2>&1
             timeout /t 1 /nobreak >nul
-            powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-              "$payload='{{payloadRoot.Replace("'", "''")}}';" ^
-              "$target='{{installDirectory.Replace("'", "''")}}';" ^
-              "$preserve=@({{preservedPatterns}});" ^
-              "Get-ChildItem -Path $payload -Recurse -File | ForEach-Object {" ^
-              "  $rel=$_.FullName.Substring($payload.Length).TrimStart('\');" ^
-              "  if ($preserve | Where-Object { $rel -eq $_ -or $rel.StartsWith($_ + '\') }) { return }" ^
-              "  $dest=Join-Path $target $rel;" ^
-              "  $destDir=Split-Path $dest -Parent;" ^
-              "  if ($destDir -and -not (Test-Path $destDir)) { New-Item -ItemType Directory -Path $destDir -Force | Out-Null }" ^
-              "  Copy-Item -Path $_.FullName -Destination $dest -Force" ^
-              "}"
-            start "" "{{executablePath.Replace("\"", "\"\"")}}"
+            copy /Y "{{payloadExecutable.Replace("\"", "\"\"")}}" "{{targetExecutable.Replace("\"", "\"\"")}}" >nul
+            start "" "{{targetExecutable.Replace("\"", "\"\"")}}"
             endlocal
             del "%~f0"
             """;
@@ -290,7 +292,7 @@ public static class AutoUpdateService
         return Version.TryParse(normalized, out version!);
     }
 
-    private static string GetExecutablePath() =>
+    public static string GetExecutablePath() =>
         Environment.ProcessPath
         ?? Process.GetCurrentProcess().MainModule?.FileName
         ?? Path.Combine(AppContext.BaseDirectory, "PreInstallTool.exe");
@@ -301,7 +303,7 @@ public static class AutoUpdateService
         {
             Timeout = TimeSpan.FromMinutes(5)
         };
-        client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("UNKCLUB-Tool-Updater", "1.0"));
+        client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("UNKCLUB-Tool-Updater", "1.1"));
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         return client;
     }

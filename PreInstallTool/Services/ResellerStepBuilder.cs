@@ -29,16 +29,24 @@ public static class ResellerStepBuilder
                 result.Add(CreateOtherResellerPromptStep("prompt-other-reseller-first"));
             }
         }
-        else if (mode.Id.Equals("error-fix", StringComparison.OrdinalIgnoreCase) &&
+        else if ((mode.Id.Equals("error-fix", StringComparison.OrdinalIgnoreCase) ||
+                  mode.Id.Equals("first-install", StringComparison.OrdinalIgnoreCase)) &&
                  ResellerSelectionService.IsOtherReseller &&
                  ErrorFixStateService.GetPhase() == ErrorFixPhase.PostRebootPending)
         {
-            var runIndex = result.FindIndex(static step =>
-                step.Id.Equals("error-fix-run-unkclub", StringComparison.OrdinalIgnoreCase));
+            var runStepId = mode.Id.Equals("first-install", StringComparison.OrdinalIgnoreCase)
+                ? "first-install-run-app"
+                : "error-fix-run-unkclub";
+
+            var runIndex = result.FindIndex(step =>
+                step.Id.Equals(runStepId, StringComparison.OrdinalIgnoreCase));
 
             if (runIndex >= 0)
             {
-                result.Insert(runIndex, CreateOtherResellerPromptStep("prompt-other-reseller-errorfix"));
+                var promptId = mode.Id.Equals("first-install", StringComparison.OrdinalIgnoreCase)
+                    ? "prompt-other-reseller-first-post"
+                    : "prompt-other-reseller-errorfix";
+                result.Insert(runIndex, CreateOtherResellerPromptStep(promptId));
             }
         }
 

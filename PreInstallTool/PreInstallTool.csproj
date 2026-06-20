@@ -1,51 +1,97 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-    <AssemblyName>PreInstallTool</AssemblyName>
-    <RootNamespace>PreInstallTool</RootNamespace>
-    <AssemblyTitle>UNKCLUB Tool</AssemblyTitle>
-    <Product>UNKCLUB Tool</Product>
-    <Company>UNKCLUB</Company>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <InformationalVersion>1.0.0</InformationalVersion>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FlaUI.Core" Version="4.0.0" />
-    <PackageReference Include="FlaUI.UIA3" Version="4.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="install-config.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Content Include="..\Kurulum dosyaları\**\*" Exclude="..\Kurulum dosyaları\UNKCLUB.exe;..\Kurulum dosyaları\UNKCLUB.exe.exe">
-      <Link>Installers\IlkKurulum\%(RecursiveDir)%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Kurulum dosyaları\UNKCLUB.exe.exe" Condition="Exists('..\Kurulum dosyaları\UNKCLUB.exe.exe')">
-      <Link>Installers\App\UNKCLUB.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\Kurulum dosyaları\UNKCLUB.exe" Condition="Exists('..\Kurulum dosyaları\UNKCLUB.exe')">
-      <Link>Installers\App\UNKCLUB.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Update="Installers\HataDuzeltme\**\*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <Target Name="UnblockInstallerFiles" AfterTargets="Build">
-    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;Get-ChildItem -Path '$(TargetDir)Installers' -Recurse -File -ErrorAction SilentlyContinue | Unblock-File -ErrorAction SilentlyContinue&quot;" />
-  </Target>
-
-</Project>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>PreInstallTool</AssemblyName>
+    <RootNamespace>PreInstallTool</RootNamespace>
+    <AssemblyTitle>UNKCLUB Tool</AssemblyTitle>
+    <Product>UNKCLUB Tool</Product>
+    <Company>UNKCLUB</Company>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <InformationalVersion>1.1.0</InformationalVersion>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <PublishTrimmed>false</PublishTrimmed>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FlaUI.Core" Version="4.0.0" />
+    <PackageReference Include="FlaUI.UIA3" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="install-config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+    <Content Include="..\Kurulum dosyaları\**\*" Exclude="..\Kurulum dosyaları\UNKCLUB.exe;..\Kurulum dosyaları\UNKCLUB.exe.exe">
+      <Link>Installers\IlkKurulum\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+    <Content Include="..\Kurulum dosyaları\UNKCLUB.exe.exe" Condition="Exists('..\Kurulum dosyaları\UNKCLUB.exe.exe')">
+      <Link>Installers\App\UNKCLUB.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+    <Content Include="..\Kurulum dosyaları\UNKCLUB.exe" Condition="Exists('..\Kurulum dosyaları\UNKCLUB.exe')">
+      <Link>Installers\App\UNKCLUB.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+    <None Update="Installers\HataDuzeltme\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <EmbeddedStagingDir>$(IntermediateOutputPath)embedded-staging\</EmbeddedStagingDir>
+    <EmbeddedBundlePath>$(IntermediateOutputPath)embedded-bundle.zip</EmbeddedBundlePath>
+  </PropertyGroup>
+
+  <Target Name="PackEmbeddedResources" BeforeTargets="PrepareResources">
+    <MakeDir Directories="$(EmbeddedStagingDir)" />
+    <MakeDir Directories="$(EmbeddedStagingDir)Installers\IlkKurulum" />
+    <MakeDir Directories="$(EmbeddedStagingDir)Installers\App" />
+
+    <Copy SourceFiles="install-config.json" DestinationFolder="$(EmbeddedStagingDir)" SkipUnchangedFiles="true" />
+
+    <ItemGroup>
+      <_EmbeddedIlkKurulum Include="..\Kurulum dosyaları\**\*" Exclude="..\Kurulum dosyaları\UNKCLUB.exe;..\Kurulum dosyaları\UNKCLUB.exe.exe" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_EmbeddedIlkKurulum)" DestinationFolder="$(EmbeddedStagingDir)Installers\IlkKurulum\%(RecursiveDir)" SkipUnchangedFiles="true" />
+
+    <Copy SourceFiles="..\Kurulum dosyaları\UNKCLUB.exe.exe"
+          DestinationFiles="$(EmbeddedStagingDir)Installers\App\UNKCLUB.exe"
+          Condition="Exists('..\Kurulum dosyaları\UNKCLUB.exe.exe')"
+          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="..\Kurulum dosyaları\UNKCLUB.exe"
+          DestinationFiles="$(EmbeddedStagingDir)Installers\App\UNKCLUB.exe"
+          Condition="Exists('..\Kurulum dosyaları\UNKCLUB.exe')"
+          SkipUnchangedFiles="true" />
+
+    <Delete Files="$(EmbeddedBundlePath)" />
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;Compress-Archive -Path '$(EmbeddedStagingDir)*' -DestinationPath '$(EmbeddedBundlePath)' -Force&quot;" />
+
+    <ItemGroup>
+      <EmbeddedResource Include="$(EmbeddedBundlePath)">
+        <LogicalName>embedded.bundle.zip</LogicalName>
+      </EmbeddedResource>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="UnblockInstallerFiles" AfterTargets="Build">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;Get-ChildItem -Path '$(TargetDir)Installers' -Recurse -File -ErrorAction SilentlyContinue | Unblock-File -ErrorAction SilentlyContinue&quot;" />
+  </Target>
+
+</Project>

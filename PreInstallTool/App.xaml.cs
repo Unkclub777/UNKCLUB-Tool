@@ -8,6 +8,7 @@ public partial class App : Application
 {
     private const string SingleInstanceMutexName = "Global\\UNKCLUB_PreInstallTool_SingleInstance_v1";
     private static Mutex? _singleInstanceMutex;
+    private static bool _ownsSingleInstanceMutex;
 
     public static bool ContinueErrorFixRequested { get; private set; }
 
@@ -16,11 +17,18 @@ public partial class App : Application
         _singleInstanceMutex = new Mutex(true, SingleInstanceMutexName, out var isFirstInstance);
         if (!isFirstInstance)
         {
+            _singleInstanceMutex.Dispose();
+            _singleInstanceMutex = null;
             Shutdown();
             return;
         }
 
+        _ownsSingleInstanceMutex = true;
+
         LocalizationService.Initialize();
+
+        AppResourceService.EnsureInitialized();
+        OsCompatibilityService.EnsureSupportedOrWarn();
 
         ContinueErrorFixRequested = e.Args.Any(static arg =>
             arg.Equals(PostRebootAutoStartService.ContinueErrorFixArgument, StringComparison.OrdinalIgnoreCase));
@@ -36,7 +44,11 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
-        _singleInstanceMutex?.ReleaseMutex();
+        if (_ownsSingleInstanceMutex)
+        {
+            _singleInstanceMutex?.ReleaseMutex();
+        }
+
         _singleInstanceMutex?.Dispose();
         base.OnExit(e);
     }

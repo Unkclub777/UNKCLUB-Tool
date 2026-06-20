@@ -14,6 +14,8 @@ public enum ErrorFixPhase
 public static class ErrorFixStateService
 {
     private const string StateFileName = "error-fix-state.json";
+    private const string LegacyStateDirectory = "PreInstallTool";
+    private const string StateDirectory = "UNKCLUB-Tool";
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -26,12 +28,19 @@ public static class ErrorFixStateService
         return state?.Phase ?? ErrorFixPhase.PreReboot;
     }
 
-    public static void MarkPostRebootPending()
+    public static string? GetPendingModeId()
+    {
+        var state = LoadState();
+        return state?.ModeId;
+    }
+
+    public static void MarkPostRebootPending(string? modeId = null)
     {
         SaveState(new ErrorFixState
         {
             Phase = ErrorFixPhase.PostRebootPending,
             UpdatedAt = DateTime.UtcNow,
+            ModeId = modeId,
             ExecutablePath = Environment.ProcessPath
                 ?? System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName
         });
@@ -46,10 +55,12 @@ public static class ErrorFixStateService
     {
         PostRebootAutoStartService.Cleanup();
 
-        var path = GetStatePath();
-        if (File.Exists(path))
+        foreach (var path in GetCandidateStatePaths())
         {
-            File.Delete(path);
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
         }
     }
 
@@ -73,21 +84,25 @@ public static class ErrorFixStateService
 
     private static ErrorFixState? LoadState()
     {
-        try
+        foreach (var path in GetCandidateStatePaths())
         {
-            var path = GetStatePath();
-            if (!File.Exists(path))
+            try
             {
-                return null;
-            }
+                if (!File.Exists(path))
+                {
+                    continue;
+                }
 
-            var json = File.ReadAllText(path);
-            return JsonSerializer.Deserialize<ErrorFixState>(json, JsonOptions);
+                var json = File.ReadAllText(path);
+                return JsonSerializer.Deserialize<ErrorFixState>(json, JsonOptions);
+            }
+            catch
+            {
+                // Try next location.
+            }
         }
-        catch
-        {
-            return null;
-        }
+
+        return null;
     }
 
     private static void SaveState(ErrorFixState state)
@@ -103,16 +118,26 @@ public static class ErrorFixStateService
         File.WriteAllText(path, json);
     }
 
+    private static IEnumerable<string> GetCandidateStatePaths()
+    {
+        yield return GetStatePath();
+        yield return Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            LegacyStateDirectory,
+            StateFileName);
+    }
+
     private static string GetStatePath() =>
         Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "PreInstallTool",
+            StateDirectory,
             StateFileName);
 
     private sealed class ErrorFixState
     {
         public ErrorFixPhase Phase { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public string? ModeId { get; set; }
         public string? ExecutablePath { get; set; }
     }
 }

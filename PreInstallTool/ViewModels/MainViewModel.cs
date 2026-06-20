@@ -340,7 +340,8 @@ public sealed class MainViewModel : INotifyPropertyChanged
             Steps.Add(new StepItemViewModel(step));
         }
 
-        if (SelectedMode.Id.Equals("error-fix", StringComparison.OrdinalIgnoreCase) &&
+        if ((SelectedMode.Id.Equals("error-fix", StringComparison.OrdinalIgnoreCase) ||
+             SelectedMode.Id.Equals("first-install", StringComparison.OrdinalIgnoreCase)) &&
             ErrorFixStateService.IsPostRebootContinuation())
         {
             StatusText = LocalizationService.Get("ErrorFix_PostRebootResuming");
@@ -349,7 +350,8 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
     private static IEnumerable<InstallStep> GetBaseVisibleSteps(InstallMode mode)
     {
-        if (!mode.Id.Equals("error-fix", StringComparison.OrdinalIgnoreCase))
+        if (!mode.Id.Equals("error-fix", StringComparison.OrdinalIgnoreCase) &&
+            !mode.Id.Equals("first-install", StringComparison.OrdinalIgnoreCase))
         {
             return mode.Steps.Where(static s => s.Enabled);
         }
@@ -393,6 +395,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
         _cancellationTokenSource = new CancellationTokenSource();
         var modeName = GetLocalizedModeName(SelectedMode);
+        InstallSessionService.CurrentModeId = SelectedMode.Id;
         AddLog(LocalizationService.Format("InstallStarted", modeName));
 
         try
@@ -463,6 +466,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
         finally
         {
             IsRunning = false;
+            InstallSessionService.CurrentModeId = null;
             _cancellationTokenSource?.Dispose();
             _cancellationTokenSource = null;
             DefenderStatus.Refresh();
@@ -666,14 +670,17 @@ public sealed class MainViewModel : INotifyPropertyChanged
         PostRebootAutoStartService.WriteAutoStartLog(
             LocalizationService.GetString("AutoStart_ErrorFixResuming"));
 
-        var errorFixMode = Modes.FirstOrDefault(m =>
-            m.Id.Equals("error-fix", StringComparison.OrdinalIgnoreCase));
-        if (errorFixMode is null || IsRunning)
+        var pendingModeId = ErrorFixStateService.GetPendingModeId()
+            ?? "error-fix";
+
+        var resumeMode = Modes.FirstOrDefault(m =>
+            m.Id.Equals(pendingModeId, StringComparison.OrdinalIgnoreCase));
+        if (resumeMode is null || IsRunning)
         {
             return;
         }
 
-        SelectMode("error-fix");
+        SelectMode(resumeMode.Id);
 
         var dispatcher = Application.Current?.Dispatcher;
         if (dispatcher is not null)
@@ -725,7 +732,15 @@ public sealed class MainViewModel : INotifyPropertyChanged
                     break;
 
                 case UpdateStatus.UpdateAvailable:
-                    await PromptAndApplyUpdateAsync(result).ConfigureAwait(true);
+                    if (silent)
+                    {
+                        await ApplyUpdateSilentlyAsync(result).ConfigureAwait(true);
+                    }
+                    else
+                    {
+                        await PromptAndApplyUpdateAsync(result).ConfigureAwait(true);
+                    }
+
                     break;
 
                 case UpdateStatus.CheckFailed:
@@ -756,6 +771,24 @@ public sealed class MainViewModel : INotifyPropertyChanged
         {
             IsCheckingForUpdates = false;
         }
+    }
+
+    private async Task ApplyUpdateSilentlyAsync(UpdateCheckResult result)
+    {
+        StatusText = LocalizationService.Format(
+            "Update_SilentApplying",
+            result.RemoteVersion?.ToString(3) ?? string.Empty);
+
+        var applyResult = await Task.Run(() =>
+                AutoUpdateService.DownloadAndApplyUpdateAsync(result))
+            .ConfigureAwait(true);
+
+        if (!applyResult.Success)
+        {
+            return;
+        }
+
+        Application.Current.Shutdown();
     }
 
     private async Task PromptAndApplyUpdateAsync(UpdateCheckResult result)

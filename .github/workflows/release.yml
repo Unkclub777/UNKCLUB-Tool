@@ -41,21 +41,18 @@ jobs:
         run: |
           dotnet publish PreInstallTool/PreInstallTool.csproj `
             -c Release `
-            -o publish `
+            -r win-x64 `
+            -o publish-staging `
             /p:Version=${{ steps.version.outputs.version }} `
             /p:AssemblyVersion=${{ steps.version.outputs.version }}.0 `
             /p:FileVersion=${{ steps.version.outputs.version }}.0 `
             /p:InformationalVersion=${{ steps.version.outputs.version }}
 
-          if (Test-Path publish/Installers) {
-            Remove-Item publish/Installers -Recurse -Force
-          }
+          New-Item -ItemType Directory -Path publish | Out-Null
+          Move-Item -Path publish-staging/PreInstallTool.exe -Destination "publish/UNKCLUB Tool.exe" -Force
+          Remove-Item publish-staging -Recurse -Force -ErrorAction SilentlyContinue
 
-          if (Test-Path publish/install-config.json) {
-            Remove-Item publish/install-config.json -Force
-          }
-
-          Compress-Archive -Path publish/* -DestinationPath PreInstallTool.zip -Force
+          Compress-Archive -Path "publish/UNKCLUB Tool.exe" -DestinationPath UNKCLUB-Tool.zip -Force
 
       - name: Update version.json
         shell: pwsh
@@ -63,7 +60,7 @@ jobs:
           $version = "${{ steps.version.outputs.version }}"
           $manifest = @{
             version = $version
-            downloadUrl = "https://github.com/${{ github.repository }}/releases/download/v$version/PreInstallTool.zip"
+            downloadUrl = "https://github.com/${{ github.repository }}/releases/download/v$version/UNKCLUB-Tool.zip"
             releaseNotes = "Release v$version"
           } | ConvertTo-Json -Depth 3
           Set-Content -Path version.json -Value $manifest -Encoding UTF8
@@ -74,7 +71,7 @@ jobs:
           tag_name: v${{ steps.version.outputs.version }}
           name: UNKCLUB Tool v${{ steps.version.outputs.version }}
           files: |
-            PreInstallTool.zip
+            UNKCLUB-Tool.zip
             version.json
           generate_release_notes: true
 

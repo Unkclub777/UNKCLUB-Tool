@@ -144,6 +144,7 @@ public sealed class InstallOrchestrator
             "stopvanguardprocesses" => ExecuteStopVanguardProcesses(step, log),
             "restartcomputer" => ExecuteRestartComputer(step, log),
             "rundesktopapp" => ExecuteRunDesktopApp(step, log),
+            "checkvanguard" => ExecuteCheckVanguard(step, log),
             _ => new InstallResult(false, LocalizationService.Format("UnknownStepType", step.Type))
         };
     }
@@ -610,7 +611,46 @@ public sealed class InstallOrchestrator
             return Path.GetFullPath(expanded);
         }
 
-        return Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, expanded));
+        AppResourceService.EnsureInitialized();
+        return Path.GetFullPath(Path.Combine(AppResourceService.ResourceRoot, expanded));
+    }
+
+    private static InstallResult ExecuteCheckVanguard(InstallStep step, IProgress<string>? log)
+    {
+        var detection = VanguardDetectionService.Detect();
+        var summary = VanguardDetectionService.BuildStatusSummary(detection);
+        log?.Report(summary);
+
+        if (detection.State == VanguardInstallState.Installed)
+        {
+            log?.Report(LocalizationService.Get("Vanguard_DetectedOk"));
+            return new InstallResult(true, LocalizationService.Get("Vanguard_DetectedOk"));
+        }
+
+        var title = string.IsNullOrWhiteSpace(step.MessageTitleKey)
+            ? LocalizationService.GetString("Vanguard_WarningTitle")
+            : LocalizationService.GetString(step.MessageTitleKey);
+
+        var messageKey = detection.State == VanguardInstallState.NotInstalled
+            ? "Vanguard_NotInstalledMessage"
+            : "Vanguard_PartialInstallMessage";
+
+        if (!string.IsNullOrWhiteSpace(step.MessageKey))
+        {
+            messageKey = step.MessageKey;
+        }
+
+        MessageBox.Show(
+            LocalizationService.GetString(messageKey),
+            title,
+            MessageBoxButton.OK,
+            MessageBoxImage.Warning);
+
+        log?.Report(LocalizationService.Get("Vanguard_WarningShownContinuing"));
+
+        return step.Optional
+            ? new InstallResult(true, LocalizationService.Get("Vanguard_WarningShownContinuing"), skipped: false)
+            : new InstallResult(false, LocalizationService.Get("Vanguard_NotReady"));
     }
 
     private static async Task<InstallResult> ExecuteDownloadAndRunAsync(
@@ -814,7 +854,7 @@ public sealed class InstallOrchestrator
             MessageBoxButton.OK,
             MessageBoxImage.Information);
 
-        ErrorFixStateService.MarkPostRebootPending();
+        ErrorFixStateService.MarkPostRebootPending(InstallSessionService.CurrentModeId);
         var registered = PostRebootAutoStartService.Register(log);
         if (!registered)
         {

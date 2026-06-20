@@ -16,7 +16,8 @@ public static class ConfigLoader
 
     public static InstallConfig Load(string? configPath = null)
     {
-        configPath ??= Path.Combine(AppContext.BaseDirectory, "install-config.json");
+        AppResourceService.EnsureInitialized();
+        configPath ??= AppResourceService.GetPath("install-config.json");
 
         if (!File.Exists(configPath))
         {

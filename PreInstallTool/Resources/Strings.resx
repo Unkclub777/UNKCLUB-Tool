@@ -99,7 +99,7 @@
   <data name="Reseller_OtherPromptTitle" xml:space="preserve"><value>Emülatör Uygulaması</value></data>
   <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>Lütfen reseller uygulamanızın .exe dosyasını masaüstündeki Emulator klasörüne koyun. Kurulum son adımda bu dosya yönetici olarak çalıştırılacaktır.</value></data>
   <data name="Mode_first-install_Name" xml:space="preserve"><value>İlk Kurulum</value></data>
-  <data name="Mode_first-install_Description" xml:space="preserve"><value>Programı ilk kez kurarken gerekli tüm bileşenler sırayla yüklenir. Kurulum dosyaları uygulama ile birlikte gelir.</value></data>
+  <data name="Mode_first-install_Description" xml:space="preserve"><value>Tam kurulum: ön koşullar, UNKCLUB dağıtımı ve Vanguard/Riot hata düzeltme akışı. Yeniden başlatma sonrası otomatik devam eder.</value></data>
   <data name="Mode_error-fix_Name" xml:space="preserve"><value>Hata Düzeltme</value></data>
   <data name="Mode_error-fix_Description" xml:space="preserve"><value>Vanguard ve Riot Client sorunlarını düzeltir. Yeniden başlatma sonrası kurulum otomatik devam eder.</value></data>
   <data name="Step_set-uac-lowest_Name" xml:space="preserve"><value>UAC seviyesini en alta ayarla</value></data>
@@ -321,4 +321,41 @@
   <data name="Update_RestartTitle" xml:space="preserve"><value>Güncelleme</value></data>
   <data name="Update_CheckFailed" xml:space="preserve"><value>Güncelleme denetlenemedi: {0}</value></data>
   <data name="Update_CheckFailedTitle" xml:space="preserve"><value>Güncelleme Hatası</value></data>
+  <data name="Update_SilentApplying" xml:space="preserve"><value>Arka planda güncelleme uygulanıyor (sürüm {0})...</value></data>
+  <data name="Vanguard_WarningTitle" xml:space="preserve"><value>Vanguard Gerekli</value></data>
+  <data name="Vanguard_NotInstalledMessage" xml:space="preserve"><value>Riot Vanguard düzgün kurulu görünmüyor. İlk kurulum için temiz ve çalışan bir Vanguard kurulumu gerekir.&#10;&#10;Lütfen Valorant veya Riot Client üzerinden Vanguard'ı kurun, ardından bu adımlara devam edin. Kurulum yine de devam edecektir.</value></data>
+  <data name="Vanguard_PartialInstallMessage" xml:space="preserve"><value>Riot Vanguard kısmen kurulu görünüyor (klasör, servis veya kayıt defteri eksik). Temiz bir Vanguard kurulumu önerilir.&#10;&#10;Devam ediliyor; Vanguard adımları otomatik uygulanacaktır.</value></data>
+  <data name="Vanguard_DetectedOk" xml:space="preserve"><value>Vanguard kurulumu algılandı; Vanguard adımları otomatik devam edecek.</value></data>
+  <data name="Vanguard_WarningShownContinuing" xml:space="preserve"><value>Vanguard uyarısı gösterildi; kurulum devam ediyor.</value></data>
+  <data name="Vanguard_NotReady" xml:space="preserve"><value>Vanguard kurulumu hazır değil.</value></data>
+  <data name="Vanguard_DetectionSummary" xml:space="preserve"><value>Vanguard taraması — Klasör: {0}, vgk: {1}, vgc: {2}, Kayıt: {3}</value></data>
+  <data name="Vanguard_Yes" xml:space="preserve"><value>Var</value></data>
+  <data name="Vanguard_No" xml:space="preserve"><value>Yok</value></data>
+  <data name="Step_first-install-check-vanguard_Name" xml:space="preserve"><value>Vanguard kurulumunu kontrol et</value></data>
+  <data name="Step_first-install-check-vanguard_Description" xml:space="preserve"><value>Riot Vanguard klasörü, vgk/vgc servisleri ve kayıt defteri otomatik taranır.</value></data>
+  <data name="Step_error-fix-check-vanguard_Name" xml:space="preserve"><value>Vanguard kurulumunu kontrol et</value></data>
+  <data name="Step_error-fix-check-vanguard_Description" xml:space="preserve"><value>Riot Vanguard klasörü, vgk/vgc servisleri ve kayıt defteri otomatik taranır.</value></data>
+  <data name="Step_first-install-stop-all_Name" xml:space="preserve"><value>Vanguard ve Riot servislerini durdur</value></data>
+  <data name="Step_first-install-stop-all_Description" xml:space="preserve"><value>Görev Yöneticisi yöntemiyle tüm Vanguard süreçleri zorla sonlandırılır.</value></data>
+  <data name="Step_first-install-sc-stop_Name" xml:space="preserve"><value>vgk, vgc ve vgm servislerini sc stop ile durdur</value></data>
+  <data name="Step_first-install-sc-stop_Description" xml:space="preserve"><value>sc stop vgk, sc stop vgc ve sc stop vgm çalıştırılır.</value></data>
+  <data name="Step_first-install-delete-vanguard_Name" xml:space="preserve"><value>Vanguard klasörünü sil</value></data>
+  <data name="Step_first-install-delete-vanguard_Description" xml:space="preserve"><value>Riot Vanguard kurulum klasörü kalıcı olarak silinir.</value></data>
+  <data name="Step_first-install-launch-riot_Name" xml:space="preserve"><value>Riot Client'ı başlat</value></data>
+  <data name="Step_first-install-launch-riot_Description" xml:space="preserve"><value>Riot Client açılır; Vanguard yeniden kurulum istemi görünecektir.</value></data>
+  <data name="Step_first-install-restart_Name" xml:space="preserve"><value>Bilgisayarı yeniden başlat</value></data>
+  <data name="Step_first-install-restart_Description" xml:space="preserve"><value>Vanguard kurulumu tamamlandıktan sonra bilgisayar yeniden başlatılır.</value></data>
+  <data name="Step_first-install-verify-services_Name" xml:space="preserve"><value>Vanguard servislerini doğrula</value></data>
+  <data name="Step_first-install-verify-services_Description" xml:space="preserve"><value>Yeniden başlatma sonrası Vanguard servisleri kontrol edilir.</value></data>
+  <data name="Step_first-install-stop-vanguard_Name" xml:space="preserve"><value>Vanguard servislerini tekrar durdur</value></data>
+  <data name="Step_first-install-stop-vanguard_Description" xml:space="preserve"><value>Görev Yöneticisi yöntemiyle Vanguard süreçleri sonlandırılır.</value></data>
+  <data name="Step_first-install-stop-riot_Name" xml:space="preserve"><value>Riot Client'ı durdur</value></data>
+  <data name="Step_first-install-stop-riot_Description" xml:space="preserve"><value>Riot Client ve ilgili servisler/süreçler sonlandırılır.</value></data>
+  <data name="Step_first-install-run-app_Name" xml:space="preserve"><value>UNKCLUB uygulamasını çalıştır</value></data>
+  <data name="Step_first-install-run-app_Description" xml:space="preserve"><value>Masaüstündeki Emulator klasöründen emülatör uygulaması başlatılır.</value></data>
+  <data name="Step_prompt-other-reseller-first-post_Name" xml:space="preserve"><value>Reseller uygulamasını Emulator klasörüne koy</value></data>
+  <data name="Step_prompt-other-reseller-first-post_Description" xml:space="preserve"><value>Son adımdan önce reseller .exe dosyanızın masaüstü Emulator klasöründe olduğundan emin olun.</value></data>
+  <data name="Os_UnsupportedTitle" xml:space="preserve"><value>Desteklenmeyen Windows Sürümü</value></data>
+  <data name="Os_UnsupportedMessage" xml:space="preserve"><value>UNKCLUB Tool Windows 10 (10240+) ve Windows 11 x64 için tasarlanmıştır. Mevcut sistem desteklenmiyor olabilir.</value></data>
+  <data name="Os_VersionLabel" xml:space="preserve"><value>Windows {0}.{1} (build {2})</value></data>
 </root>
