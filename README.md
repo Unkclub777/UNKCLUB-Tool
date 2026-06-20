@@ -20,7 +20,7 @@ An internet connection is required on first run while setup files are fetched si
 
 ## Build (developers)
 
-Place `UNKCLUB.exe` and other first-install files in [`Kurulum dosyaları/`](Kurulum%20dosyalar%C4%B1/README.md) before building. These payloads are excluded from Git.
+Place `UNKCLUB.exe` and other first-install files in [`Kurulum dosyaları/`](Kurulum%20dosyalar%C4%B1/README.md) before building the **installers bundle** (prerequisites only). `UNKCLUB.exe` is **not** included in `installers-bundle.zip` — upload it as a separate GitHub release asset; the app downloads it at runtime.
 
 ```powershell
 dotnet publish PreInstallTool/PreInstallTool.csproj -c Release -r win-x64
@@ -57,13 +57,13 @@ git push origin master
 git push origin v1.2.1
 ```
 
-The [Release workflow](.github/workflows/release.yml) publishes `UNKCLUB Tool.exe` and `version.json` as the user-facing release assets. The `installers-bundle.zip` is a backend asset: CI attaches it when present in the workspace, otherwise upload it manually after CI:
+The [Release workflow](.github/workflows/release.yml) publishes `UNKCLUB Tool.exe` and `version.json` as the user-facing release assets. Upload **`installers-bundle.zip`** (prerequisites only) and **`UNKCLUB.exe`** (emulator binary) as separate backend release assets:
 
 ```powershell
-gh release upload v1.2.1 PreInstallTool/installers-bundle.zip --clobber
+gh release upload v1.3.0 PreInstallTool/installers-bundle.zip UNKCLUB.exe --clobber
 ```
 
-**Important:** Every release must include `installers-bundle.zip` on GitHub (not listed for end users) so the app can fetch installers silently.
+**Important:** Every release must include `installers-bundle.zip` and `UNKCLUB.exe` on GitHub (not listed for end users) so the app can fetch payloads silently.
 
 The app downloads the bundle using direct release URLs first (`/releases/download/vTAG/installers-bundle.zip`), then falls back to the GitHub Releases API. **The repository must be public** (or `version.json` must point `installersBundleUrl` to a publicly reachable URL). Private repos return HTTP 404 for unauthenticated downloads and the GitHub API without a token.
 
@@ -78,10 +78,10 @@ The app downloads the bundle using direct release URLs first (`/releases/downloa
 Edit in `PreInstallTool/PreInstallTool.csproj`:
 
 ```xml
-<Version>1.2.1</Version>
-<AssemblyVersion>1.2.1.0</AssemblyVersion>
-<FileVersion>1.2.1.0</FileVersion>
-<InformationalVersion>1.2.1</InformationalVersion>
+<Version>1.3.0</Version>
+<AssemblyVersion>1.3.0.0</AssemblyVersion>
+<FileVersion>1.3.0.0</FileVersion>
+<InformationalVersion>1.3.0</InformationalVersion>
 ```
 
 Also update `version.json` and `PreInstallTool/app.manifest`.

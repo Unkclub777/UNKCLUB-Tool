@@ -12,10 +12,10 @@
     <AssemblyTitle>UNKCLUB Tool</AssemblyTitle>
     <Product>UNKCLUB Tool</Product>
     <Company>UNKCLUB</Company>
-    <Version>1.2.3</Version>
-    <AssemblyVersion>1.2.3.0</AssemblyVersion>
-    <FileVersion>1.2.3.0</FileVersion>
-    <InformationalVersion>1.2.3</InformationalVersion>
+    <Version>1.3.0</Version>
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
+    <InformationalVersion>1.3.0</InformationalVersion>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>true</SelfContained>
     <PublishSingleFile>true</PublishSingleFile>
@@ -40,26 +40,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </Content>
-    <Content Include="..\Kurulum dosyaları\UNKCLUB.exe.exe" Condition="Exists('..\Kurulum dosyaları\UNKCLUB.exe.exe')">
-      <Link>Installers\App\UNKCLUB.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </Content>
-    <Content Include="..\Kurulum dosyaları\UNKCLUB.exe" Condition="Exists('..\Kurulum dosyaları\UNKCLUB.exe')">
-      <Link>Installers\App\UNKCLUB.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </Content>
     <None Update="Installers\HataDuzeltme\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
 
-  <!-- Builds installers-bundle.zip for GitHub Release upload (not embedded in the exe). -->
+  <!-- Builds installers-bundle.zip for GitHub Release upload (prerequisites only; UNKCLUB.exe is a separate release asset). -->
   <Target Name="PackInstallersBundle">
     <MakeDir Directories="$(InstallersStagingDir)Installers\IlkKurulum" />
-    <MakeDir Directories="$(InstallersStagingDir)Installers\App" />
 
     <Copy SourceFiles="install-config.json" DestinationFolder="$(InstallersStagingDir)" SkipUnchangedFiles="true" />
 
@@ -67,15 +56,6 @@
       <_InstallersIlkKurulum Include="..\Kurulum dosyaları\**\*" Exclude="..\Kurulum dosyaları\UNKCLUB.exe;..\Kurulum dosyaları\UNKCLUB.exe.exe" />
     </ItemGroup>
     <Copy SourceFiles="@(_InstallersIlkKurulum)" DestinationFolder="$(InstallersStagingDir)Installers\IlkKurulum\%(RecursiveDir)" SkipUnchangedFiles="true" />
-
-    <Copy SourceFiles="..\Kurulum dosyaları\UNKCLUB.exe.exe"
-          DestinationFiles="$(InstallersStagingDir)Installers\App\UNKCLUB.exe"
-          Condition="Exists('..\Kurulum dosyaları\UNKCLUB.exe.exe')"
-          SkipUnchangedFiles="true" />
-    <Copy SourceFiles="..\Kurulum dosyaları\UNKCLUB.exe"
-          DestinationFiles="$(InstallersStagingDir)Installers\App\UNKCLUB.exe"
-          Condition="Exists('..\Kurulum dosyaları\UNKCLUB.exe')"
-          SkipUnchangedFiles="true" />
 
     <Delete Files="$(InstallersBundlePath)" Condition="Exists('$(InstallersBundlePath)')" />
     <ZipDirectory

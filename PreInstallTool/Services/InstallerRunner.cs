@@ -30,7 +30,7 @@ public static class InstallerRunner
 
 
 
-        if (InstallerCatalog.ShouldSkip(filePath))
+        if (!parentStep.ForceReinstall && InstallerCatalog.ShouldSkip(filePath))
 
         {
 

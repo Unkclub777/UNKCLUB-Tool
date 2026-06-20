@@ -131,10 +131,28 @@ public static class AppResourceService
 
         var installersRoot = Path.Combine(root, "Installers");
         var configPath = Path.Combine(root, "install-config.json");
+        var ilkKurulumPath = Path.Combine(installersRoot, "IlkKurulum");
 
-        return File.Exists(configPath) &&
-               Directory.Exists(installersRoot) &&
-               Directory.EnumerateFileSystemEntries(installersRoot).Any();
+        if (!File.Exists(configPath) || !Directory.Exists(installersRoot))
+        {
+            return false;
+        }
+
+        if (!Directory.Exists(ilkKurulumPath))
+        {
+            return false;
+        }
+
+        return Directory
+            .EnumerateFiles(ilkKurulumPath, "*.*", SearchOption.AllDirectories)
+            .Any(file =>
+            {
+                var extension = Path.GetExtension(file);
+                return extension.Equals(".exe", StringComparison.OrdinalIgnoreCase) ||
+                       extension.Equals(".msi", StringComparison.OrdinalIgnoreCase) ||
+                       extension.Equals(".bat", StringComparison.OrdinalIgnoreCase) ||
+                       extension.Equals(".cmd", StringComparison.OrdinalIgnoreCase);
+            });
     }
 
     private static bool IsExtractedBundleValid(string extractRoot, string versionMarker, string requiredBundleVersion)

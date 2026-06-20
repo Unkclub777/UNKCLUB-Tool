@@ -70,16 +70,16 @@
   <data name="Step_set-uac-lowest_Description" xml:space="preserve"><value>User Account Control (UAC) is set to 'Never notify'. A restart may be required for full effect.</value></data>
   <data name="Step_disable-defender_Name" xml:space="preserve"><value>Disable Windows Defender protection</value></data>
   <data name="Step_disable-defender_Description" xml:space="preserve"><value>Defender is disabled using the Defender Control method. SmartScreen is also disabled. Step is safely skipped if Defender is not installed.</value></data>
-  <data name="Step_install-first-setup_Name" xml:space="preserve"><value>Install first setup files</value></data>
-  <data name="Step_install-first-setup_Description" xml:space="preserve"><value>Embedded setup files are run as administrator in alphabetical order. Already installed vcredist and DirectX components are skipped.</value></data>
-  <data name="Step_deploy-unkclub_Name" xml:space="preserve"><value>Copy UNKCLUB app to desktop</value></data>
-  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe is copied to the Emulator folder on the desktop. Folder is created if missing; existing file is overwritten. (UNKCLUB reseller only)</value></data>
+  <data name="Step_install-first-setup_Name" xml:space="preserve"><value>Install first-setup files</value></data>
+  <data name="Step_install-first-setup_Description" xml:space="preserve"><value>Installs vcredist, DirectX and other prerequisites; skips already installed items.</value></data>
+  <data name="Step_deploy-unkclub_Name" xml:space="preserve"><value>Download and deploy UNKCLUB app</value></data>
+  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>Downloads UNKCLUB.exe from GitHub release and copies it to the desktop Emulator folder.</value></data>
   <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>Place reseller app in Emulator folder</value></data>
   <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>Place your reseller .exe file in the Desktop Emulator folder.</value></data>
   <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>Place reseller app in Emulator folder</value></data>
   <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>Before the final step, ensure your reseller .exe is in the Desktop Emulator folder.</value></data>
-  <data name="Step_error-fix-install-prerequisites_Name" xml:space="preserve"><value>Install missing first-setup components</value></data>
-  <data name="Step_error-fix-install-prerequisites_Description" xml:space="preserve"><value>Checks vcredist, DirectX and other first-setup files; installs missing ones, skips already installed.</value></data>
+  <data name="Step_error-fix-install-prerequisites_Name" xml:space="preserve"><value>Install first-setup components</value></data>
+  <data name="Step_error-fix-install-prerequisites_Description" xml:space="preserve"><value>Reinstalls vcredist, DirectX and other first-setup files every time.</value></data>
   <data name="Step_error-fix-disable-defender_Name" xml:space="preserve"><value>Disable Windows Defender protection</value></data>
   <data name="Step_error-fix-disable-defender_Description" xml:space="preserve"><value>Defender is disabled using the Defender Control method. SmartScreen is also disabled.</value></data>
   <data name="Step_install-error-fix_Name" xml:space="preserve"><value>Install error fix files</value></data>
@@ -298,4 +298,25 @@
   <data name="Os_UnsupportedTitle" xml:space="preserve"><value>Unsupported Windows Version</value></data>
   <data name="Os_UnsupportedMessage" xml:space="preserve"><value>UNKCLUB Tool is designed for Windows 10 (10240+) and Windows 11 x64. Your system may not be supported.</value></data>
   <data name="Os_VersionLabel" xml:space="preserve"><value>Windows {0}.{1} (build {2})</value></data>
+  <data name="InstallFolderSummary" xml:space="preserve"><value>Install summary: {0} files found, {1} installed, {2} skipped.</value></data>
+  <data name="UserProcessStop_Starting" xml:space="preserve"><value>Stopping user applications...</value></data>
+  <data name="UserProcessStop_Terminating" xml:space="preserve"><value>Terminating: {0} (PID {1})</value></data>
+  <data name="UserProcessStop_SkipFailed" xml:space="preserve"><value>Skipped (could not terminate): {0} — {1}</value></data>
+  <data name="UserProcessStop_Completed" xml:space="preserve"><value>{0} user application(s) terminated.</value></data>
+  <data name="UserProcessStop_Result" xml:space="preserve"><value>{0} user application(s) terminated.</value></data>
+  <data name="EnsureServicesAutomatic_Completed" xml:space="preserve"><value>{0}/{1} service(s) set to automatic startup.</value></data>
+  <data name="UnkclubApp_Downloading" xml:space="preserve"><value>Downloading {0} from GitHub...</value></data>
+  <data name="UnkclubApp_Downloaded" xml:space="preserve"><value>Downloaded to {0}.</value></data>
+  <data name="UnkclubApp_Deployed" xml:space="preserve"><value>UNKCLUB app deployed: {0}</value></data>
+  <data name="UnkclubApp_DeployFailed" xml:space="preserve"><value>Could not download UNKCLUB app: {0}</value></data>
+  <data name="Step_first-install-stop-user-apps_Name" xml:space="preserve"><value>Stop user applications</value></data>
+  <data name="Step_first-install-stop-user-apps_Description" xml:space="preserve"><value>Terminates running user applications except Windows system components.</value></data>
+  <data name="Step_first-install-ensure-vanguard-auto_Name" xml:space="preserve"><value>Set Vanguard services to automatic</value></data>
+  <data name="Step_first-install-ensure-vanguard-auto_Description" xml:space="preserve"><value>Sets vgk, vgc, vgm and Riot Client services to Automatic startup.</value></data>
+  <data name="Step_error-fix-stop-user-apps_Name" xml:space="preserve"><value>Stop user applications</value></data>
+  <data name="Step_error-fix-stop-user-apps_Description" xml:space="preserve"><value>Terminates running user applications except Windows system components.</value></data>
+  <data name="Step_error-fix-ensure-vanguard-auto_Name" xml:space="preserve"><value>Set Vanguard services to automatic</value></data>
+  <data name="Step_error-fix-ensure-vanguard-auto_Description" xml:space="preserve"><value>Sets vgk, vgc, vgm and Riot Client services to Automatic startup.</value></data>
+  <data name="Step_error-fix-deploy-unkclub_Name" xml:space="preserve"><value>Download and deploy UNKCLUB app</value></data>
+  <data name="Step_error-fix-deploy-unkclub_Description" xml:space="preserve"><value>Downloads UNKCLUB.exe from GitHub release and copies it to the desktop Emulator folder.</value></data>
 </root>

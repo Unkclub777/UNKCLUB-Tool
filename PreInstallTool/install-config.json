@@ -11,6 +11,21 @@
       "description": "Tam kurulum: ön koşullar, UNKCLUB dağıtımı ve Vanguard/Riot hata düzeltme akışı. Yeniden başlatma sonrası otomatik devam eder.",
       "steps": [
         {
+          "id": "first-install-stop-user-apps",
+          "name": "Kullanıcı uygulamalarını durdur",
+          "description": "Kurulum başlamadan önce Windows sistem bileşenleri hariç çalışan kullanıcı uygulamaları sonlandırılır.",
+          "type": "stopUserProcesses",
+          "phase": "pre-reboot"
+        },
+        {
+          "id": "first-install-ensure-vanguard-auto",
+          "name": "Vanguard servislerini otomatik başlatmaya al",
+          "description": "vgk, vgc, vgm ve Riot Client servisleri yeniden başlatma sonrası otomatik başlasın diye Automatic olarak ayarlanır.",
+          "type": "ensureServicesAutomatic",
+          "phase": "pre-reboot",
+          "services": ["vgk", "vgc", "vgm", "RiotClientServices", "Riot Client"]
+        },
+        {
           "id": "set-uac-lowest",
           "name": "UAC seviyesini en alta ayarla",
           "description": "Kullanıcı Hesabı Denetimi (UAC) 'Hiçbir zaman bildirme' seviyesine ayarlanır. Tam etki için yeniden başlatma gerekebilir.",
@@ -50,7 +65,7 @@
           "type": "installFolder",
           "folderPath": "Installers/IlkKurulum",
           "fileExtensions": [".exe", ".msi", ".bat", ".cmd"],
-          "recursive": false,
+          "recursive": true,
           "installerArguments": "",
           "successExitCodes": [0, 1638, 3010, 5100],
           "runAsAdmin": true,
@@ -60,11 +75,12 @@
         },
         {
           "id": "deploy-unkclub",
-          "name": "UNKCLUB uygulamasını masaüstüne kopyala",
-          "description": "UNKCLUB.exe dosyası masaüstündeki Emulator klasörüne kopyalanır.",
+          "name": "UNKCLUB uygulamasını indir ve dağıt",
+          "description": "UNKCLUB.exe GitHub release'den indirilir ve masaüstündeki Emulator klasörüne kopyalanır.",
           "type": "deployFile",
-          "sourcePath": "Installers/App/UNKCLUB.exe",
+          "sourcePath": "github:UNKCLUB.exe",
           "destinationPath": "%USERPROFILE%\\Desktop\\Emulator\\UNKCLUB.exe",
+          "downloadFromGitHub": true,
           "phase": "pre-reboot"
         },
         {
@@ -148,11 +164,12 @@
         {
           "id": "first-install-run-app",
           "name": "UNKCLUB uygulamasını çalıştır",
-          "description": "Masaüstündeki Emulator klasöründen UNKCLUB.exe yönetici olarak başlatılır.",
+          "description": "Masaüstündeki Emulator klasöründen UNKCLUB.exe yönetici olarak başlatılır; yoksa GitHub'dan indirilir.",
           "type": "runDesktopApp",
           "phase": "post-reboot",
           "desktopFolderName": "Emulator",
           "desktopAppName": "UNKCLUB.exe",
+          "downloadFromGitHub": true,
           "messageKey": "ErrorFix_UnkclubFollowSteps",
           "messageTitleKey": "ErrorFix_UnkclubFollowStepsTitle"
         }
@@ -164,13 +181,29 @@
       "description": "Vanguard ve Riot Client sorunlarını düzeltir. Yeniden başlatma sonrası kurulum otomatik devam eder.",
       "steps": [
         {
+          "id": "error-fix-stop-user-apps",
+          "name": "Kullanıcı uygulamalarını durdur",
+          "description": "Kurulum başlamadan önce Windows sistem bileşenleri hariç çalışan kullanıcı uygulamaları sonlandırılır.",
+          "type": "stopUserProcesses",
+          "phase": "pre-reboot"
+        },
+        {
+          "id": "error-fix-ensure-vanguard-auto",
+          "name": "Vanguard servislerini otomatik başlatmaya al",
+          "description": "vgk, vgc, vgm ve Riot Client servisleri yeniden başlatma sonrası otomatik başlasın diye Automatic olarak ayarlanır.",
+          "type": "ensureServicesAutomatic",
+          "phase": "pre-reboot",
+          "services": ["vgk", "vgc", "vgm", "RiotClientServices", "Riot Client"]
+        },
+        {
           "id": "error-fix-install-prerequisites",
-          "name": "Eksik ilk kurulum bileşenlerini yükle",
-          "description": "vcredist, DirectX ve diğer ilk kurulum dosyaları kontrol edilir; eksik olanlar yüklenir, kurulu olanlar atlanır.",
+          "name": "İlk kurulum bileşenlerini yükle",
+          "description": "vcredist, DirectX ve diğer ilk kurulum dosyaları her seferinde yeniden yüklenir.",
           "type": "installFolder",
           "folderPath": "Installers/IlkKurulum",
           "fileExtensions": [".exe", ".msi", ".bat", ".cmd"],
-          "recursive": false,
+          "recursive": true,
+          "forceReinstall": true,
           "installerArguments": "",
           "successExitCodes": [0, 1638, 3010, 5100],
           "runAsAdmin": true,
@@ -277,6 +310,16 @@
           "processNames": ["vgtray", "vgc", "vgk", "vgm", "RiotClientCrashHandler", "RiotClientServices", "Riot Client", "RiotClientUx", "RiotClientUxRender", "LeagueClient", "LeagueClientUx"]
         },
         {
+          "id": "error-fix-deploy-unkclub",
+          "name": "UNKCLUB uygulamasını indir ve dağıt",
+          "description": "UNKCLUB.exe GitHub release'den indirilir ve masaüstündeki Emulator klasörüne kopyalanır.",
+          "type": "deployFile",
+          "sourcePath": "github:UNKCLUB.exe",
+          "destinationPath": "%USERPROFILE%\\Desktop\\Emulator\\UNKCLUB.exe",
+          "downloadFromGitHub": true,
+          "phase": "post-reboot"
+        },
+        {
           "id": "error-fix-run-unkclub",
           "name": "UNKCLUB uygulamasını çalıştır",
           "description": "Masaüstündeki Emulator klasöründen UNKCLUB.exe yönetici olarak başlatılır.",
@@ -284,6 +327,7 @@
           "phase": "post-reboot",
           "desktopFolderName": "Emulator",
           "desktopAppName": "UNKCLUB.exe",
+          "downloadFromGitHub": true,
           "messageKey": "ErrorFix_UnkclubFollowSteps",
           "messageTitleKey": "ErrorFix_UnkclubFollowStepsTitle"
         }

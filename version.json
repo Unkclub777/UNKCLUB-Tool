@@ -1,7 +1,8 @@
 {
-  "version": "1.2.3",
-  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.2.3/UNKCLUB Tool.exe",
-  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.2.3/installers-bundle.zip",
-  "installersBundleVersion": "1.2.3",
-  "releaseNotes": "Fix silent installers-bundle download: prefer direct release URLs over GitHub API; clearer 404 guidance for private repos."
+  "version": "1.3.0",
+  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.3.0/UNKCLUB Tool.exe",
+  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.3.0/installers-bundle.zip",
+  "installersBundleVersion": "1.3.0",
+  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.3.0/UNKCLUB.exe",
+  "releaseNotes": "UNKCLUB.exe downloaded from GitHub at runtime; installers-bundle contains prerequisites only. Both modes stop user apps at start, force-reinstall prerequisites in error-fix, and share full Vanguard reboot/resume flow."
 }

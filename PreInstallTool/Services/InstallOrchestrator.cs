@@ -142,6 +142,8 @@ public sealed class InstallOrchestrator
             "waitforservices" => await ExecuteWaitForServicesAsync(step, log, cancellationToken),
             "stopvanguard" => ExecuteStopVanguardProcesses(step, log),
             "stopvanguardprocesses" => ExecuteStopVanguardProcesses(step, log),
+            "stopuserprocesses" => ExecuteStopUserProcesses(step, log),
+            "ensureservicesautomatic" => ExecuteEnsureServicesAutomatic(step, log),
             "restartcomputer" => ExecuteRestartComputer(step, log),
             "rundesktopapp" => ExecuteRunDesktopApp(step, log),
             "checkvanguard" => ExecuteCheckVanguard(step, log),
@@ -380,6 +382,9 @@ public sealed class InstallOrchestrator
 
         log?.Report(LocalizationService.Format("InstallersFound", files.Count));
 
+        var installedCount = 0;
+        var skippedCount = 0;
+
         for (var index = 0; index < files.Count; index++)
         {
             var filePath = files[index];
@@ -390,6 +395,7 @@ public sealed class InstallOrchestrator
 
             if (result.Skipped)
             {
+                skippedCount++;
                 log?.Report(LocalizationService.Format("SkippedInstaller", index + 1, files.Count, fileName, result.Message));
                 continue;
             }
@@ -399,14 +405,26 @@ public sealed class InstallOrchestrator
                 return new InstallResult(false, LocalizationService.Format("InstallerFailed", fileName, result.Message));
             }
 
+            installedCount++;
             log?.Report(LocalizationService.Format("InstallerCompleted", index + 1, files.Count, fileName));
         }
+
+        log?.Report(LocalizationService.Format(
+            "InstallFolderSummary",
+            files.Count,
+            installedCount,
+            skippedCount));
 
         return new InstallResult(true, LocalizationService.Format("AllInstallersSuccess", files.Count));
     }
 
     private static InstallResult ExecuteDeployFile(InstallStep step, IProgress<string>? log)
     {
+        if (UnkclubAppService.IsGitHubDeployStep(step))
+        {
+            return ExecuteDeployUnkclubFromGitHub(step, log);
+        }
+
         if (string.IsNullOrWhiteSpace(step.SourcePath))
         {
             return new InstallResult(false, LocalizationService.Get("SourcePathNotDefined"));
@@ -448,6 +466,24 @@ public sealed class InstallOrchestrator
         SystemChecks.UnblockFile(destinationPath);
 
         return new InstallResult(true, LocalizationService.Format("FileCopied", destinationPath));
+    }
+
+    private static InstallResult ExecuteDeployUnkclubFromGitHub(InstallStep step, IProgress<string>? log)
+    {
+        try
+        {
+            var destinationPath = UnkclubAppService.ResolveDestinationPath(step);
+            var deployedPath = UnkclubAppService
+                .DownloadToPathAsync(destinationPath, log, CancellationToken.None)
+                .GetAwaiter()
+                .GetResult();
+
+            return new InstallResult(true, LocalizationService.Format("UnkclubApp_Deployed", deployedPath));
+        }
+        catch (Exception ex)
+        {
+            return new InstallResult(false, LocalizationService.Format("UnkclubApp_DeployFailed", ex.Message));
+        }
     }
 
     private static string? ResolveDeploySourcePath(string sourcePath)
@@ -867,6 +903,41 @@ public sealed class InstallOrchestrator
         return new InstallResult(true, LocalizationService.Format("ErrorFix_RestartScheduled", delay));
     }
 
+    private static InstallResult ExecuteStopUserProcesses(InstallStep step, IProgress<string>? log)
+    {
+        var stopped = UserProcessStopService.StopUserApplications(log);
+        return new InstallResult(
+            true,
+            LocalizationService.Format("UserProcessStop_Result", stopped));
+    }
+
+    private static InstallResult ExecuteEnsureServicesAutomatic(InstallStep step, IProgress<string>? log)
+    {
+        var services = ResolveServiceNames(step);
+        if (services.Count == 0)
+        {
+            services =
+            [
+                ..RiotVanguardService.DefaultVanguardServices,
+                ..RiotVanguardService.DefaultRiotServices
+            ];
+        }
+
+        var configured = 0;
+        foreach (var serviceName in services)
+        {
+            log?.Report(LocalizationService.Format("ErrorFix_SettingServiceAutomatic", serviceName));
+            if (RiotVanguardService.SetServiceAutomatic(serviceName, log))
+            {
+                configured++;
+            }
+        }
+
+        return new InstallResult(
+            true,
+            LocalizationService.Format("EnsureServicesAutomatic_Completed", configured, services.Count));
+    }
+
     private static InstallResult ExecuteRunDesktopApp(InstallStep step, IProgress<string>? log)
     {
         var folderName = string.IsNullOrWhiteSpace(step.DesktopFolderName) ? "Emulator" : step.DesktopFolderName;
@@ -888,6 +959,31 @@ public sealed class InstallOrchestrator
             var appName = string.IsNullOrWhiteSpace(step.DesktopAppName) ? "UNKCLUB.exe" : step.DesktopAppName;
             appPath = DesktopAppResolver.FindDesktopApp(folderName, appName);
             notFoundLabel = LocalizationService.Format("ErrorFix_UnkclubNotFound", folderName, appName);
+        }
+
+        if (appPath is null || !File.Exists(appPath))
+        {
+            if (!useAnyApp &&
+                (step.DownloadFromGitHub ||
+                 string.Equals(step.DesktopAppName, UpdateConstants.UnkclubAppFileName, StringComparison.OrdinalIgnoreCase)))
+            {
+                try
+                {
+                    var destinationPath = UnkclubAppService.ResolveDestinationPath(step);
+                    appPath = UnkclubAppService
+                        .DownloadToPathAsync(destinationPath, log, CancellationToken.None)
+                        .GetAwaiter()
+                        .GetResult();
+                }
+                catch (Exception ex)
+                {
+                    return new InstallResult(false, LocalizationService.Format("UnkclubApp_DeployFailed", ex.Message));
+                }
+            }
+            else
+            {
+                return new InstallResult(false, notFoundLabel);
+            }
         }
 
         if (appPath is null || !File.Exists(appPath))

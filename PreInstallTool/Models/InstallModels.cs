@@ -189,6 +189,12 @@ public sealed class InstallStep
 
     [JsonPropertyName("useAnyDesktopApp")]
     public bool UseAnyDesktopApp { get; set; }
+
+    [JsonPropertyName("forceReinstall")]
+    public bool ForceReinstall { get; set; }
+
+    [JsonPropertyName("downloadFromGitHub")]
+    public bool DownloadFromGitHub { get; set; }
 }
 
 public sealed class SkipCondition
