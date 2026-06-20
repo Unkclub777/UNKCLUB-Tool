@@ -370,9 +370,16 @@ public static class DownloadService
         using var response = await HttpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
         response.EnsureSuccessStatusCode();
 
+        var totalBytes = DownloadProgressReporter.TryGetContentLength(response);
         await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
         await using var fileStream = File.Create(targetPath);
-        await stream.CopyToAsync(fileStream, cancellationToken);
+        await DownloadProgressReporter.CopyWithProgressAsync(
+            stream,
+            fileStream,
+            totalBytes,
+            fileName,
+            progress,
+            cancellationToken);
 
         progress?.Report(LocalizationService.Format("DownloadComplete", targetPath));
         return targetPath;

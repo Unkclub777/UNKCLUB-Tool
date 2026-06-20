@@ -1,8 +1,8 @@
 ﻿{
-  "version": "1.3.1",
-  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.3.1/UNKCLUB Tool.exe",
-  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.3.1/installers-bundle.zip",
-  "installersBundleVersion": "1.3.1",
-  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.3.1/UNKCLUB.exe",
-  "releaseNotes": "Fix OneDrive Desktop path resolution for Emulator deploy. UNKCLUB.exe downloaded from GitHub at runtime; installers-bundle contains prerequisites only."
+  "version": "1.4.0",
+  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.4.0/UNKCLUB Tool.exe",
+  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.4.0/installers-bundle.zip",
+  "installersBundleVersion": "1.4.0",
+  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.4.0/UNKCLUB.exe",
+  "releaseNotes": "Download progress in log, corrupt bundle auto re-download, UNKCLUB deploy retry, startup update dialog, Defender refresh button and faster poll during install, publish-release.ps1 maintainer script."
 }

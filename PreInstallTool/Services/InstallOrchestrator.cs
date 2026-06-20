@@ -381,6 +381,11 @@ public sealed class InstallOrchestrator
         }
 
         log?.Report(LocalizationService.Format("InstallersFound", files.Count));
+        log?.Report(LocalizationService.Format("InstallFolderFileListHeader", files.Count));
+        foreach (var filePath in files)
+        {
+            log?.Report(LocalizationService.Format("InstallFolderFileEntry", Path.GetFileName(filePath)));
+        }
 
         var installedCount = 0;
         var skippedCount = 0;
@@ -470,20 +475,43 @@ public sealed class InstallOrchestrator
 
     private static InstallResult ExecuteDeployUnkclubFromGitHub(InstallStep step, IProgress<string>? log)
     {
-        try
-        {
-            var destinationPath = UnkclubAppService.ResolveDestinationPath(step);
-            var deployedPath = UnkclubAppService
-                .DownloadToPathAsync(destinationPath, log, CancellationToken.None)
-                .GetAwaiter()
-                .GetResult();
+        const int maxAttempts = 3;
+        Exception? lastError = null;
 
-            return new InstallResult(true, LocalizationService.Format("UnkclubApp_Deployed", deployedPath));
-        }
-        catch (Exception ex)
+        for (var attempt = 1; attempt <= maxAttempts; attempt++)
         {
-            return new InstallResult(false, LocalizationService.Format("UnkclubApp_DeployFailed", ex.Message));
+            try
+            {
+                var destinationPath = UnkclubAppService.ResolveDestinationPath(step);
+                var deployedPath = UnkclubAppService
+                    .DownloadToPathAsync(destinationPath, log, CancellationToken.None)
+                    .GetAwaiter()
+                    .GetResult();
+
+                return new InstallResult(true, LocalizationService.Format("UnkclubApp_Deployed", deployedPath));
+            }
+            catch (Exception ex)
+            {
+                lastError = ex;
+                log?.Report(LocalizationService.Format(
+                    "UnkclubApp_RetryAttempt",
+                    attempt,
+                    maxAttempts,
+                    ex.Message));
+
+                if (attempt < maxAttempts)
+                {
+                    log?.Report(LocalizationService.Format(
+                        "UnkclubApp_DeployRetry",
+                        attempt + 1,
+                        maxAttempts));
+                }
+            }
         }
+
+        return new InstallResult(
+            false,
+            LocalizationService.Format("UnkclubApp_DeployFailed", lastError?.Message ?? string.Empty));
     }
 
     private static string? ResolveDeploySourcePath(string sourcePath)

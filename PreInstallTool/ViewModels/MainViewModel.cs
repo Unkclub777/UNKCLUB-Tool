@@ -55,9 +55,15 @@ public sealed class MainViewModel : INotifyPropertyChanged
             ?? Languages[0];
 
         LocalizationService.LanguageChanged += (_, _) => ApplyLocalization();
+        AppResourceService.ProgressReported += OnResourceDownloadProgress;
         ApplyLocalization();
         InitializeResellers();
         LoadConfig();
+    }
+
+    private void OnResourceDownloadProgress(string message)
+    {
+        Application.Current?.Dispatcher.BeginInvoke(() => AddLog(message));
     }
 
     public DefenderStatusViewModel DefenderStatus { get; }
@@ -387,6 +393,8 @@ public sealed class MainViewModel : INotifyPropertyChanged
         ProgressValue = 0;
         LogLines.Clear();
         _startupLogEntries.Clear();
+        DefenderStatus.SetInstallActive(true);
+        DefenderStatus.Refresh();
 
         foreach (var step in Steps)
         {
@@ -439,6 +447,15 @@ public sealed class MainViewModel : INotifyPropertyChanged
             HasFailed = results.Any(r =>
                 r.Status == StepStatus.Failed && !r.Step.Optional);
 
+            var rebootScheduled = results.Any(r =>
+                r.Step.Type.Equals("restartcomputer", StringComparison.OrdinalIgnoreCase) &&
+                r.Status == StepStatus.Success);
+
+            if (!HasFailed && !rebootScheduled)
+            {
+                ErrorFixStateService.MarkComplete();
+            }
+
             IsCompleted = true;
             StatusText = HasFailed
                 ? LocalizationService.Format("InstallCompletedErrors", modeName)
@@ -466,6 +483,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
         finally
         {
             IsRunning = false;
+            DefenderStatus.SetInstallActive(false);
             InstallSessionService.CurrentModeId = null;
             _cancellationTokenSource?.Dispose();
             _cancellationTokenSource = null;
@@ -695,6 +713,35 @@ public sealed class MainViewModel : INotifyPropertyChanged
             MessageBoxImage.Information);
 
         await StartInstallAsync().ConfigureAwait(true);
+    }
+
+    public async Task CheckForUpdatesOnStartupAsync()
+    {
+        if (IsCheckingForUpdates || IsRunning)
+        {
+            return;
+        }
+
+        IsCheckingForUpdates = true;
+
+        try
+        {
+            var result = await Task.Run(() => AutoUpdateService.CheckForUpdatesAsync())
+                .ConfigureAwait(true);
+
+            if (result.Status == UpdateStatus.UpdateAvailable)
+            {
+                await PromptAndApplyUpdateAsync(result).ConfigureAwait(true);
+            }
+        }
+        catch
+        {
+            // Startup update checks should never block startup.
+        }
+        finally
+        {
+            IsCheckingForUpdates = false;
+        }
     }
 
     public async Task CheckForUpdatesAsync(bool silent)

@@ -255,6 +255,16 @@
   <data name="Bundle_ErrorNetwork" xml:space="preserve"><value>网络错误：{0}</value></data>
   <data name="Bundle_ErrorNetworkGeneric" xml:space="preserve"><value>无法连接互联网或访问服务器。</value></data>
   <data name="Bundle_ErrorNotFoundPrivateRepo" xml:space="preserve"><value>未找到安装文件 (HTTP 404)。&#10;&#10;GitHub 仓库可能是私有的，或 release 中缺少 installers-bundle.zip。&#10;&#10;请将仓库设为公开，或在 version.json 中设置可公开访问的 installersBundleUrl。</value></data>
+  <data name="Bundle_CacheInvalidRedownload" xml:space="preserve"><value>缓存的安装包无效，正在重新下载...</value></data>
+  <data name="Bundle_DownloadStarting" xml:space="preserve"><value>正在下载安装包：{0}</value></data>
+  <data name="Bundle_DownloadRetry" xml:space="preserve"><value>正在重试下载安装包（{0}/{1}）...</value></data>
+  <data name="DownloadProgressPercent" xml:space="preserve"><value>{0}：{1:F1} MB / {2:F1} MB（{3}%）</value></data>
+  <data name="DownloadProgressUnknown" xml:space="preserve"><value>{0}：已下载 {1:F1} MB</value></data>
+  <data name="InstallFolderFileListHeader" xml:space="preserve"><value>找到的安装文件（{0}）：</value></data>
+  <data name="InstallFolderFileEntry" xml:space="preserve"><value>  • {0}</value></data>
+  <data name="UnkclubApp_RetryAttempt" xml:space="preserve"><value>第 {0}/{1} 次尝试失败：{2}</value></data>
+  <data name="UnkclubApp_DeployRetry" xml:space="preserve"><value>正在重试部署 UNKCLUB（{0}/{1}）...</value></data>
+  <data name="BtnDefenderRefresh" xml:space="preserve"><value>刷新</value></data>
   <data name="AppVersionLabel" xml:space="preserve"><value>版本 {0}</value></data>
   <data name="Update_Checking" xml:space="preserve"><value>正在检查更新...</value></data>
   <data name="Update_UpToDate" xml:space="preserve"><value>UNKCLUB Tool 已是最新版本（{0}）。</value></data>

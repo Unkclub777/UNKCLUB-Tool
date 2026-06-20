@@ -57,7 +57,7 @@ public static class UnkclubAppService
                             "UnkclubApp_Downloading",
                             Path.GetFileName(destinationPath)));
 
-                        await DownloadFileAsync(downloadUrl, tempPath, cancellationToken).ConfigureAwait(false);
+                        await DownloadFileAsync(downloadUrl, tempPath, log, cancellationToken).ConfigureAwait(false);
 
                         if (!File.Exists(tempPath) || new FileInfo(tempPath).Length < 1024)
                         {
@@ -86,8 +86,19 @@ public static class UnkclubAppService
                     catch (Exception ex)
                     {
                         lastError = ex;
+                        log?.Report(Localization.LocalizationService.Format(
+                            "UnkclubApp_RetryAttempt",
+                            attempt,
+                            DownloadRetryCount,
+                            ex.Message));
+
                         if (attempt < DownloadRetryCount)
                         {
+                            log?.Report(Localization.LocalizationService.Format(
+                                "UnkclubApp_DeployRetry",
+                                attempt + 1,
+                                DownloadRetryCount));
+
                             await Task.Delay(TimeSpan.FromSeconds(attempt * 2), cancellationToken)
                                 .ConfigureAwait(false);
                         }
@@ -222,7 +233,11 @@ public static class UnkclubAppService
         urls.Add(url);
     }
 
-    private static async Task DownloadFileAsync(string url, string destinationPath, CancellationToken cancellationToken)
+    private static async Task DownloadFileAsync(
+        string url,
+        string destinationPath,
+        IProgress<string>? log,
+        CancellationToken cancellationToken)
     {
         using var response = await HttpClient
             .GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
@@ -238,9 +253,22 @@ public static class UnkclubAppService
 
         response.EnsureSuccessStatusCode();
 
+        var fileLabel = Path.GetFileName(destinationPath);
+        if (string.IsNullOrWhiteSpace(fileLabel))
+        {
+            fileLabel = UpdateConstants.UnkclubAppFileName;
+        }
+
+        var totalBytes = DownloadProgressReporter.TryGetContentLength(response);
         await using var source = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
         await using var destination = File.Create(destinationPath);
-        await source.CopyToAsync(destination, cancellationToken).ConfigureAwait(false);
+        await DownloadProgressReporter.CopyWithProgressAsync(
+            source,
+            destination,
+            totalBytes,
+            fileLabel,
+            log,
+            cancellationToken).ConfigureAwait(false);
     }
 
     private static string GetVersionLabel()

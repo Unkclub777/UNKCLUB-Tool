@@ -25,19 +25,19 @@ public partial class MainWindow : Window
         Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, () =>
         {
             _ = RunAutoResumeSafelyAsync();
-            _ = RunSilentUpdateCheckSafelyAsync();
+            _ = RunStartupUpdateCheckSafelyAsync();
         });
     }
 
-    private async Task RunSilentUpdateCheckSafelyAsync()
+    private async Task RunStartupUpdateCheckSafelyAsync()
     {
         try
         {
-            await _viewModel.CheckForUpdatesAsync(silent: true).ConfigureAwait(true);
+            await _viewModel.CheckForUpdatesOnStartupAsync().ConfigureAwait(true);
         }
         catch
         {
-            // Silent update checks should never block startup.
+            // Startup update checks should never block startup.
         }
     }
 

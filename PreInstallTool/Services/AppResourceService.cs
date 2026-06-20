@@ -24,6 +24,10 @@ public static class AppResourceService
     private static string? _resourceRoot;
     private static bool _initialized;
 
+    public static event Action<string>? ProgressReported;
+
+    private static void ReportProgress(string message) => ProgressReported?.Invoke(message);
+
     public static string ResourceRoot
     {
         get
@@ -79,9 +83,15 @@ public static class AppResourceService
         var versionMarker = Path.Combine(extractRoot, ExtractedVersionFileName);
         var requiredBundleVersion = GetRequiredBundleVersion();
 
-        if (IsExtractedBundleValid(extractRoot, versionMarker, requiredBundleVersion))
+        if (Directory.Exists(extractRoot))
         {
-            return extractRoot;
+            if (IsExtractedBundleValid(extractRoot, versionMarker, requiredBundleVersion))
+            {
+                return extractRoot;
+            }
+
+            ReportProgress(Localization.LocalizationService.Get("Bundle_CacheInvalidRedownload"));
+            ClearExtractedCache(extractRoot, versionMarker);
         }
 
         Directory.CreateDirectory(extractRoot);
@@ -166,6 +176,33 @@ public static class AppResourceService
         return IsValidResourceRoot(extractRoot);
     }
 
+    private static void ClearExtractedCache(string extractRoot, string versionMarker)
+    {
+        try
+        {
+            if (Directory.Exists(extractRoot))
+            {
+                Directory.Delete(extractRoot, recursive: true);
+            }
+        }
+        catch
+        {
+            // Best effort; download will overwrite.
+        }
+
+        try
+        {
+            if (File.Exists(versionMarker))
+            {
+                File.Delete(versionMarker);
+            }
+        }
+        catch
+        {
+            // ignored
+        }
+    }
+
     private static void DownloadAndExtractInstallersBundle(string targetRoot, string versionLabel)
     {
         var downloadUrls = ResolveInstallersBundleDownloadUrls(versionLabel);
@@ -187,6 +224,11 @@ public static class AppResourceService
                 {
                     try
                     {
+                        ReportProgress(Localization.LocalizationService.Format(
+                            "Bundle_DownloadStarting",
+                            UpdateConstants.InstallersBundleFileName));
+                        ReportProgress(Localization.LocalizationService.Get("Bundle_Downloading"));
+
                         DownloadFileAsync(downloadUrl, tempZip).GetAwaiter().GetResult();
 
                         if (Directory.Exists(targetRoot))
@@ -214,6 +256,10 @@ public static class AppResourceService
                         lastError = ex;
                         if (attempt < DownloadRetryCount)
                         {
+                            ReportProgress(Localization.LocalizationService.Format(
+                                "Bundle_DownloadRetry",
+                                attempt + 1,
+                                DownloadRetryCount));
                             Thread.Sleep(TimeSpan.FromSeconds(attempt * 2));
                         }
                     }
@@ -317,9 +363,23 @@ public static class AppResourceService
 
         response.EnsureSuccessStatusCode();
 
+        var fileLabel = Path.GetFileName(destinationPath);
+        if (string.IsNullOrWhiteSpace(fileLabel))
+        {
+            fileLabel = UpdateConstants.InstallersBundleFileName;
+        }
+
+        var totalBytes = DownloadProgressReporter.TryGetContentLength(response);
+        var progress = new Progress<string>(ReportProgress);
+
         await using var source = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
         await using var destination = File.Create(destinationPath);
-        await source.CopyToAsync(destination).ConfigureAwait(false);
+        await DownloadProgressReporter.CopyWithProgressAsync(
+            source,
+            destination,
+            totalBytes,
+            fileLabel,
+            progress).ConfigureAwait(false);
     }
 
     internal static string BuildNotFoundDownloadMessage(string url) =>

@@ -30,7 +30,7 @@ Publish produces a **small exe only** — installers are not embedded. For local
 
 ## Auto-update
 
-The app checks for updates on startup (background) and via **Check for updates** in the UI.
+The app checks for updates on startup (shows a dialog when an update is available) and via **Check for updates** in the UI.
 
 1. Compares the running version with the latest [GitHub Release](https://github.com/Unkclub777/UNKCLUB-Tool/releases).
 2. Downloads `UNKCLUB Tool.exe` only (small update).
@@ -40,6 +40,16 @@ The app checks for updates on startup (background) and via **Check for updates**
 Repository settings: `PreInstallTool/Services/UpdateConstants.cs`.
 
 ## Publishing a release (maintainers)
+
+Quick helper (recommended):
+
+```powershell
+.\publish-release.ps1
+```
+
+This packs `installers-bundle.zip`, prints a release checklist, and opens the GitHub **New release** page for the current `PreInstallTool.csproj` version.
+
+Manual steps:
 
 1. Bump version in `PreInstallTool/PreInstallTool.csproj`, `version.json`, and `PreInstallTool/app.manifest`.
 2. Build the installer bundle locally (requires `Kurulum dosyaları/` payloads):
@@ -52,20 +62,31 @@ Repository settings: `PreInstallTool/Services/UpdateConstants.cs`.
 4. Tag and push (CI builds the exe and creates the release):
 
 ```powershell
-git tag v1.2.1
+git tag v1.4.0
 git push origin master
-git push origin v1.2.1
+git push origin v1.4.0
 ```
 
 The [Release workflow](.github/workflows/release.yml) publishes `UNKCLUB Tool.exe` and `version.json` as the user-facing release assets. Upload **`installers-bundle.zip`** (prerequisites only) and **`UNKCLUB.exe`** (emulator binary) as separate backend release assets:
 
 ```powershell
-gh release upload v1.3.0 PreInstallTool/installers-bundle.zip UNKCLUB.exe --clobber
+gh release upload v1.4.0 PreInstallTool/installers-bundle.zip UNKCLUB.exe --clobber
 ```
 
 **Important:** Every release must include `installers-bundle.zip` and `UNKCLUB.exe` on GitHub (not listed for end users) so the app can fetch payloads silently.
 
 The app downloads the bundle using direct release URLs first (`/releases/download/vTAG/installers-bundle.zip`), then falls back to the GitHub Releases API. **The repository must be public** (or `version.json` must point `installersBundleUrl` to a publicly reachable URL). Private repos return HTTP 404 for unauthenticated downloads and the GitHub API without a token.
+
+## Bakım / Release (TR — tek sayfa)
+
+1. Sürümü üç yerde eşitle: `PreInstallTool/PreInstallTool.csproj`, `version.json`, `PreInstallTool/app.manifest`.
+2. Yerelde `Kurulum dosyaları/` içine ön koşul dosyalarını koy (`UNKCLUB.exe` bundle'a girmez).
+3. `dotnet build PreInstallTool/PreInstallTool.csproj -c Release` ile derlemenin geçtiğini doğrula.
+4. `.\publish-release.ps1` çalıştır → `PreInstallTool/installers-bundle.zip` oluşur, kontrol listesi yazdırılır, GitHub release sayfası açılır.
+5. Değişiklikleri commit et, `master`'a push et.
+6. Tag oluştur ve push et: `git tag v1.4.0` → `git push origin v1.4.0` (CI `UNKCLUB Tool.exe` üretir).
+7. Release'e manuel yükle: `installers-bundle.zip` + `UNKCLUB.exe` (`gh release upload ... --clobber`).
+8. Müşteriler yalnızca `UNKCLUB Tool.exe` indirir; kurulum dosyaları ve `UNKCLUB.exe` uygulama tarafından otomatik indirilir.
 
 ## Dağıtım modeli (TR)
 
@@ -78,10 +99,10 @@ The app downloads the bundle using direct release URLs first (`/releases/downloa
 Edit in `PreInstallTool/PreInstallTool.csproj`:
 
 ```xml
-<Version>1.3.0</Version>
-<AssemblyVersion>1.3.0.0</AssemblyVersion>
-<FileVersion>1.3.0.0</FileVersion>
-<InformationalVersion>1.3.0</InformationalVersion>
+<Version>1.4.0</Version>
+<AssemblyVersion>1.4.0.0</AssemblyVersion>
+<FileVersion>1.4.0.0</FileVersion>
+<InformationalVersion>1.4.0</InformationalVersion>
 ```
 
 Also update `version.json` and `PreInstallTool/app.manifest`.

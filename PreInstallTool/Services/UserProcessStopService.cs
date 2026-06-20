@@ -41,7 +41,26 @@ public static class UserProcessStopService
         "spoolsv",
         "PreInstallTool",
         "UNKCLUB Tool",
-        "red"
+        "red",
+        "SystemSettings",
+        "ApplicationFrameHost",
+        "TextInputHost",
+        "ctfmon",
+        "SearchIndexer",
+        "SecurityHealthSystray",
+        "smartscreen",
+        "LockApp",
+        "LogonUI",
+        "WUDFHost",
+        "AggregatorHost",
+        "WidgetService",
+        "Widgets",
+        "PhoneExperienceHost",
+        "GameBar",
+        "GameBarFTServer",
+        "SystemSettingsBroker",
+        "CredentialUIBroker",
+        "backgroundTaskHost"
     };
 
     public static int StopUserApplications(IProgress<string>? log)

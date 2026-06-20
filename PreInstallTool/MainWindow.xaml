@@ -52,13 +52,25 @@
 
                                Foreground="{StaticResource TextBrush}"/>
 
-                    <TextBlock Text="{Binding DefenderStatus.LastUpdatedText}"
+                    <Grid Margin="0,6,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-                               Margin="0,6,0,0"
+                        <TextBlock Grid.Column="0"
+                                   Text="{Binding DefenderStatus.LastUpdatedText}"
+                                   FontSize="11"
+                                   Foreground="{StaticResource MutedTextBrush}"
+                                   VerticalAlignment="Center"/>
 
-                               FontSize="11"
-
-                               Foreground="{StaticResource MutedTextBrush}"/>
+                        <Button Grid.Column="1"
+                                Content="{Binding DefenderStatus.BtnDefenderRefresh}"
+                                Command="{Binding DefenderStatus.RefreshCommand}"
+                                Padding="10,4"
+                                FontSize="11"
+                                Background="#334155"/>
+                    </Grid>
 
                 </StackPanel>
 

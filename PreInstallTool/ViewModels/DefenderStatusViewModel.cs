@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 using PreInstallTool.Localization;
 using PreInstallTool.Models;
@@ -13,22 +14,28 @@ namespace PreInstallTool.ViewModels;
 
 public sealed class DefenderStatusViewModel : INotifyPropertyChanged, IDisposable
 {
+    private static readonly TimeSpan NormalRefreshInterval = TimeSpan.FromSeconds(10);
+    private static readonly TimeSpan InstallRefreshInterval = TimeSpan.FromSeconds(3);
+
     private readonly DispatcherTimer _refreshTimer;
     private int _refreshInFlight;
     private string _lastUpdatedText = string.Empty;
     private string _defenderStatusTitle = string.Empty;
     private string _legendEnabled = string.Empty;
     private string _legendDisabled = string.Empty;
+    private string _btnRefresh = string.Empty;
 
     public DefenderStatusViewModel()
     {
         Features = new ObservableCollection<FeatureStatusItem>();
         _refreshTimer = new DispatcherTimer
         {
-            Interval = TimeSpan.FromSeconds(5)
+            Interval = NormalRefreshInterval
         };
         _refreshTimer.Tick += (_, _) => Refresh();
         _refreshTimer.Start();
+
+        RefreshCommand = new RelayCommand(Refresh);
 
         LocalizationService.LanguageChanged += OnLanguageChanged;
         ApplyLocalization();
@@ -37,6 +44,14 @@ public sealed class DefenderStatusViewModel : INotifyPropertyChanged, IDisposabl
     }
 
     public ObservableCollection<FeatureStatusItem> Features { get; }
+
+    public ICommand RefreshCommand { get; }
+
+    public string BtnDefenderRefresh
+    {
+        get => _btnRefresh;
+        private set => SetProperty(ref _btnRefresh, value);
+    }
 
     public string DefenderStatusTitle
     {
@@ -63,6 +78,11 @@ public sealed class DefenderStatusViewModel : INotifyPropertyChanged, IDisposabl
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void SetInstallActive(bool isInstalling)
+    {
+        _refreshTimer.Interval = isInstalling ? InstallRefreshInterval : NormalRefreshInterval;
+    }
 
     public void Refresh()
     {
@@ -169,6 +189,7 @@ public sealed class DefenderStatusViewModel : INotifyPropertyChanged, IDisposabl
         DefenderStatusTitle = LocalizationService.Get("DefenderStatusTitle");
         LegendEnabled = LocalizationService.Get("LegendEnabled");
         LegendDisabled = LocalizationService.Get("LegendDisabled");
+        BtnDefenderRefresh = LocalizationService.Get("BtnDefenderRefresh");
 
         if (Features.Count == 0)
         {

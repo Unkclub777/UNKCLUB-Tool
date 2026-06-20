@@ -75,14 +75,14 @@ public static class AutoUpdateService
             if (IsZipDownload(update.DownloadUrl))
             {
                 var zipPath = Path.Combine(versionFolder, UpdateConstants.ReleaseAssetFileName);
-                await DownloadFileAsync(update.DownloadUrl, zipPath, cancellationToken).ConfigureAwait(false);
+                await DownloadFileAsync(update.DownloadUrl, zipPath, progress, cancellationToken).ConfigureAwait(false);
                 ZipFile.ExtractToDirectory(zipPath, stagingDirectory, overwriteFiles: true);
                 payloadExe = ResolvePayloadExecutable(stagingDirectory);
             }
             else
             {
                 payloadExe = Path.Combine(stagingDirectory, UpdateConstants.ReleaseExecutableFileName);
-                await DownloadFileAsync(update.DownloadUrl, payloadExe, cancellationToken).ConfigureAwait(false);
+                await DownloadFileAsync(update.DownloadUrl, payloadExe, progress, cancellationToken).ConfigureAwait(false);
             }
             var updaterScript = Path.Combine(versionFolder, "apply-update.cmd");
             WriteUpdaterScript(updaterScript, payloadExe, executablePath);
@@ -207,15 +207,32 @@ public static class AutoUpdateService
         downloadUrl.Contains(UpdateConstants.ReleaseAssetFileName, StringComparison.OrdinalIgnoreCase) ||
         downloadUrl.EndsWith(".zip", StringComparison.OrdinalIgnoreCase);
 
-    private static async Task DownloadFileAsync(string url, string destinationPath, CancellationToken cancellationToken)
+    private static async Task DownloadFileAsync(
+        string url,
+        string destinationPath,
+        IProgress<string>? progress,
+        CancellationToken cancellationToken)
     {
         using var response = await HttpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
             .ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
 
+        var fileLabel = Path.GetFileName(destinationPath);
+        if (string.IsNullOrWhiteSpace(fileLabel))
+        {
+            fileLabel = UpdateConstants.ReleaseExecutableFileName;
+        }
+
+        var totalBytes = DownloadProgressReporter.TryGetContentLength(response);
         await using var source = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
         await using var destination = File.Create(destinationPath);
-        await source.CopyToAsync(destination, cancellationToken).ConfigureAwait(false);
+        await DownloadProgressReporter.CopyWithProgressAsync(
+            source,
+            destination,
+            totalBytes,
+            fileLabel,
+            progress,
+            cancellationToken).ConfigureAwait(false);
     }
 
     private static string ResolvePayloadExecutable(string stagingDirectory)
@@ -260,15 +277,22 @@ public static class AutoUpdateService
         string payloadExecutable,
         string targetExecutable)
     {
-        var script = $$"""
+        var continueArg = ErrorFixStateService.IsPostRebootContinuation()
+            ? PostRebootAutoStartService.ContinueErrorFixArgument
+            : string.Empty;
+        var launchCommand = string.IsNullOrWhiteSpace(continueArg)
+            ? $"start \"\" \"{targetExecutable.Replace("\"", "\"\"")}\""
+            : $"start \"\" \"{targetExecutable.Replace("\"", "\"\"")}\" {continueArg}";
+
+        var script = $"""
             @echo off
             setlocal
             timeout /t 2 /nobreak >nul
             taskkill /F /IM "UNKCLUB Tool.exe" >nul 2>&1
             taskkill /F /IM PreInstallTool.exe >nul 2>&1
             timeout /t 1 /nobreak >nul
-            copy /Y "{{payloadExecutable.Replace("\"", "\"\"")}}" "{{targetExecutable.Replace("\"", "\"\"")}}" >nul
-            start "" "{{targetExecutable.Replace("\"", "\"\"")}}"
+            copy /Y "{payloadExecutable.Replace("\"", "\"\"")}" "{targetExecutable.Replace("\"", "\"\"")}" >nul
+            {launchCommand}
             endlocal
             del "%~f0"
             """;
