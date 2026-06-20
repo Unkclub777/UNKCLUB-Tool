@@ -1,0 +1,28 @@
+# Build output
+**/bin/
+**/obj/
+**/.vs/
+
+# User-specific IDE / secrets
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+secrets.json
+*.pfx
+
+# OS / tooling
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Local update staging (created at runtime)
+**/Updates/
+
+# Large installer payloads — keep folder structure only
+Kurulum dosyaları/*
+!Kurulum dosyaları/.gitkeep
+!Kurulum dosyaları/README.md
+
+# Optional: exclude the main emulator binary if distributed separately
+# Kurulum dosyaları/UNKCLUB.exe

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="WindowTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="DefenderStatusTitle" xml:space="preserve"><value>Defender 상태</value></data>
+  <data name="DefenderNotReadYet" xml:space="preserve"><value>아직 읽지 않음</value></data>
+  <data name="DefenderLastUpdated" xml:space="preserve"><value>마지막 업데이트: {0}</value></data>
+  <data name="DefenderReadFailed" xml:space="preserve"><value>상태를 읽을 수 없습니다</value></data>
+  <data name="LegendEnabled" xml:space="preserve"><value>켜짐 / 사용</value></data>
+  <data name="LegendDisabled" xml:space="preserve"><value>꺼짐 / 사용 안 함</value></data>
+  <data name="LanguageLabel" xml:space="preserve"><value>언어</value></data>
+  <data name="OptionLabel" xml:space="preserve"><value>설치 모드</value></data>
+  <data name="ResellerLabel" xml:space="preserve"><value>리셀러 선택</value></data>
+  <data name="AppTagline" xml:space="preserve"><value>에뮬레이터 설치 및 오류 수정 도구</value></data>
+  <data name="LogLabel" xml:space="preserve"><value>로그</value></data>
+  <data name="BtnStartInstall" xml:space="preserve"><value>설치 시작</value></data>
+  <data name="BtnCancel" xml:space="preserve"><value>취소</value></data>
+  <data name="BtnLaunchMainProgram" xml:space="preserve"><value>메인 프로그램 실행</value></data>
+  <data name="PromptSelectOption" xml:space="preserve"><value>옵션을 선택하세요.</value></data>
+  <data name="PromptSelectModeAndStart" xml:space="preserve"><value>리셀러와 모드를 선택한 후 설치를 시작하세요.</value></data>
+  <data name="ConfigLoaded" xml:space="preserve"><value>구성이 로드되었습니다.</value></data>
+  <data name="ConfigLoadFailed" xml:space="preserve"><value>구성을 로드할 수 없습니다.</value></data>
+  <data name="ConfigErrorTitle" xml:space="preserve"><value>구성 오류</value></data>
+  <data name="ModeSelectedStatus" xml:space="preserve"><value>{0}이(가) 선택되었습니다. 설치를 시작할 수 있습니다.</value></data>
+  <data name="ModeSelectedLog" xml:space="preserve"><value>{0} 모드가 선택되었습니다.</value></data>
+  <data name="InstallStarted" xml:space="preserve"><value>{0}이(가) 시작되었습니다.</value></data>
+  <data name="ProgressFormat" xml:space="preserve"><value>{0}/{1} - {2}: {3}</value></data>
+  <data name="InstallCompletedErrors" xml:space="preserve"><value>{0}이(가) 오류와 함께 완료되었습니다.</value></data>
+  <data name="InstallCompletedSuccess" xml:space="preserve"><value>{0}이(가) 성공적으로 완료되었습니다.</value></data>
+  <data name="InstallCancelled" xml:space="preserve"><value>설치가 취소되었습니다.</value></data>
+  <data name="UnexpectedError" xml:space="preserve"><value>예기치 않은 오류가 발생했습니다.</value></data>
+  <data name="UnexpectedErrorTitle" xml:space="preserve"><value>오류</value></data>
+  <data name="AutoStart_StartedWithContinueArg" xml:space="preserve"><value>--continue-error-fix 인수로 애플리케이션이 시작되었습니다.</value></data>
+  <data name="AutoStart_ContinueRequested" xml:space="preserve"><value>재시작 후 계속 요청이 감지되었습니다.</value></data>
+  <data name="AutoStart_ErrorFixResuming" xml:space="preserve"><value>재시작 후 오류 수정 흐름을 재개합니다.</value></data>
+  <data name="AutoStart_StateSavedPostRebootPending" xml:space="preserve"><value>오류 수정 상태가 PostRebootPending으로 저장됨: {0}</value></data>
+  <data name="MainProgramLaunched" xml:space="preserve"><value>메인 프로그램이 실행되었습니다.</value></data>
+  <data name="MainProgramLaunchFailed" xml:space="preserve"><value>메인 프로그램을 실행할 수 없습니다: {0}</value></data>
+  <data name="LaunchErrorTitle" xml:space="preserve"><value>실행 오류</value></data>
+  <data name="ErrorPrefix" xml:space="preserve"><value>오류:</value></data>
+  <data name="LegacyModeName" xml:space="preserve"><value>설치</value></data>
+  <data name="StepPending" xml:space="preserve"><value>대기 중</value></data>
+  <data name="AppName_Localized" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="AppDescription_Localized" xml:space="preserve"><value>리셀러와 설치 모드를 선택한 후 설치를 시작하세요.</value></data>
+  <data name="ResellerSelectedStatus" xml:space="preserve"><value>{0} 리셀러, {1} 모드가 선택되었습니다. 설치를 시작할 수 있습니다.</value></data>
+  <data name="Reseller_unkclub_Name" xml:space="preserve"><value>UNKCLUB</value></data>
+  <data name="Reseller_unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe가 바탕화면 Emulator 폴더에 자동으로 복사됩니다.</value></data>
+  <data name="Reseller_other_Name" xml:space="preserve"><value>기타 리셀러</value></data>
+  <data name="Reseller_other_Description" xml:space="preserve"><value>자신의 리셀러 .exe 파일을 바탕화면 Emulator 폴더에 넣으세요.</value></data>
+  <data name="Reseller_OtherPromptTitle" xml:space="preserve"><value>에뮬레이터 애플리케이션</value></data>
+  <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>리셀러 애플리케이션의 .exe 파일을 바탕화면 Emulator 폴더에 넣어 주세요. 마지막 단계에서 관리자 권한으로 실행됩니다.</value></data>
+  <data name="Mode_first-install_Name" xml:space="preserve"><value>첫 설치</value></data>
+  <data name="Mode_first-install_Description" xml:space="preserve"><value>처음 설정할 때 필요한 모든 구성 요소가 순서대로 설치됩니다. 설치 파일은 애플리케이션에 포함되어 있습니다.</value></data>
+  <data name="Mode_error-fix_Name" xml:space="preserve"><value>오류 수정</value></data>
+  <data name="Mode_error-fix_Description" xml:space="preserve"><value>Vanguard 및 Riot Client 문제를 수정합니다. 재부팅 후 설치가 자동으로 계속됩니다.</value></data>
+  <data name="Step_set-uac-lowest_Name" xml:space="preserve"><value>UAC 수준을 최저로 설정</value></data>
+  <data name="Step_set-uac-lowest_Description" xml:space="preserve"><value>사용자 계정 컨트롤(UAC)이 '알리지 않음'으로 설정됩니다. 완전히 적용하려면 다시 시작해야 할 수 있습니다.</value></data>
+  <data name="Step_disable-defender_Name" xml:space="preserve"><value>Windows Defender 보호 비활성화</value></data>
+  <data name="Step_disable-defender_Description" xml:space="preserve"><value>Defender Control 방법을 사용하여 Defender를 비활성화합니다. SmartScreen도 비활성화됩니다. Defender가 설치되어 있지 않으면 이 단계는 안전하게 건너뜁니다.</value></data>
+  <data name="Step_install-first-setup_Name" xml:space="preserve"><value>첫 설정 파일 설치</value></data>
+  <data name="Step_install-first-setup_Description" xml:space="preserve"><value>내장된 설치 파일이 관리자 권한으로 알파벳 순서대로 실행됩니다. 이미 설치된 vcredist 및 DirectX 구성 요소는 건너뜁니다.</value></data>
+  <data name="Step_deploy-unkclub_Name" xml:space="preserve"><value>UNKCLUB 앱을 바탕 화면에 복사</value></data>
+  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe가 바탕화면 Emulator 폴더에 복사됩니다. 폴더가 없으면 생성되며, 기존 파일은 덮어씁니다. (UNKCLUB 리셀러만)</value></data>
+  <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>리셀러 앱을 Emulator 폴더에 배치</value></data>
+  <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>리셀러 .exe 파일을 바탕화면 Emulator 폴더에 넣으세요.</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>리셀러 앱을 Emulator 폴더에 배치</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>마지막 단계 전에 리셀러 .exe가 바탕화면 Emulator 폴더에 있는지 확인하세요.</value></data>
+  <data name="Step_error-fix-install-prerequisites_Name" xml:space="preserve"><value>누락된 첫 설치 구성 요소 설치</value></data>
+  <data name="Step_error-fix-install-prerequisites_Description" xml:space="preserve"><value>vcredist, DirectX 등을 확인하고, 누락된 항목만 설치하고 이미 설치된 항목은 건너뜁니다.</value></data>
+  <data name="Step_error-fix-disable-defender_Name" xml:space="preserve"><value>Windows Defender 보호 비활성화</value></data>
+  <data name="Step_error-fix-disable-defender_Description" xml:space="preserve"><value>Defender Control 방식으로 Defender를 비활성화합니다. SmartScreen도 비활성화됩니다.</value></data>
+  <data name="Step_install-error-fix_Name" xml:space="preserve"><value>오류 수정 파일 설치</value></data>
+  <data name="Step_install-error-fix_Description" xml:space="preserve"><value>HataDuzeltme 폴더의 파일이 관리자 권한으로 알파벳 순서대로 실행됩니다.</value></data>
+  <data name="Step_error-fix-stop-all_Name" xml:space="preserve"><value>Vanguard 및 Riot 서비스 중지</value></data>
+  <data name="Step_error-fix-stop-all_Description" xml:space="preserve"><value>트레이에서 Vanguard 종료(Exit + Yes) 후 sc stop vgk/vgc를 실행하고 Riot Client 프로세스를 중지합니다.</value></data>
+  <data name="Step_error-fix-sc-stop_Name" xml:space="preserve"><value>sc stop으로 vgk 및 vgc 중지</value></data>
+  <data name="Step_error-fix-sc-stop_Description" xml:space="preserve"><value>관리자 권한으로 sc stop vgk 및 sc stop vgc를 실행합니다.</value></data>
+  <data name="Step_error-fix-delete-vanguard_Name" xml:space="preserve"><value>Vanguard 폴더 삭제</value></data>
+  <data name="Step_error-fix-delete-vanguard_Description" xml:space="preserve"><value>Riot Vanguard 설치 폴더를 영구적으로 삭제합니다.</value></data>
+  <data name="Step_error-fix-launch-riot_Name" xml:space="preserve"><value>Riot Client 실행</value></data>
+  <data name="Step_error-fix-launch-riot_Description" xml:space="preserve"><value>Riot Client를 엽니다. Vanguard 재설치 프롬프트가 표시됩니다.</value></data>
+  <data name="Step_error-fix-restart_Name" xml:space="preserve"><value>컴퓨터 재시작</value></data>
+  <data name="Step_error-fix-restart_Description" xml:space="preserve"><value>Vanguard 설치 완료 후 컴퓨터를 재시작합니다.</value></data>
+  <data name="Step_error-fix-verify-services_Name" xml:space="preserve"><value>Vanguard 서비스 확인</value></data>
+  <data name="Step_error-fix-verify-services_Description" xml:space="preserve"><value>재시작 후 Vanguard 서비스를 확인하고 필요 시 자동 시작으로 설정합니다.</value></data>
+  <data name="Step_error-fix-stop-vanguard_Name" xml:space="preserve"><value>Vanguard 서비스 다시 중지</value></data>
+  <data name="Step_error-fix-stop-vanguard_Description" xml:space="preserve"><value>트레이에서 Vanguard 종료(Exit + Yes) 후 sc stop vgk/vgc 및 vgtray 프로세스를 종료합니다.</value></data>
+  <data name="Step_error-fix-stop-riot_Name" xml:space="preserve"><value>Riot Client 중지</value></data>
+  <data name="Step_error-fix-stop-riot_Description" xml:space="preserve"><value>남은 Vanguard 프로세스를 종료하고 Riot Client 및 관련 서비스/프로세스를 정상적으로 종료합니다.</value></data>
+  <data name="Step_error-fix-run-unkclub_Name" xml:space="preserve"><value>UNKCLUB 애플리케이션 실행</value></data>
+  <data name="Step_error-fix-run-unkclub_Description" xml:space="preserve"><value>바탕화면 Emulator 폴더에서 에뮬레이터 애플리케이션을 관리자 권한으로 실행합니다.</value></data>
+  <data name="ErrorFix_PostRebootPrompt" xml:space="preserve"><value>재시작 후 단계가 계속됩니다. 설치를 시작하세요.</value></data>
+  <data name="ErrorFix_PostRebootResuming" xml:space="preserve"><value>재시작 후 설치가 자동으로 재개됩니다...</value></data>
+  <data name="ErrorFix_PostRebootAutoResumeTitle" xml:space="preserve"><value>오류 수정 재개</value></data>
+  <data name="ErrorFix_PostRebootAutoResumeMessage" xml:space="preserve"><value>컴퓨터가 재시작되었습니다. 오류 수정 설치 2단계가 자동으로 시작됩니다.</value></data>
+  <data name="ErrorFix_InfoTitle" xml:space="preserve"><value>정보</value></data>
+  <data name="ErrorFix_ScStopService" xml:space="preserve"><value>sc stop {0} 실행 중...</value></data>
+  <data name="ErrorFix_ScStopCompleted" xml:space="preserve"><value>sc stop으로 {0}/{1}개 서비스 중지됨.</value></data>
+  <data name="ErrorFix_ServicesStopped" xml:space="preserve"><value>{0}/{1}개 서비스 중지됨.</value></data>
+  <data name="ErrorFix_ProcessesStopped" xml:space="preserve"><value>{0}개 프로세스 중지됨.</value></data>
+  <data name="ErrorFix_ServiceNotInstalled" xml:space="preserve"><value>{0} 서비스가 설치되어 있지 않습니다.</value></data>
+  <data name="ErrorFix_ServiceAlreadyStopped" xml:space="preserve"><value>{0} 서비스가 이미 중지되었습니다.</value></data>
+  <data name="ErrorFix_FolderDeleted" xml:space="preserve"><value>폴더 삭제됨: {0}</value></data>
+  <data name="ErrorFix_FolderNotFound" xml:space="preserve"><value>폴더를 찾을 수 없음(건너뜀): {0}</value></data>
+  <data name="ErrorFix_FolderDeleteFailed" xml:space="preserve"><value>폴더를 삭제할 수 없음: {0} - {1}</value></data>
+  <data name="ErrorFix_FolderDeletePartial" xml:space="preserve"><value>일부 폴더를 삭제할 수 없습니다.</value></data>
+  <data name="ErrorFix_FoldersDeleted" xml:space="preserve"><value>{0}개 폴더 삭제됨.</value></data>
+  <data name="ErrorFix_LaunchingProgram" xml:space="preserve"><value>프로그램 시작 중: {0}</value></data>
+  <data name="ErrorFix_RiotClientLaunched" xml:space="preserve"><value>Riot Client가 시작되었습니다.</value></data>
+  <data name="ErrorFix_RiotClientNotFound" xml:space="preserve"><value>Riot Client를 찾을 수 없습니다.</value></data>
+  <data name="ErrorFix_RiotClientWaitMessage" xml:space="preserve"><value>Riot Client가 열렸습니다. Vanguard 재설치를 완료하세요. PC 재시작이 요청되면 다음 단계로 진행하세요.</value></data>
+  <data name="ErrorFix_RestartTitle" xml:space="preserve"><value>재시작</value></data>
+  <data name="ErrorFix_RestartMessage" xml:space="preserve"><value>컴퓨터가 지금 재시작됩니다. 열린 파일을 저장하세요.</value></data>
+  <data name="ErrorFix_RestartConfirmTitle" xml:space="preserve"><value>Vanguard 설치</value></data>
+  <data name="ErrorFix_RestartConfirmMessage" xml:space="preserve"><value>Vanguard 설치를 완료하고 재시작 요청을 받았습니까?</value></data>
+  <data name="ErrorFix_RestartCancelled" xml:space="preserve"><value>재시작이 취소되었습니다.</value></data>
+  <data name="ErrorFix_RestartScheduled" xml:space="preserve"><value>{0}초 후 재시작 예정.</value></data>
+  <data name="ErrorFix_ServicesVerified" xml:space="preserve"><value>Vanguard 서비스가 실행 중입니다.</value></data>
+  <data name="ErrorFix_ServicesFixed" xml:space="preserve"><value>서비스 시작 유형이 수정되었습니다.</value></data>
+  <data name="ErrorFix_ServicesNotReady" xml:space="preserve"><value>Vanguard 서비스가 준비되지 않았습니다.</value></data>
+  <data name="ErrorFix_ServicesNotReadyWarning" xml:space="preserve"><value>Vanguard 서비스가 실행 중이 아닙니다. 설치를 계속합니다.</value></data>
+  <data name="ErrorFix_ServicesNotReadyContinuing" xml:space="preserve"><value>경고: Vanguard 서비스를 시작할 수 없습니다. 다음 단계로 계속합니다.</value></data>
+  <data name="ErrorFix_StartingService" xml:space="preserve"><value>{0} 서비스 시작 중...</value></data>
+  <data name="ErrorFix_VanguardShutdownStarting" xml:space="preserve"><value>Vanguard 종료 중(트레이 + 서비스)...</value></data>
+  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Vanguard 종료: 트레이={0}, 서비스={1}, 프로세스={2}</value></data>
+  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard 중지됨: 트레이={0}, 서비스={1}, 프로세스={2}</value></data>
+  <data name="ErrorFix_VanguardTrayExitStarting" xml:space="preserve"><value>Vanguard 시스템 트레이 아이콘 검색 중...</value></data>
+  <data name="ErrorFix_VanguardTrayIconSearching" xml:space="preserve"><value>Riot Vanguard 트레이 아이콘 검색 중...</value></data>
+  <data name="ErrorFix_VanguardTrayIconFound" xml:space="preserve"><value>Riot Vanguard 트레이 아이콘을 찾았습니다. 메뉴를 엽니다...</value></data>
+  <data name="ErrorFix_VanguardTrayExpanded" xml:space="preserve"><value>숨겨진 알림 아이콘을 펼쳤습니다.</value></data>
+  <data name="ErrorFix_VanguardTrayMenuClicked" xml:space="preserve"><value>트레이 메뉴에서 '{0}' 클릭됨.</value></data>
+  <data name="ErrorFix_VanguardTrayConfirmClicked" xml:space="preserve"><value>확인 대화상자에서 '{0}' 클릭됨.</value></data>
+  <data name="ErrorFix_VanguardTrayExitSuccess" xml:space="preserve"><value>시스템 트레이를 통해 Vanguard가 성공적으로 종료되었습니다.</value></data>
+  <data name="ErrorFix_VanguardTrayExitFailed" xml:space="preserve"><value>Vanguard 트레이 자동화 실패; sc stop 및 프로세스 종료를 시도합니다.</value></data>
+  <data name="ErrorFix_VgTrayNotRunning" xml:space="preserve"><value>vgtray.exe가 실행 중이 아닙니다. 트레이 종료를 건너뜁니다.</value></data>
+  <data name="ErrorFix_ServiceWaiting" xml:space="preserve"><value>{0} 대기 중(상태: {1})...</value></data>
+  <data name="ErrorFix_SettingServiceAutomatic" xml:space="preserve"><value>{0}을(를) 자동 시작으로 설정 중...</value></data>
+  <data name="ErrorFix_RestartNeededTitle" xml:space="preserve"><value>추가 재시작</value></data>
+  <data name="ErrorFix_RestartNeededMessage" xml:space="preserve"><value>서비스 설정이 변경되었습니다. 변경 사항을 적용하려면 컴퓨터를 재시작하시겠습니까?</value></data>
+  <data name="ErrorFix_StoppingProcess" xml:space="preserve"><value>프로세스 중지 중: {0}</value></data>
+  <data name="ErrorFix_ProcessStopFailed" xml:space="preserve"><value>{0}을(를) 중지할 수 없음: {1}</value></data>
+  <data name="ErrorFix_UnkclubLaunched" xml:space="preserve"><value>UNKCLUB가 시작되었습니다.</value></data>
+  <data name="ErrorFix_UnkclubNotFound" xml:space="preserve"><value>{0} 폴더에서 {1}을(를) 찾을 수 없습니다.</value></data>
+  <data name="ErrorFix_AnyAppNotFound" xml:space="preserve"><value>바탕화면 Emulator 폴더에서 .exe 파일을 찾을 수 없습니다. 리셀러 애플리케이션을 해당 폴더에 넣어 주세요.</value></data>
+  <data name="ErrorFix_AppLaunched" xml:space="preserve"><value>에뮬레이터 애플리케이션이 시작되었습니다.</value></data>
+  <data name="ErrorFix_AppFollowStepsTitle" xml:space="preserve"><value>에뮬레이터</value></data>
+  <data name="ErrorFix_AppFollowSteps" xml:space="preserve"><value>에뮬레이터 애플리케이션이 시작되었습니다. 화면의 단계를 따르세요.</value></data>
+  <data name="ErrorFix_UnkclubFollowStepsTitle" xml:space="preserve"><value>에뮬레이터</value></data>
+  <data name="ErrorFix_UnkclubFollowSteps" xml:space="preserve"><value>UNKCLUB가 시작되었습니다. 에뮬레이터 화면의 단계를 따르세요.</value></data>
+  <data name="Feature_defender-service" xml:space="preserve"><value>Windows Defender 서비스</value></data>
+  <data name="Feature_real-time-protection" xml:space="preserve"><value>실시간 보호</value></data>
+  <data name="Feature_behavior-monitoring" xml:space="preserve"><value>동작 모니터링</value></data>
+  <data name="Feature_network-protection" xml:space="preserve"><value>네트워크 보호</value></data>
+  <data name="Feature_cloud-protection" xml:space="preserve"><value>클라우드 보호</value></data>
+  <data name="Feature_pua-protection" xml:space="preserve"><value>PUA 보호</value></data>
+  <data name="Feature_tamper-protection" xml:space="preserve"><value>변조 방지</value></data>
+  <data name="Feature_smartscreen-app" xml:space="preserve"><value>SmartScreen(앱/파일)</value></data>
+  <data name="Feature_edge-smartscreen" xml:space="preserve"><value>Edge SmartScreen</value></data>
+  <data name="StepRunning" xml:space="preserve"><value>실행 중...</value></data>
+  <data name="StepSkippedAlreadyInstalled" xml:space="preserve"><value>이미 설치됨, 건너뜀.</value></data>
+  <data name="MainProgramNotFound" xml:space="preserve"><value>메인 프로그램을 찾을 수 없습니다.</value></data>
+  <data name="UnknownStepType" xml:space="preserve"><value>알 수 없는 단계 유형: {0}</value></data>
+  <data name="CommandNotDefined" xml:space="preserve"><value>명령이 정의되지 않았습니다.</value></data>
+  <data name="CheckSuccess" xml:space="preserve"><value>확인 성공.</value></data>
+  <data name="CheckFailed" xml:space="preserve"><value>확인 실패. 종료 코드: {0}</value></data>
+  <data name="PathExistsNotDefined" xml:space="preserve"><value>pathExists가 정의되지 않았습니다.</value></data>
+  <data name="PathExists" xml:space="preserve"><value>파일 또는 폴더가 존재합니다.</value></data>
+  <data name="PathNotFound" xml:space="preserve"><value>찾을 수 없음: {0}</value></data>
+  <data name="RegistryKeyNotDefined" xml:space="preserve"><value>registryKey가 정의되지 않았습니다.</value></data>
+  <data name="RegistryCheckSuccess" xml:space="preserve"><value>레지스트리 확인 성공.</value></data>
+  <data name="RegistryNotFound" xml:space="preserve"><value>레지스트리 항목을 찾을 수 없습니다.</value></data>
+  <data name="EnvVarMissing" xml:space="preserve"><value>environmentVariable 또는 environmentExpectedContains가 없습니다.</value></data>
+  <data name="EnvCheckSuccess" xml:space="preserve"><value>환경 변수 확인 성공.</value></data>
+  <data name="EnvCheckFailed" xml:space="preserve"><value>{0}에 예상 값이 포함되어 있지 않습니다.</value></data>
+  <data name="RunningCommand" xml:space="preserve"><value>명령 실행 중: {0} {1}</value></data>
+  <data name="CommandCompleted" xml:space="preserve"><value>명령이 성공적으로 완료되었습니다.</value></data>
+  <data name="CommandFailed" xml:space="preserve"><value>명령 실패. 종료 코드: {0}</value></data>
+  <data name="InstallCompleted" xml:space="preserve"><value>설치가 완료되었습니다.</value></data>
+  <data name="InstallFailed" xml:space="preserve"><value>설치 실패. 종료 코드: {0}</value></data>
+  <data name="AdminCommandFailed" xml:space="preserve"><value>권한 상승 명령을 시작할 수 없습니다.</value></data>
+  <data name="CommandTimeout" xml:space="preserve"><value>명령 시간이 초과되었습니다.</value></data>
+  <data name="AdminCommandCompleted" xml:space="preserve"><value>권한 상승 명령이 완료되었습니다.</value></data>
+  <data name="CommandStarted" xml:space="preserve"><value>명령이 시작되었습니다.</value></data>
+  <data name="UrlNotDefined" xml:space="preserve"><value>url이 정의되지 않았습니다.</value></data>
+  <data name="Downloaded" xml:space="preserve"><value>다운로드됨: {0}</value></data>
+  <data name="FolderPathNotDefined" xml:space="preserve"><value>folderPath가 정의되지 않았습니다.</value></data>
+  <data name="FolderNotFound" xml:space="preserve"><value>폴더를 찾을 수 없음: {0}</value></data>
+  <data name="SecurityUnblockDone" xml:space="preserve"><value>설치 파일의 보안 차단이 해제되었습니다.</value></data>
+  <data name="NoInstallersInFolder" xml:space="preserve"><value>폴더에서 설치 파일을 찾을 수 없음: {0}</value></data>
+  <data name="InstallersFound" xml:space="preserve"><value>{0}개의 설치 파일을 찾았습니다.</value></data>
+  <data name="Installing" xml:space="preserve"><value>[{0}/{1}] 설치 중: {2}</value></data>
+  <data name="SkippedInstaller" xml:space="preserve"><value>[{0}/{1}] 건너뜀: {2} - {3}</value></data>
+  <data name="InstallerFailed" xml:space="preserve"><value>{0} 설치 실패: {1}</value></data>
+  <data name="InstallerCompleted" xml:space="preserve"><value>[{0}/{1}] 완료: {2}</value></data>
+  <data name="AllInstallersSuccess" xml:space="preserve"><value>{0}개의 설치 파일이 성공적으로 설치되었습니다.</value></data>
+  <data name="SourcePathNotDefined" xml:space="preserve"><value>sourcePath가 정의되지 않았습니다.</value></data>
+  <data name="SourceFileNotFound" xml:space="preserve"><value>원본 파일을 찾을 수 없음: {0}</value></data>
+  <data name="DestinationNotDefined" xml:space="preserve"><value>destinationFolder/fileName 또는 destinationPath가 정의되지 않았습니다.</value></data>
+  <data name="CopyingFile" xml:space="preserve"><value>파일 복사 중: {0} -&gt; {1}</value></data>
+  <data name="FileCopied" xml:space="preserve"><value>파일이 복사됨: {0}</value></data>
+  <data name="StepStarted" xml:space="preserve"><value>[{0}] 시작됨.</value></data>
+  <data name="StepSkipped" xml:space="preserve"><value>[{0}] 건너뜀.</value></data>
+  <data name="StepFailed" xml:space="preserve"><value>[{0}] 실패: {1}</value></data>
+  <data name="StepError" xml:space="preserve"><value>[{0}] 오류: {1}</value></data>
+  <data name="DefenderDisabling" xml:space="preserve"><value>Windows Defender 및 SmartScreen 비활성화 중...</value></data>
+  <data name="DefenderApplied" xml:space="preserve"><value>Defender 및 SmartScreen 설정이 적용되었습니다.</value></data>
+  <data name="DefenderDisabled" xml:space="preserve"><value>Defender 및 SmartScreen이 비활성화되었습니다.</value></data>
+  <data name="DefenderPartial" xml:space="preserve"><value>Defender 단계 완료(부분/선택).</value></data>
+  <data name="DefenderDisableWarning" xml:space="preserve"><value>Defender 비활성화 경고. 종료 코드: {0}</value></data>
+  <data name="DefenderExclusionsAdding" xml:space="preserve"><value>Windows Defender 예외 추가 중(잘못된 바이러스 경고 방지)...</value></data>
+  <data name="DefenderExclusionsAdded" xml:space="preserve"><value>Defender 예외가 추가되었습니다.</value></data>
+  <data name="DefenderExclusionsPartial" xml:space="preserve"><value>Defender 예외가 부분적으로 적용되었습니다.</value></data>
+  <data name="DefenderExclusionsWarning" xml:space="preserve"><value>Defender 예외 경고. 종료 코드: {0}</value></data>
+  <data name="DefenderExclusionsInfoTitle" xml:space="preserve"><value>보안 안내</value></data>
+  <data name="DefenderExclusionsInfoMessage" xml:space="preserve"><value>Windows Defender를 비활성화하는 동안 잘못된 바이러스 경고를 방지하기 위해 다음 위치에 예외가 추가되었습니다: 앱 폴더, Installers, 바탕화면\Emulator, PreInstallTool. 정상적인 보안 조치이며 설치를 계속 진행할 수 있습니다.</value></data>
+  <data name="DefenderCloudDisabling" xml:space="preserve"><value>클라우드 보호 및 샘플 제출 비활성화 중...</value></data>
+  <data name="DefenderVerifyRetry" xml:space="preserve"><value>일부 Defender 기능이 아직 켜져 있습니다. 재시도 중 ({0}/{1})...</value></data>
+  <data name="DefenderVerifyWarning" xml:space="preserve"><value>경고: 다음 Defender 기능이 아직 활성화되어 있습니다: {0}</value></data>
+  <data name="DefenderPartialActive" xml:space="preserve"><value>Defender 단계 완료; 아직 활성 기능: {0}</value></data>
+  <data name="ConfigFileNotFound" xml:space="preserve"><value>구성 파일을 찾을 수 없음: {0}</value></data>
+  <data name="ConfigFileUnreadable" xml:space="preserve"><value>구성 파일을 읽을 수 없습니다.</value></data>
+  <data name="ConfigNoModesOrSteps" xml:space="preserve"><value>최소 하나의 설치 모드 또는 단계가 정의되어야 합니다.</value></data>
+  <data name="Downloading" xml:space="preserve"><value>다운로드 중: {0}</value></data>
+  <data name="DownloadComplete" xml:space="preserve"><value>다운로드 완료: {0}</value></data>
+  <data name="InstallerAlreadyInstalledSkip" xml:space="preserve"><value>{0}이(가) 이미 설치되어 있어 건너뜁니다.</value></data>
+  <data name="InstallerAlreadyInstalledResult" xml:space="preserve"><value>{0}이(가) 이미 설치되어 있습니다.</value></data>
+  <data name="InstallerInstallingFile" xml:space="preserve"><value>{0} 설치 중...</value></data>
+  <data name="SilentInstallTryingUi" xml:space="preserve"><value>무인 설치 종료 코드: {0}. UI 자동화 시도 중...</value></data>
+  <data name="InstallCompletedAlreadyInstalled" xml:space="preserve"><value>설치 완료(이미 설치됨).</value></data>
+  <data name="LicenseAccepted" xml:space="preserve"><value>라이선스 계약이 수락되었습니다.</value></data>
+  <data name="BingBarUnchecked" xml:space="preserve"><value>Bing Bar 선택이 해제되었습니다.</value></data>
+  <data name="ButtonClicked" xml:space="preserve"><value>"{0}" 클릭됨.</value></data>
+  <data name="ConfirmButtonClicked" xml:space="preserve"><value>확인 버튼 클릭됨: {0}</value></data>
+  <data name="DirectXWizardStarting" xml:space="preserve"><value>DirectX 설치 마법사 시작 중(인수 없음)...</value></data>
+  <data name="DirectXAlreadyInstalledSkip" xml:space="preserve"><value>DirectX 런타임이 이미 설치되어 있어 건너뜁니다.</value></data>
+  <data name="DirectXAlreadyInstalledResult" xml:space="preserve"><value>DirectX가 이미 설치되어 있습니다.</value></data>
+  <data name="DirectXWindowTitle" xml:space="preserve"><value>DirectX 창: {0}</value></data>
+  <data name="DirectXDownloadingWaiting" xml:space="preserve"><value>DirectX 다운로드/설치 중, 대기 중...</value></data>
+  <data name="DirectXInstallCompleted" xml:space="preserve"><value>DirectX 설치가 완료되었습니다.</value></data>
+  <data name="DirectXProcessNotFound" xml:space="preserve"><value>DirectX 설치 프로세스를 찾을 수 없습니다.</value></data>
+  <data name="DirectXWaitingCompletion" xml:space="preserve"><value>DirectX 설치 완료 대기 중...</value></data>
+  <data name="DirectXInstallExitCode" xml:space="preserve"><value>DirectX 설치 종료 코드: {0}</value></data>
+  <data name="DirectXInstallFailed" xml:space="preserve"><value>DirectX 설치 실패. 종료 코드: {0}</value></data>
+  <data name="DirectXAutomationError" xml:space="preserve"><value>DirectX 자동화 오류: {0}</value></data>
+  <data name="StepResultLog" xml:space="preserve"><value>[{0}] {1}</value></data>
+  <data name="BtnCheckForUpdates" xml:space="preserve"><value>업데이트 확인</value></data>
+  <data name="AppVersionLabel" xml:space="preserve"><value>버전 {0}</value></data>
+  <data name="Update_Checking" xml:space="preserve"><value>업데이트 확인 중...</value></data>
+  <data name="Update_UpToDate" xml:space="preserve"><value>UNKCLUB Tool이 최신 상태입니다(버전 {0}).</value></data>
+  <data name="Update_UpToDateTitle" xml:space="preserve"><value>최신 상태</value></data>
+  <data name="Update_AvailableTitle" xml:space="preserve"><value>업데이트 사용 가능</value></data>
+  <data name="Update_AvailableMessage" xml:space="preserve"><value>새 버전 {0}을(를) 사용할 수 있습니다.{1}{1}{2}{1}{1}지금 다운로드하여 설치하시겠습니까?</value></data>
+  <data name="Update_NoReleaseNotes" xml:space="preserve"><value>릴리스 노트 없음.</value></data>
+  <data name="Update_Downloading" xml:space="preserve"><value>업데이트 다운로드 중...</value></data>
+  <data name="Update_DownloadFailed" xml:space="preserve"><value>업데이트를 다운로드할 수 없습니다: {0}</value></data>
+  <data name="Update_RestartPrompt" xml:space="preserve"><value>업데이트를 적용 중입니다. 애플리케이션이 다시 시작됩니다.</value></data>
+  <data name="Update_RestartTitle" xml:space="preserve"><value>업데이트</value></data>
+  <data name="Update_CheckFailed" xml:space="preserve"><value>업데이트를 확인할 수 없습니다: {0}</value></data>
+  <data name="Update_CheckFailedTitle" xml:space="preserve"><value>업데이트 오류</value></data>
+</root>

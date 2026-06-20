@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="WindowTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="DefenderStatusTitle" xml:space="preserve"><value>Defender 状态</value></data>
+  <data name="DefenderNotReadYet" xml:space="preserve"><value>尚未读取</value></data>
+  <data name="DefenderLastUpdated" xml:space="preserve"><value>上次更新：{0}</value></data>
+  <data name="DefenderReadFailed" xml:space="preserve"><value>无法读取状态</value></data>
+  <data name="LegendEnabled" xml:space="preserve"><value>开启 / 已启用</value></data>
+  <data name="LegendDisabled" xml:space="preserve"><value>关闭 / 已禁用</value></data>
+  <data name="LanguageLabel" xml:space="preserve"><value>语言</value></data>
+  <data name="OptionLabel" xml:space="preserve"><value>安装模式</value></data>
+  <data name="ResellerLabel" xml:space="preserve"><value>经销商选择</value></data>
+  <data name="AppTagline" xml:space="preserve"><value>模拟器安装与错误修复工具</value></data>
+  <data name="LogLabel" xml:space="preserve"><value>日志</value></data>
+  <data name="BtnStartInstall" xml:space="preserve"><value>开始安装</value></data>
+  <data name="BtnCancel" xml:space="preserve"><value>取消</value></data>
+  <data name="BtnLaunchMainProgram" xml:space="preserve"><value>启动主程序</value></data>
+  <data name="PromptSelectOption" xml:space="preserve"><value>请选择一个选项。</value></data>
+  <data name="PromptSelectModeAndStart" xml:space="preserve"><value>选择经销商和模式，然后开始安装。</value></data>
+  <data name="ConfigLoaded" xml:space="preserve"><value>配置已加载。</value></data>
+  <data name="ConfigLoadFailed" xml:space="preserve"><value>无法加载配置。</value></data>
+  <data name="ConfigErrorTitle" xml:space="preserve"><value>配置错误</value></data>
+  <data name="ModeSelectedStatus" xml:space="preserve"><value>已选择 {0}。您可以开始安装。</value></data>
+  <data name="ModeSelectedLog" xml:space="preserve"><value>已选择 {0} 模式。</value></data>
+  <data name="InstallStarted" xml:space="preserve"><value>{0} 已开始。</value></data>
+  <data name="ProgressFormat" xml:space="preserve"><value>{0}/{1} - {2}：{3}</value></data>
+  <data name="InstallCompletedErrors" xml:space="preserve"><value>{0} 已完成，但存在错误。</value></data>
+  <data name="InstallCompletedSuccess" xml:space="preserve"><value>{0} 已成功完成。</value></data>
+  <data name="InstallCancelled" xml:space="preserve"><value>安装已取消。</value></data>
+  <data name="UnexpectedError" xml:space="preserve"><value>发生了意外错误。</value></data>
+  <data name="UnexpectedErrorTitle" xml:space="preserve"><value>错误</value></data>
+  <data name="AutoStart_StartedWithContinueArg" xml:space="preserve"><value>应用程序以 --continue-error-fix 参数启动。</value></data>
+  <data name="AutoStart_ContinueRequested" xml:space="preserve"><value>检测到重启后继续请求。</value></data>
+  <data name="AutoStart_ErrorFixResuming" xml:space="preserve"><value>重启后继续错误修复流程。</value></data>
+  <data name="AutoStart_StateSavedPostRebootPending" xml:space="preserve"><value>错误修复状态已保存为 PostRebootPending：{0}</value></data>
+  <data name="MainProgramLaunched" xml:space="preserve"><value>主程序已启动。</value></data>
+  <data name="MainProgramLaunchFailed" xml:space="preserve"><value>无法启动主程序：{0}</value></data>
+  <data name="LaunchErrorTitle" xml:space="preserve"><value>启动错误</value></data>
+  <data name="ErrorPrefix" xml:space="preserve"><value>错误：</value></data>
+  <data name="LegacyModeName" xml:space="preserve"><value>安装</value></data>
+  <data name="StepPending" xml:space="preserve"><value>等待中</value></data>
+  <data name="AppName_Localized" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="AppDescription_Localized" xml:space="preserve"><value>选择经销商和安装模式，然后开始安装。</value></data>
+  <data name="ResellerSelectedStatus" xml:space="preserve"><value>已选择 {0} 经销商、{1} 模式。可以开始安装。</value></data>
+  <data name="Reseller_unkclub_Name" xml:space="preserve"><value>UNKCLUB</value></data>
+  <data name="Reseller_unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe 将自动复制到桌面 Emulator 文件夹。</value></data>
+  <data name="Reseller_other_Name" xml:space="preserve"><value>其他经销商</value></data>
+  <data name="Reseller_other_Description" xml:space="preserve"><value>将您自己的经销商 .exe 放入桌面 Emulator 文件夹。</value></data>
+  <data name="Reseller_OtherPromptTitle" xml:space="preserve"><value>模拟器应用</value></data>
+  <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>请将经销商应用的 .exe 文件放入桌面 Emulator 文件夹。最后一步将以管理员身份运行。</value></data>
+  <data name="Mode_first-install_Name" xml:space="preserve"><value>首次安装</value></data>
+  <data name="Mode_first-install_Description" xml:space="preserve"><value>首次设置时，所有必需组件将按顺序安装。安装文件已随应用程序打包。</value></data>
+  <data name="Mode_error-fix_Name" xml:space="preserve"><value>错误修复</value></data>
+  <data name="Mode_error-fix_Description" xml:space="preserve"><value>修复 Vanguard 和 Riot Client 问题。重启后安装将自动继续。</value></data>
+  <data name="Step_set-uac-lowest_Name" xml:space="preserve"><value>将 UAC 级别设为最低</value></data>
+  <data name="Step_set-uac-lowest_Description" xml:space="preserve"><value>用户帐户控制 (UAC) 设置为"从不通知"。可能需要重启才能完全生效。</value></data>
+  <data name="Step_disable-defender_Name" xml:space="preserve"><value>禁用 Windows Defender 保护</value></data>
+  <data name="Step_disable-defender_Description" xml:space="preserve"><value>使用 Defender Control 方法禁用 Defender。SmartScreen 也会被禁用。如果未安装 Defender，此步骤将安全跳过。</value></data>
+  <data name="Step_install-first-setup_Name" xml:space="preserve"><value>安装首次设置文件</value></data>
+  <data name="Step_install-first-setup_Description" xml:space="preserve"><value>嵌入式安装文件将以管理员身份按字母顺序运行。已安装的 vcredist 和 DirectX 组件将被跳过。</value></data>
+  <data name="Step_deploy-unkclub_Name" xml:space="preserve"><value>将 UNKCLUB 应用复制到桌面</value></data>
+  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe 复制到桌面 Emulator 文件夹。若文件夹不存在则创建；现有文件将被覆盖。（仅 UNKCLUB 经销商）</value></data>
+  <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>将经销商应用放入 Emulator 文件夹</value></data>
+  <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>将经销商 .exe 文件放入桌面 Emulator 文件夹。</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>将经销商应用放入 Emulator 文件夹</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>最后一步之前，请确保经销商 .exe 已在桌面 Emulator 文件夹中。</value></data>
+  <data name="Step_error-fix-install-prerequisites_Name" xml:space="preserve"><value>安装缺失的首次安装组件</value></data>
+  <data name="Step_error-fix-install-prerequisites_Description" xml:space="preserve"><value>检查 vcredist、DirectX 等文件；安装缺失项，跳过已安装项。</value></data>
+  <data name="Step_error-fix-disable-defender_Name" xml:space="preserve"><value>禁用 Windows Defender 保护</value></data>
+  <data name="Step_error-fix-disable-defender_Description" xml:space="preserve"><value>使用 Defender Control 方法禁用 Defender，同时禁用 SmartScreen。</value></data>
+  <data name="Step_install-error-fix_Name" xml:space="preserve"><value>安装错误修复文件</value></data>
+  <data name="Step_install-error-fix_Description" xml:space="preserve"><value>HataDuzeltme 文件夹中的文件将以管理员身份按字母顺序运行。</value></data>
+  <data name="Step_error-fix-stop-all_Name" xml:space="preserve"><value>停止 Vanguard 和 Riot 服务</value></data>
+  <data name="Step_error-fix-stop-all_Description" xml:space="preserve"><value>通过托盘退出 Vanguard（Exit + 是），执行 sc stop vgk/vgc，然后停止 Riot Client 进程。</value></data>
+  <data name="Step_error-fix-sc-stop_Name" xml:space="preserve"><value>使用 sc stop 停止 vgk 和 vgc</value></data>
+  <data name="Step_error-fix-sc-stop_Description" xml:space="preserve"><value>以管理员身份运行 sc stop vgk 和 sc stop vgc。</value></data>
+  <data name="Step_error-fix-delete-vanguard_Name" xml:space="preserve"><value>删除 Vanguard 文件夹</value></data>
+  <data name="Step_error-fix-delete-vanguard_Description" xml:space="preserve"><value>永久删除 Riot Vanguard 安装文件夹。</value></data>
+  <data name="Step_error-fix-launch-riot_Name" xml:space="preserve"><value>启动 Riot Client</value></data>
+  <data name="Step_error-fix-launch-riot_Description" xml:space="preserve"><value>打开 Riot Client；将出现 Vanguard 重新安装提示。</value></data>
+  <data name="Step_error-fix-restart_Name" xml:space="preserve"><value>重启计算机</value></data>
+  <data name="Step_error-fix-restart_Description" xml:space="preserve"><value>Vanguard 安装完成后重启计算机。</value></data>
+  <data name="Step_error-fix-verify-services_Name" xml:space="preserve"><value>验证 Vanguard 服务</value></data>
+  <data name="Step_error-fix-verify-services_Description" xml:space="preserve"><value>重启后检查 Vanguard 服务，必要时设置为自动启动。</value></data>
+  <data name="Step_error-fix-stop-vanguard_Name" xml:space="preserve"><value>再次停止 Vanguard 服务</value></data>
+  <data name="Step_error-fix-stop-vanguard_Description" xml:space="preserve"><value>通过托盘退出 Vanguard（Exit + 是），然后执行 sc stop vgk/vgc 并结束 vgtray。</value></data>
+  <data name="Step_error-fix-stop-riot_Name" xml:space="preserve"><value>停止 Riot Client</value></data>
+  <data name="Step_error-fix-stop-riot_Description" xml:space="preserve"><value>停止剩余的 Vanguard 进程；优雅关闭 Riot Client 及相关服务/进程。</value></data>
+  <data name="Step_error-fix-run-unkclub_Name" xml:space="preserve"><value>运行 UNKCLUB 应用程序</value></data>
+  <data name="Step_error-fix-run-unkclub_Description" xml:space="preserve"><value>从桌面 Emulator 文件夹以管理员身份启动模拟器应用。</value></data>
+  <data name="ErrorFix_PostRebootPrompt" xml:space="preserve"><value>将继续执行重启后的步骤。请开始安装。</value></data>
+  <data name="ErrorFix_PostRebootResuming" xml:space="preserve"><value>重启后安装正在自动继续...</value></data>
+  <data name="ErrorFix_PostRebootAutoResumeTitle" xml:space="preserve"><value>错误修复继续</value></data>
+  <data name="ErrorFix_PostRebootAutoResumeMessage" xml:space="preserve"><value>计算机已重启。错误修复安装的第 2 阶段将自动开始。</value></data>
+  <data name="ErrorFix_InfoTitle" xml:space="preserve"><value>信息</value></data>
+  <data name="ErrorFix_ScStopService" xml:space="preserve"><value>正在运行 sc stop {0}...</value></data>
+  <data name="ErrorFix_ScStopCompleted" xml:space="preserve"><value>已通过 sc stop 停止 {0}/{1} 个服务。</value></data>
+  <data name="ErrorFix_ServicesStopped" xml:space="preserve"><value>已停止 {0}/{1} 个服务。</value></data>
+  <data name="ErrorFix_ProcessesStopped" xml:space="preserve"><value>已停止 {0} 个进程。</value></data>
+  <data name="ErrorFix_ServiceNotInstalled" xml:space="preserve"><value>服务 {0} 未安装。</value></data>
+  <data name="ErrorFix_ServiceAlreadyStopped" xml:space="preserve"><value>服务 {0} 已停止。</value></data>
+  <data name="ErrorFix_FolderDeleted" xml:space="preserve"><value>已删除文件夹：{0}</value></data>
+  <data name="ErrorFix_FolderNotFound" xml:space="preserve"><value>未找到文件夹（已跳过）：{0}</value></data>
+  <data name="ErrorFix_FolderDeleteFailed" xml:space="preserve"><value>无法删除文件夹：{0} - {1}</value></data>
+  <data name="ErrorFix_FolderDeletePartial" xml:space="preserve"><value>部分文件夹无法删除。</value></data>
+  <data name="ErrorFix_FoldersDeleted" xml:space="preserve"><value>已删除 {0} 个文件夹。</value></data>
+  <data name="ErrorFix_LaunchingProgram" xml:space="preserve"><value>正在启动程序：{0}</value></data>
+  <data name="ErrorFix_RiotClientLaunched" xml:space="preserve"><value>Riot Client 已启动。</value></data>
+  <data name="ErrorFix_RiotClientNotFound" xml:space="preserve"><value>未找到 Riot Client。</value></data>
+  <data name="ErrorFix_RiotClientWaitMessage" xml:space="preserve"><value>Riot Client 已打开。请完成 Vanguard 重新安装。当提示重启 PC 时，请继续下一步。</value></data>
+  <data name="ErrorFix_RestartTitle" xml:space="preserve"><value>重启</value></data>
+  <data name="ErrorFix_RestartMessage" xml:space="preserve"><value>计算机即将重启。请保存打开的文件。</value></data>
+  <data name="ErrorFix_RestartConfirmTitle" xml:space="preserve"><value>Vanguard 安装</value></data>
+  <data name="ErrorFix_RestartConfirmMessage" xml:space="preserve"><value>您是否已完成 Vanguard 安装并收到重启提示？</value></data>
+  <data name="ErrorFix_RestartCancelled" xml:space="preserve"><value>已取消重启。</value></data>
+  <data name="ErrorFix_RestartScheduled" xml:space="preserve"><value>将在 {0} 秒后重启。</value></data>
+  <data name="ErrorFix_ServicesVerified" xml:space="preserve"><value>Vanguard 服务正在运行。</value></data>
+  <data name="ErrorFix_ServicesFixed" xml:space="preserve"><value>服务启动类型已修复。</value></data>
+  <data name="ErrorFix_ServicesNotReady" xml:space="preserve"><value>Vanguard 服务未就绪。</value></data>
+  <data name="ErrorFix_ServicesNotReadyWarning" xml:space="preserve"><value>Vanguard 服务未运行；继续安装。</value></data>
+  <data name="ErrorFix_ServicesNotReadyContinuing" xml:space="preserve"><value>警告：无法启动 Vanguard 服务。继续下一步。</value></data>
+  <data name="ErrorFix_StartingService" xml:space="preserve"><value>正在启动服务 {0}...</value></data>
+  <data name="ErrorFix_VanguardShutdownStarting" xml:space="preserve"><value>正在关闭 Vanguard（托盘 + 服务）...</value></data>
+  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Vanguard 关闭：托盘={0}，服务={1}，进程={2}</value></data>
+  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard 已停止：托盘={0}，服务={1}，进程={2}</value></data>
+  <data name="ErrorFix_VanguardTrayExitStarting" xml:space="preserve"><value>正在搜索 Vanguard 系统托盘图标...</value></data>
+  <data name="ErrorFix_VanguardTrayIconSearching" xml:space="preserve"><value>正在搜索 Riot Vanguard 托盘图标...</value></data>
+  <data name="ErrorFix_VanguardTrayIconFound" xml:space="preserve"><value>找到 Riot Vanguard 托盘图标，正在打开菜单...</value></data>
+  <data name="ErrorFix_VanguardTrayExpanded" xml:space="preserve"><value>已展开隐藏的通知图标。</value></data>
+  <data name="ErrorFix_VanguardTrayMenuClicked" xml:space="preserve"><value>在托盘菜单中点击了“{0}”。</value></data>
+  <data name="ErrorFix_VanguardTrayConfirmClicked" xml:space="preserve"><value>在确认对话框中点击了“{0}”。</value></data>
+  <data name="ErrorFix_VanguardTrayExitSuccess" xml:space="preserve"><value>已通过系统托盘成功退出 Vanguard。</value></data>
+  <data name="ErrorFix_VanguardTrayExitFailed" xml:space="preserve"><value>Vanguard 托盘自动化失败；尝试 sc stop 和进程终止。</value></data>
+  <data name="ErrorFix_VgTrayNotRunning" xml:space="preserve"><value>vgtray.exe 未运行；跳过托盘退出。</value></data>
+  <data name="ErrorFix_ServiceWaiting" xml:space="preserve"><value>正在等待 {0}（状态：{1}）...</value></data>
+  <data name="ErrorFix_SettingServiceAutomatic" xml:space="preserve"><value>正在将 {0} 设置为自动启动...</value></data>
+  <data name="ErrorFix_RestartNeededTitle" xml:space="preserve"><value>额外重启</value></data>
+  <data name="ErrorFix_RestartNeededMessage" xml:space="preserve"><value>服务设置已更改。是否重启计算机以应用更改？</value></data>
+  <data name="ErrorFix_StoppingProcess" xml:space="preserve"><value>正在停止进程：{0}</value></data>
+  <data name="ErrorFix_ProcessStopFailed" xml:space="preserve"><value>无法停止 {0}：{1}</value></data>
+  <data name="ErrorFix_UnkclubLaunched" xml:space="preserve"><value>UNKCLUB 已启动。</value></data>
+  <data name="ErrorFix_UnkclubNotFound" xml:space="preserve"><value>在 {0} 文件夹中未找到 {1}。</value></data>
+  <data name="ErrorFix_AnyAppNotFound" xml:space="preserve"><value>桌面 Emulator 文件夹中未找到 .exe 文件。请将经销商应用放入该文件夹。</value></data>
+  <data name="ErrorFix_AppLaunched" xml:space="preserve"><value>模拟器应用已启动。</value></data>
+  <data name="ErrorFix_AppFollowStepsTitle" xml:space="preserve"><value>模拟器</value></data>
+  <data name="ErrorFix_AppFollowSteps" xml:space="preserve"><value>模拟器应用已启动。请按照屏幕上的步骤操作。</value></data>
+  <data name="ErrorFix_UnkclubFollowStepsTitle" xml:space="preserve"><value>模拟器</value></data>
+  <data name="ErrorFix_UnkclubFollowSteps" xml:space="preserve"><value>UNKCLUB 已启动。请按照模拟器屏幕上的步骤操作。</value></data>
+  <data name="Feature_defender-service" xml:space="preserve"><value>Windows Defender 服务</value></data>
+  <data name="Feature_real-time-protection" xml:space="preserve"><value>实时保护</value></data>
+  <data name="Feature_behavior-monitoring" xml:space="preserve"><value>行为监控</value></data>
+  <data name="Feature_network-protection" xml:space="preserve"><value>网络保护</value></data>
+  <data name="Feature_cloud-protection" xml:space="preserve"><value>云保护</value></data>
+  <data name="Feature_pua-protection" xml:space="preserve"><value>PUA 保护</value></data>
+  <data name="Feature_tamper-protection" xml:space="preserve"><value>篡改保护</value></data>
+  <data name="Feature_smartscreen-app" xml:space="preserve"><value>SmartScreen（应用/文件）</value></data>
+  <data name="Feature_edge-smartscreen" xml:space="preserve"><value>Edge SmartScreen</value></data>
+  <data name="StepRunning" xml:space="preserve"><value>正在运行...</value></data>
+  <data name="StepSkippedAlreadyInstalled" xml:space="preserve"><value>已安装，已跳过。</value></data>
+  <data name="MainProgramNotFound" xml:space="preserve"><value>未找到主程序。</value></data>
+  <data name="UnknownStepType" xml:space="preserve"><value>未知的步骤类型：{0}</value></data>
+  <data name="CommandNotDefined" xml:space="preserve"><value>未定义命令。</value></data>
+  <data name="CheckSuccess" xml:space="preserve"><value>检查成功。</value></data>
+  <data name="CheckFailed" xml:space="preserve"><value>检查失败。退出代码：{0}</value></data>
+  <data name="PathExistsNotDefined" xml:space="preserve"><value>未定义 pathExists。</value></data>
+  <data name="PathExists" xml:space="preserve"><value>文件或文件夹存在。</value></data>
+  <data name="PathNotFound" xml:space="preserve"><value>未找到：{0}</value></data>
+  <data name="RegistryKeyNotDefined" xml:space="preserve"><value>未定义 registryKey。</value></data>
+  <data name="RegistryCheckSuccess" xml:space="preserve"><value>注册表检查成功。</value></data>
+  <data name="RegistryNotFound" xml:space="preserve"><value>未找到注册表项。</value></data>
+  <data name="EnvVarMissing" xml:space="preserve"><value>缺少 environmentVariable 或 environmentExpectedContains。</value></data>
+  <data name="EnvCheckSuccess" xml:space="preserve"><value>环境变量检查成功。</value></data>
+  <data name="EnvCheckFailed" xml:space="preserve"><value>{0} 不包含预期值。</value></data>
+  <data name="RunningCommand" xml:space="preserve"><value>正在运行命令：{0} {1}</value></data>
+  <data name="CommandCompleted" xml:space="preserve"><value>命令已成功完成。</value></data>
+  <data name="CommandFailed" xml:space="preserve"><value>命令失败。退出代码：{0}</value></data>
+  <data name="InstallCompleted" xml:space="preserve"><value>安装已完成。</value></data>
+  <data name="InstallFailed" xml:space="preserve"><value>安装失败。退出代码：{0}</value></data>
+  <data name="AdminCommandFailed" xml:space="preserve"><value>无法启动提升权限的命令。</value></data>
+  <data name="CommandTimeout" xml:space="preserve"><value>命令超时。</value></data>
+  <data name="AdminCommandCompleted" xml:space="preserve"><value>提升权限的命令已完成。</value></data>
+  <data name="CommandStarted" xml:space="preserve"><value>命令已启动。</value></data>
+  <data name="UrlNotDefined" xml:space="preserve"><value>未定义 url。</value></data>
+  <data name="Downloaded" xml:space="preserve"><value>已下载：{0}</value></data>
+  <data name="FolderPathNotDefined" xml:space="preserve"><value>未定义 folderPath。</value></data>
+  <data name="FolderNotFound" xml:space="preserve"><value>未找到文件夹：{0}</value></data>
+  <data name="SecurityUnblockDone" xml:space="preserve"><value>已解除安装文件的安全阻止。</value></data>
+  <data name="NoInstallersInFolder" xml:space="preserve"><value>文件夹中未找到安装文件：{0}</value></data>
+  <data name="InstallersFound" xml:space="preserve"><value>找到 {0} 个安装文件。</value></data>
+  <data name="Installing" xml:space="preserve"><value>[{0}/{1}] 正在安装：{2}</value></data>
+  <data name="SkippedInstaller" xml:space="preserve"><value>[{0}/{1}] 已跳过：{2} - {3}</value></data>
+  <data name="InstallerFailed" xml:space="preserve"><value>{0} 安装失败：{1}</value></data>
+  <data name="InstallerCompleted" xml:space="preserve"><value>[{0}/{1}] 已完成：{2}</value></data>
+  <data name="AllInstallersSuccess" xml:space="preserve"><value>{0} 个安装文件已成功安装。</value></data>
+  <data name="SourcePathNotDefined" xml:space="preserve"><value>未定义 sourcePath。</value></data>
+  <data name="SourceFileNotFound" xml:space="preserve"><value>未找到源文件：{0}</value></data>
+  <data name="DestinationNotDefined" xml:space="preserve"><value>未定义 destinationFolder/fileName 或 destinationPath。</value></data>
+  <data name="CopyingFile" xml:space="preserve"><value>正在复制文件：{0} -&gt; {1}</value></data>
+  <data name="FileCopied" xml:space="preserve"><value>文件已复制：{0}</value></data>
+  <data name="StepStarted" xml:space="preserve"><value>[{0}] 已开始。</value></data>
+  <data name="StepSkipped" xml:space="preserve"><value>[{0}] 已跳过。</value></data>
+  <data name="StepFailed" xml:space="preserve"><value>[{0}] 失败：{1}</value></data>
+  <data name="StepError" xml:space="preserve"><value>[{0}] 错误：{1}</value></data>
+  <data name="DefenderDisabling" xml:space="preserve"><value>正在禁用 Windows Defender 和 SmartScreen...</value></data>
+  <data name="DefenderApplied" xml:space="preserve"><value>Defender 和 SmartScreen 设置已应用。</value></data>
+  <data name="DefenderDisabled" xml:space="preserve"><value>Defender 和 SmartScreen 已禁用。</value></data>
+  <data name="DefenderPartial" xml:space="preserve"><value>Defender 步骤已完成（部分/可选）。</value></data>
+  <data name="DefenderDisableWarning" xml:space="preserve"><value>Defender 禁用警告。退出代码：{0}</value></data>
+  <data name="DefenderExclusionsAdding" xml:space="preserve"><value>正在添加 Windows Defender 排除项（防止误报病毒）...</value></data>
+  <data name="DefenderExclusionsAdded" xml:space="preserve"><value>Defender 排除项已添加。</value></data>
+  <data name="DefenderExclusionsPartial" xml:space="preserve"><value>Defender 排除项部分应用。</value></data>
+  <data name="DefenderExclusionsWarning" xml:space="preserve"><value>Defender 排除项警告。退出代码：{0}</value></data>
+  <data name="DefenderExclusionsInfoTitle" xml:space="preserve"><value>安全提示</value></data>
+  <data name="DefenderExclusionsInfoMessage" xml:space="preserve"><value>为防止在禁用 Windows Defender 时出现误报病毒警告，已为以下位置添加排除项：应用文件夹、Installers、桌面\Emulator 和 PreInstallTool。这是正常的安全预防措施，您可以继续安装。</value></data>
+  <data name="DefenderCloudDisabling" xml:space="preserve"><value>正在禁用云提供的保护和样本提交...</value></data>
+  <data name="DefenderVerifyRetry" xml:space="preserve"><value>部分 Defender 功能仍处于开启状态，正在重试 ({0}/{1})...</value></data>
+  <data name="DefenderVerifyWarning" xml:space="preserve"><value>警告：以下 Defender 功能仍处于开启状态：{0}</value></data>
+  <data name="DefenderPartialActive" xml:space="preserve"><value>Defender 步骤已完成；仍开启的功能：{0}</value></data>
+  <data name="ConfigFileNotFound" xml:space="preserve"><value>未找到配置文件：{0}</value></data>
+  <data name="ConfigFileUnreadable" xml:space="preserve"><value>无法读取配置文件。</value></data>
+  <data name="ConfigNoModesOrSteps" xml:space="preserve"><value>必须至少定义一个安装模式或步骤。</value></data>
+  <data name="Downloading" xml:space="preserve"><value>正在下载：{0}</value></data>
+  <data name="DownloadComplete" xml:space="preserve"><value>下载完成：{0}</value></data>
+  <data name="InstallerAlreadyInstalledSkip" xml:space="preserve"><value>{0} 已安装，跳过。</value></data>
+  <data name="InstallerAlreadyInstalledResult" xml:space="preserve"><value>{0} 已安装。</value></data>
+  <data name="InstallerInstallingFile" xml:space="preserve"><value>正在安装 {0}...</value></data>
+  <data name="SilentInstallTryingUi" xml:space="preserve"><value>静默安装退出代码：{0}。正在尝试 UI 自动化...</value></data>
+  <data name="InstallCompletedAlreadyInstalled" xml:space="preserve"><value>安装完成（已安装）。</value></data>
+  <data name="LicenseAccepted" xml:space="preserve"><value>已接受许可协议。</value></data>
+  <data name="BingBarUnchecked" xml:space="preserve"><value>已取消 Bing Bar 选择。</value></data>
+  <data name="ButtonClicked" xml:space="preserve"><value>已点击 "{0}"。</value></data>
+  <data name="ConfirmButtonClicked" xml:space="preserve"><value>已点击确认按钮：{0}</value></data>
+  <data name="DirectXWizardStarting" xml:space="preserve"><value>正在启动 DirectX 安装向导（无参数）...</value></data>
+  <data name="DirectXAlreadyInstalledSkip" xml:space="preserve"><value>DirectX 运行库已安装，跳过。</value></data>
+  <data name="DirectXAlreadyInstalledResult" xml:space="preserve"><value>DirectX 已安装。</value></data>
+  <data name="DirectXWindowTitle" xml:space="preserve"><value>DirectX 窗口：{0}</value></data>
+  <data name="DirectXDownloadingWaiting" xml:space="preserve"><value>DirectX 正在下载/安装，等待中...</value></data>
+  <data name="DirectXInstallCompleted" xml:space="preserve"><value>DirectX 安装完成。</value></data>
+  <data name="DirectXProcessNotFound" xml:space="preserve"><value>未找到 DirectX 安装进程。</value></data>
+  <data name="DirectXWaitingCompletion" xml:space="preserve"><value>等待 DirectX 安装完成...</value></data>
+  <data name="DirectXInstallExitCode" xml:space="preserve"><value>DirectX 安装退出代码：{0}</value></data>
+  <data name="DirectXInstallFailed" xml:space="preserve"><value>DirectX 安装失败。退出代码：{0}</value></data>
+  <data name="DirectXAutomationError" xml:space="preserve"><value>DirectX 自动化错误：{0}</value></data>
+  <data name="StepResultLog" xml:space="preserve"><value>[{0}] {1}</value></data>
+  <data name="BtnCheckForUpdates" xml:space="preserve"><value>检查更新</value></data>
+  <data name="AppVersionLabel" xml:space="preserve"><value>版本 {0}</value></data>
+  <data name="Update_Checking" xml:space="preserve"><value>正在检查更新...</value></data>
+  <data name="Update_UpToDate" xml:space="preserve"><value>UNKCLUB Tool 已是最新版本（{0}）。</value></data>
+  <data name="Update_UpToDateTitle" xml:space="preserve"><value>已是最新</value></data>
+  <data name="Update_AvailableTitle" xml:space="preserve"><value>有可用更新</value></data>
+  <data name="Update_AvailableMessage" xml:space="preserve"><value>新版本 {0} 可用。{1}{1}{2}{1}{1}是否立即下载并安装？</value></data>
+  <data name="Update_NoReleaseNotes" xml:space="preserve"><value>无版本说明。</value></data>
+  <data name="Update_Downloading" xml:space="preserve"><value>正在下载更新...</value></data>
+  <data name="Update_DownloadFailed" xml:space="preserve"><value>无法下载更新：{0}</value></data>
+  <data name="Update_RestartPrompt" xml:space="preserve"><value>正在应用更新，应用程序将重新启动。</value></data>
+  <data name="Update_RestartTitle" xml:space="preserve"><value>更新</value></data>
+  <data name="Update_CheckFailed" xml:space="preserve"><value>无法检查更新：{0}</value></data>
+  <data name="Update_CheckFailedTitle" xml:space="preserve"><value>更新错误</value></data>
+</root>

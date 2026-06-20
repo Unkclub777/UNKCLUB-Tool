@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="WindowTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="DefenderStatusTitle" xml:space="preserve"><value>État de Defender</value></data>
+  <data name="DefenderNotReadYet" xml:space="preserve"><value>Pas encore lu</value></data>
+  <data name="DefenderLastUpdated" xml:space="preserve"><value>Dernière mise à jour : {0}</value></data>
+  <data name="DefenderReadFailed" xml:space="preserve"><value>Impossible de lire l'état</value></data>
+  <data name="LegendEnabled" xml:space="preserve"><value>Activé</value></data>
+  <data name="LegendDisabled" xml:space="preserve"><value>Désactivé</value></data>
+  <data name="LanguageLabel" xml:space="preserve"><value>Langue</value></data>
+  <data name="OptionLabel" xml:space="preserve"><value>Mode d'installation</value></data>
+  <data name="ResellerLabel" xml:space="preserve"><value>Sélection du revendeur</value></data>
+  <data name="AppTagline" xml:space="preserve"><value>Outil d'installation et de correction d'émulateur</value></data>
+  <data name="LogLabel" xml:space="preserve"><value>Journal</value></data>
+  <data name="BtnStartInstall" xml:space="preserve"><value>Démarrer l'installation</value></data>
+  <data name="BtnCancel" xml:space="preserve"><value>Annuler</value></data>
+  <data name="BtnLaunchMainProgram" xml:space="preserve"><value>Lancer le programme principal</value></data>
+  <data name="PromptSelectOption" xml:space="preserve"><value>Veuillez sélectionner une option.</value></data>
+  <data name="PromptSelectModeAndStart" xml:space="preserve"><value>Sélectionnez le revendeur et le mode, puis démarrez l'installation.</value></data>
+  <data name="ConfigLoaded" xml:space="preserve"><value>Configuration chargée.</value></data>
+  <data name="ConfigLoadFailed" xml:space="preserve"><value>Impossible de charger la configuration.</value></data>
+  <data name="ConfigErrorTitle" xml:space="preserve"><value>Erreur de configuration</value></data>
+  <data name="ModeSelectedStatus" xml:space="preserve"><value>{0} sélectionné. Vous pouvez démarrer l'installation.</value></data>
+  <data name="ModeSelectedLog" xml:space="preserve"><value>Mode {0} sélectionné.</value></data>
+  <data name="InstallStarted" xml:space="preserve"><value>{0} démarré.</value></data>
+  <data name="ProgressFormat" xml:space="preserve"><value>{0}/{1} - {2} : {3}</value></data>
+  <data name="InstallCompletedErrors" xml:space="preserve"><value>{0} terminé avec des erreurs.</value></data>
+  <data name="InstallCompletedSuccess" xml:space="preserve"><value>{0} terminé avec succès.</value></data>
+  <data name="InstallCancelled" xml:space="preserve"><value>Installation annulée.</value></data>
+  <data name="UnexpectedError" xml:space="preserve"><value>Une erreur inattendue s'est produite.</value></data>
+  <data name="UnexpectedErrorTitle" xml:space="preserve"><value>Erreur</value></data>
+  <data name="AutoStart_StartedWithContinueArg" xml:space="preserve"><value>Application démarrée avec l'argument --continue-error-fix.</value></data>
+  <data name="AutoStart_ContinueRequested" xml:space="preserve"><value>Demande de reprise post-redémarrage détectée.</value></data>
+  <data name="AutoStart_ErrorFixResuming" xml:space="preserve"><value>Reprise du flux de correction d'erreurs après redémarrage.</value></data>
+  <data name="AutoStart_StateSavedPostRebootPending" xml:space="preserve"><value>État de correction enregistré comme PostRebootPending : {0}</value></data>
+  <data name="MainProgramLaunched" xml:space="preserve"><value>Programme principal lancé.</value></data>
+  <data name="MainProgramLaunchFailed" xml:space="preserve"><value>Impossible de lancer le programme principal : {0}</value></data>
+  <data name="LaunchErrorTitle" xml:space="preserve"><value>Erreur de lancement</value></data>
+  <data name="ErrorPrefix" xml:space="preserve"><value>ERREUR :</value></data>
+  <data name="LegacyModeName" xml:space="preserve"><value>Installation</value></data>
+  <data name="StepPending" xml:space="preserve"><value>En attente</value></data>
+  <data name="AppName_Localized" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="AppDescription_Localized" xml:space="preserve"><value>Sélectionnez le revendeur et le mode d'installation, puis démarrez.</value></data>
+  <data name="ResellerSelectedStatus" xml:space="preserve"><value>{0} revendeur, mode {1} sélectionné. Vous pouvez démarrer l'installation.</value></data>
+  <data name="Reseller_unkclub_Name" xml:space="preserve"><value>UNKCLUB</value></data>
+  <data name="Reseller_unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe est copié automatiquement dans le dossier Emulator du bureau.</value></data>
+  <data name="Reseller_other_Name" xml:space="preserve"><value>Autre revendeur</value></data>
+  <data name="Reseller_other_Description" xml:space="preserve"><value>Placez votre propre .exe revendeur dans le dossier Emulator du bureau.</value></data>
+  <data name="Reseller_OtherPromptTitle" xml:space="preserve"><value>Application émulateur</value></data>
+  <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>Veuillez placer le fichier .exe de votre application revendeur dans le dossier Emulator du bureau. Il sera lancé en administrateur à la dernière étape.</value></data>
+  <data name="Mode_first-install_Name" xml:space="preserve"><value>Première installation</value></data>
+  <data name="Mode_first-install_Description" xml:space="preserve"><value>Tous les composants requis sont installés dans l'ordre lors de la première configuration. Les fichiers d'installation sont inclus avec l'application.</value></data>
+  <data name="Mode_error-fix_Name" xml:space="preserve"><value>Correction d'erreur</value></data>
+  <data name="Mode_error-fix_Description" xml:space="preserve"><value>Corrige les problèmes Vanguard et Riot Client. L'installation reprend automatiquement après le redémarrage.</value></data>
+  <data name="Step_set-uac-lowest_Name" xml:space="preserve"><value>Définir le niveau UAC au minimum</value></data>
+  <data name="Step_set-uac-lowest_Description" xml:space="preserve"><value>Le contrôle de compte d'utilisateur (UAC) est défini sur « Ne jamais m'avertir ». Un redémarrage peut être nécessaire pour un effet complet.</value></data>
+  <data name="Step_disable-defender_Name" xml:space="preserve"><value>Désactiver la protection Windows Defender</value></data>
+  <data name="Step_disable-defender_Description" xml:space="preserve"><value>Defender est désactivé via la méthode Defender Control. SmartScreen est également désactivé. L'étape est ignorée en toute sécurité si Defender n'est pas installé.</value></data>
+  <data name="Step_install-first-setup_Name" xml:space="preserve"><value>Installer les fichiers de première configuration</value></data>
+  <data name="Step_install-first-setup_Description" xml:space="preserve"><value>Les fichiers d'installation intégrés sont exécutés en tant qu'administrateur par ordre alphabétique. Les composants vcredist et DirectX déjà installés sont ignorés.</value></data>
+  <data name="Step_deploy-unkclub_Name" xml:space="preserve"><value>Copier l'application UNKCLUB sur le bureau</value></data>
+  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe est copié dans le dossier Emulator du bureau. Le dossier est créé s'il est absent ; le fichier existant est remplacé. (Revendeur UNKCLUB uniquement)</value></data>
+  <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>Placer l'app revendeur dans le dossier Emulator</value></data>
+  <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>Placez votre fichier .exe revendeur dans le dossier Emulator du bureau.</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>Placer l'app revendeur dans le dossier Emulator</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>Avant la dernière étape, assurez-vous que votre .exe revendeur est dans le dossier Emulator du bureau.</value></data>
+  <data name="Step_error-fix-install-prerequisites_Name" xml:space="preserve"><value>Installer les composants de première installation manquants</value></data>
+  <data name="Step_error-fix-install-prerequisites_Description" xml:space="preserve"><value>Vérifie vcredist, DirectX et autres fichiers ; installe les manquants, ignore les déjà installés.</value></data>
+  <data name="Step_error-fix-disable-defender_Name" xml:space="preserve"><value>Désactiver la protection Windows Defender</value></data>
+  <data name="Step_error-fix-disable-defender_Description" xml:space="preserve"><value>Defender est désactivé via la méthode Defender Control. SmartScreen est aussi désactivé.</value></data>
+  <data name="Step_install-error-fix_Name" xml:space="preserve"><value>Installer les fichiers de correction d'erreur</value></data>
+  <data name="Step_install-error-fix_Description" xml:space="preserve"><value>Les fichiers du dossier HataDuzeltme sont exécutés en tant qu'administrateur par ordre alphabétique.</value></data>
+  <data name="Step_error-fix-stop-all_Name" xml:space="preserve"><value>Arrêter les services Vanguard et Riot</value></data>
+  <data name="Step_error-fix-stop-all_Description" xml:space="preserve"><value>Quitte Vanguard via la barre d'état (Exit + Oui), exécute sc stop vgk/vgc, puis arrête les processus Riot Client.</value></data>
+  <data name="Step_error-fix-sc-stop_Name" xml:space="preserve"><value>Arrêter vgk et vgc avec sc stop</value></data>
+  <data name="Step_error-fix-sc-stop_Description" xml:space="preserve"><value>Exécute sc stop vgk et sc stop vgc en tant qu'administrateur.</value></data>
+  <data name="Step_error-fix-delete-vanguard_Name" xml:space="preserve"><value>Supprimer le dossier Vanguard</value></data>
+  <data name="Step_error-fix-delete-vanguard_Description" xml:space="preserve"><value>Supprime définitivement le dossier d'installation Riot Vanguard.</value></data>
+  <data name="Step_error-fix-launch-riot_Name" xml:space="preserve"><value>Lancer Riot Client</value></data>
+  <data name="Step_error-fix-launch-riot_Description" xml:space="preserve"><value>Ouvre Riot Client ; l'invite de réinstallation de Vanguard apparaîtra.</value></data>
+  <data name="Step_error-fix-restart_Name" xml:space="preserve"><value>Redémarrer l'ordinateur</value></data>
+  <data name="Step_error-fix-restart_Description" xml:space="preserve"><value>Redémarre l'ordinateur après l'installation de Vanguard.</value></data>
+  <data name="Step_error-fix-verify-services_Name" xml:space="preserve"><value>Vérifier les services Vanguard</value></data>
+  <data name="Step_error-fix-verify-services_Description" xml:space="preserve"><value>Après redémarrage, les services Vanguard sont vérifiés et définis sur automatique si nécessaire.</value></data>
+  <data name="Step_error-fix-stop-vanguard_Name" xml:space="preserve"><value>Arrêter à nouveau les services Vanguard</value></data>
+  <data name="Step_error-fix-stop-vanguard_Description" xml:space="preserve"><value>Quitte Vanguard via la barre d'état (Exit + Oui), puis exécute sc stop vgk/vgc et arrête vgtray.</value></data>
+  <data name="Step_error-fix-stop-riot_Name" xml:space="preserve"><value>Arrêter Riot Client</value></data>
+  <data name="Step_error-fix-stop-riot_Description" xml:space="preserve"><value>Arrête les processus Vanguard restants ; ferme Riot Client et les services/processus associés.</value></data>
+  <data name="Step_error-fix-run-unkclub_Name" xml:space="preserve"><value>Exécuter l'application UNKCLUB</value></data>
+  <data name="Step_error-fix-run-unkclub_Description" xml:space="preserve"><value>Lance l'application émulateur en administrateur depuis le dossier Emulator du bureau.</value></data>
+  <data name="ErrorFix_PostRebootPrompt" xml:space="preserve"><value>Les étapes post-redémarrage vont continuer. Démarrez l'installation.</value></data>
+  <data name="ErrorFix_PostRebootResuming" xml:space="preserve"><value>L'installation post-redémarrage reprend automatiquement...</value></data>
+  <data name="ErrorFix_PostRebootAutoResumeTitle" xml:space="preserve"><value>Reprise de la correction d'erreurs</value></data>
+  <data name="ErrorFix_PostRebootAutoResumeMessage" xml:space="preserve"><value>L'ordinateur a redémarré. La phase 2 de la correction d'erreurs va démarrer automatiquement.</value></data>
+  <data name="ErrorFix_InfoTitle" xml:space="preserve"><value>Information</value></data>
+  <data name="ErrorFix_ScStopService" xml:space="preserve"><value>Exécution de sc stop {0}...</value></data>
+  <data name="ErrorFix_ScStopCompleted" xml:space="preserve"><value>{0}/{1} service(s) arrêté(s) avec sc stop.</value></data>
+  <data name="ErrorFix_ServicesStopped" xml:space="preserve"><value>{0}/{1} service(s) arrêté(s).</value></data>
+  <data name="ErrorFix_ProcessesStopped" xml:space="preserve"><value>{0} processus arrêté(s).</value></data>
+  <data name="ErrorFix_ServiceNotInstalled" xml:space="preserve"><value>Le service {0} n'est pas installé.</value></data>
+  <data name="ErrorFix_ServiceAlreadyStopped" xml:space="preserve"><value>Le service {0} est déjà arrêté.</value></data>
+  <data name="ErrorFix_FolderDeleted" xml:space="preserve"><value>Dossier supprimé : {0}</value></data>
+  <data name="ErrorFix_FolderNotFound" xml:space="preserve"><value>Dossier introuvable (ignoré) : {0}</value></data>
+  <data name="ErrorFix_FolderDeleteFailed" xml:space="preserve"><value>Impossible de supprimer le dossier : {0} - {1}</value></data>
+  <data name="ErrorFix_FolderDeletePartial" xml:space="preserve"><value>Certains dossiers n'ont pas pu être supprimés.</value></data>
+  <data name="ErrorFix_FoldersDeleted" xml:space="preserve"><value>{0} dossier(s) supprimé(s).</value></data>
+  <data name="ErrorFix_LaunchingProgram" xml:space="preserve"><value>Lancement du programme : {0}</value></data>
+  <data name="ErrorFix_RiotClientLaunched" xml:space="preserve"><value>Riot Client lancé.</value></data>
+  <data name="ErrorFix_RiotClientNotFound" xml:space="preserve"><value>Riot Client introuvable.</value></data>
+  <data name="ErrorFix_RiotClientWaitMessage" xml:space="preserve"><value>Riot Client est ouvert. Terminez la réinstallation de Vanguard. Lorsqu'un redémarrage est demandé, passez à l'étape suivante.</value></data>
+  <data name="ErrorFix_RestartTitle" xml:space="preserve"><value>Redémarrage</value></data>
+  <data name="ErrorFix_RestartMessage" xml:space="preserve"><value>Votre ordinateur va redémarrer. Enregistrez vos fichiers ouverts.</value></data>
+  <data name="ErrorFix_RestartConfirmTitle" xml:space="preserve"><value>Installation Vanguard</value></data>
+  <data name="ErrorFix_RestartConfirmMessage" xml:space="preserve"><value>Avez-vous terminé l'installation de Vanguard et un redémarrage a-t-il été demandé ?</value></data>
+  <data name="ErrorFix_RestartCancelled" xml:space="preserve"><value>Redémarrage annulé.</value></data>
+  <data name="ErrorFix_RestartScheduled" xml:space="preserve"><value>Redémarrage prévu dans {0} secondes.</value></data>
+  <data name="ErrorFix_ServicesVerified" xml:space="preserve"><value>Les services Vanguard fonctionnent.</value></data>
+  <data name="ErrorFix_ServicesFixed" xml:space="preserve"><value>Types de démarrage des services corrigés.</value></data>
+  <data name="ErrorFix_ServicesNotReady" xml:space="preserve"><value>Les services Vanguard ne sont pas prêts.</value></data>
+  <data name="ErrorFix_ServicesNotReadyWarning" xml:space="preserve"><value>Les services Vanguard ne sont pas en cours d'exécution ; poursuite de l'installation.</value></data>
+  <data name="ErrorFix_ServicesNotReadyContinuing" xml:space="preserve"><value>AVERTISSEMENT : impossible de démarrer les services Vanguard. Passage aux étapes suivantes.</value></data>
+  <data name="ErrorFix_StartingService" xml:space="preserve"><value>Démarrage du service {0}...</value></data>
+  <data name="ErrorFix_VanguardShutdownStarting" xml:space="preserve"><value>Arrêt de Vanguard (barre d'état + services)...</value></data>
+  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Arrêt Vanguard : barre={0}, services={1}, processus={2}</value></data>
+  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard arrêté : barre={0}, services={1}, processus={2}</value></data>
+  <data name="ErrorFix_VanguardTrayExitStarting" xml:space="preserve"><value>Recherche de l'icône Vanguard dans la barre d'état...</value></data>
+  <data name="ErrorFix_VanguardTrayIconSearching" xml:space="preserve"><value>Recherche de l'icône Riot Vanguard...</value></data>
+  <data name="ErrorFix_VanguardTrayIconFound" xml:space="preserve"><value>Icône Riot Vanguard trouvée, ouverture du menu...</value></data>
+  <data name="ErrorFix_VanguardTrayExpanded" xml:space="preserve"><value>Icônes de notification masquées développées.</value></data>
+  <data name="ErrorFix_VanguardTrayMenuClicked" xml:space="preserve"><value>'{0}' cliqué dans le menu de la barre d'état.</value></data>
+  <data name="ErrorFix_VanguardTrayConfirmClicked" xml:space="preserve"><value>'{0}' cliqué sur la boîte de confirmation.</value></data>
+  <data name="ErrorFix_VanguardTrayExitSuccess" xml:space="preserve"><value>Vanguard fermé avec succès via la barre d'état.</value></data>
+  <data name="ErrorFix_VanguardTrayExitFailed" xml:space="preserve"><value>Automatisation de la barre d'état échouée ; tentative sc stop et arrêt des processus.</value></data>
+  <data name="ErrorFix_VgTrayNotRunning" xml:space="preserve"><value>vgtray.exe n'est pas en cours d'exécution ; sortie via barre d'état ignorée.</value></data>
+  <data name="ErrorFix_ServiceWaiting" xml:space="preserve"><value>En attente de {0} (état : {1})...</value></data>
+  <data name="ErrorFix_SettingServiceAutomatic" xml:space="preserve"><value>Définition de {0} en démarrage automatique...</value></data>
+  <data name="ErrorFix_RestartNeededTitle" xml:space="preserve"><value>Redémarrage supplémentaire</value></data>
+  <data name="ErrorFix_RestartNeededMessage" xml:space="preserve"><value>Les paramètres des services ont été modifiés. Redémarrer l'ordinateur pour appliquer les changements ?</value></data>
+  <data name="ErrorFix_StoppingProcess" xml:space="preserve"><value>Arrêt du processus : {0}</value></data>
+  <data name="ErrorFix_ProcessStopFailed" xml:space="preserve"><value>Impossible d'arrêter {0} : {1}</value></data>
+  <data name="ErrorFix_UnkclubLaunched" xml:space="preserve"><value>UNKCLUB lancé.</value></data>
+  <data name="ErrorFix_UnkclubNotFound" xml:space="preserve"><value>{1} introuvable dans le dossier {0}.</value></data>
+  <data name="ErrorFix_AnyAppNotFound" xml:space="preserve"><value>Aucun fichier .exe trouvé dans le dossier Emulator du bureau. Veuillez y placer votre application revendeur.</value></data>
+  <data name="ErrorFix_AppLaunched" xml:space="preserve"><value>Application émulateur lancée.</value></data>
+  <data name="ErrorFix_AppFollowStepsTitle" xml:space="preserve"><value>Émulateur</value></data>
+  <data name="ErrorFix_AppFollowSteps" xml:space="preserve"><value>L'application émulateur a été lancée. Veuillez suivre les étapes à l'écran.</value></data>
+  <data name="ErrorFix_UnkclubFollowStepsTitle" xml:space="preserve"><value>Émulateur</value></data>
+  <data name="ErrorFix_UnkclubFollowSteps" xml:space="preserve"><value>UNKCLUB a été lancé. Veuillez suivre les étapes à l'écran de l'émulateur.</value></data>
+  <data name="Feature_defender-service" xml:space="preserve"><value>Service Windows Defender</value></data>
+  <data name="Feature_real-time-protection" xml:space="preserve"><value>Protection en temps réel</value></data>
+  <data name="Feature_behavior-monitoring" xml:space="preserve"><value>Surveillance du comportement</value></data>
+  <data name="Feature_network-protection" xml:space="preserve"><value>Protection réseau</value></data>
+  <data name="Feature_cloud-protection" xml:space="preserve"><value>Protection cloud</value></data>
+  <data name="Feature_pua-protection" xml:space="preserve"><value>Protection PUA</value></data>
+  <data name="Feature_tamper-protection" xml:space="preserve"><value>Protection contre la falsification</value></data>
+  <data name="Feature_smartscreen-app" xml:space="preserve"><value>SmartScreen (application/fichier)</value></data>
+  <data name="Feature_edge-smartscreen" xml:space="preserve"><value>SmartScreen Edge</value></data>
+  <data name="StepRunning" xml:space="preserve"><value>En cours...</value></data>
+  <data name="StepSkippedAlreadyInstalled" xml:space="preserve"><value>Déjà installé, ignoré.</value></data>
+  <data name="MainProgramNotFound" xml:space="preserve"><value>Programme principal introuvable.</value></data>
+  <data name="UnknownStepType" xml:space="preserve"><value>Type d'étape inconnu : {0}</value></data>
+  <data name="CommandNotDefined" xml:space="preserve"><value>Commande non définie.</value></data>
+  <data name="CheckSuccess" xml:space="preserve"><value>Vérification réussie.</value></data>
+  <data name="CheckFailed" xml:space="preserve"><value>Échec de la vérification. Code de sortie : {0}</value></data>
+  <data name="PathExistsNotDefined" xml:space="preserve"><value>pathExists non défini.</value></data>
+  <data name="PathExists" xml:space="preserve"><value>Le fichier ou le dossier existe.</value></data>
+  <data name="PathNotFound" xml:space="preserve"><value>Introuvable : {0}</value></data>
+  <data name="RegistryKeyNotDefined" xml:space="preserve"><value>registryKey non défini.</value></data>
+  <data name="RegistryCheckSuccess" xml:space="preserve"><value>Vérification du registre réussie.</value></data>
+  <data name="RegistryNotFound" xml:space="preserve"><value>Entrée de registre introuvable.</value></data>
+  <data name="EnvVarMissing" xml:space="preserve"><value>environmentVariable ou environmentExpectedContains manquant.</value></data>
+  <data name="EnvCheckSuccess" xml:space="preserve"><value>Vérification de la variable d'environnement réussie.</value></data>
+  <data name="EnvCheckFailed" xml:space="preserve"><value>{0} ne contient pas la valeur attendue.</value></data>
+  <data name="RunningCommand" xml:space="preserve"><value>Exécution de la commande : {0} {1}</value></data>
+  <data name="CommandCompleted" xml:space="preserve"><value>Commande terminée avec succès.</value></data>
+  <data name="CommandFailed" xml:space="preserve"><value>Échec de la commande. Code de sortie : {0}</value></data>
+  <data name="InstallCompleted" xml:space="preserve"><value>Installation terminée.</value></data>
+  <data name="InstallFailed" xml:space="preserve"><value>Échec de l'installation. Code de sortie : {0}</value></data>
+  <data name="AdminCommandFailed" xml:space="preserve"><value>Impossible de démarrer la commande avec élévation de privilèges.</value></data>
+  <data name="CommandTimeout" xml:space="preserve"><value>Délai d'attente de la commande dépassé.</value></data>
+  <data name="AdminCommandCompleted" xml:space="preserve"><value>Commande avec élévation de privilèges terminée.</value></data>
+  <data name="CommandStarted" xml:space="preserve"><value>Commande démarrée.</value></data>
+  <data name="UrlNotDefined" xml:space="preserve"><value>url non définie.</value></data>
+  <data name="Downloaded" xml:space="preserve"><value>Téléchargé : {0}</value></data>
+  <data name="FolderPathNotDefined" xml:space="preserve"><value>folderPath non défini.</value></data>
+  <data name="FolderNotFound" xml:space="preserve"><value>Dossier introuvable : {0}</value></data>
+  <data name="SecurityUnblockDone" xml:space="preserve"><value>Blocage de sécurité supprimé des fichiers d'installation.</value></data>
+  <data name="NoInstallersInFolder" xml:space="preserve"><value>Aucun fichier d'installation trouvé dans le dossier : {0}</value></data>
+  <data name="InstallersFound" xml:space="preserve"><value>{0} fichier(s) d'installation trouvé(s).</value></data>
+  <data name="Installing" xml:space="preserve"><value>[{0}/{1}] Installation : {2}</value></data>
+  <data name="SkippedInstaller" xml:space="preserve"><value>[{0}/{1}] Ignoré : {2} - {3}</value></data>
+  <data name="InstallerFailed" xml:space="preserve"><value>Échec de l'installation de {0} : {1}</value></data>
+  <data name="InstallerCompleted" xml:space="preserve"><value>[{0}/{1}] Terminé : {2}</value></data>
+  <data name="AllInstallersSuccess" xml:space="preserve"><value>{0} fichier(s) d'installation installé(s) avec succès.</value></data>
+  <data name="SourcePathNotDefined" xml:space="preserve"><value>sourcePath non défini.</value></data>
+  <data name="SourceFileNotFound" xml:space="preserve"><value>Fichier source introuvable : {0}</value></data>
+  <data name="DestinationNotDefined" xml:space="preserve"><value>destinationFolder/fileName ou destinationPath non défini.</value></data>
+  <data name="CopyingFile" xml:space="preserve"><value>Copie du fichier : {0} -&gt; {1}</value></data>
+  <data name="FileCopied" xml:space="preserve"><value>Fichier copié : {0}</value></data>
+  <data name="StepStarted" xml:space="preserve"><value>[{0}] démarré.</value></data>
+  <data name="StepSkipped" xml:space="preserve"><value>[{0}] ignoré.</value></data>
+  <data name="StepFailed" xml:space="preserve"><value>[{0}] échec : {1}</value></data>
+  <data name="StepError" xml:space="preserve"><value>[{0}] erreur : {1}</value></data>
+  <data name="DefenderDisabling" xml:space="preserve"><value>Désactivation de Windows Defender et SmartScreen...</value></data>
+  <data name="DefenderApplied" xml:space="preserve"><value>Paramètres Defender et SmartScreen appliqués.</value></data>
+  <data name="DefenderDisabled" xml:space="preserve"><value>Defender et SmartScreen désactivés.</value></data>
+  <data name="DefenderPartial" xml:space="preserve"><value>Étape Defender terminée (partielle/facultative).</value></data>
+  <data name="DefenderDisableWarning" xml:space="preserve"><value>Avertissement de désactivation de Defender. Code de sortie : {0}</value></data>
+  <data name="DefenderExclusionsAdding" xml:space="preserve"><value>Ajout des exclusions Windows Defender (pour éviter les fausses alertes virus)...</value></data>
+  <data name="DefenderExclusionsAdded" xml:space="preserve"><value>Exclusions Defender ajoutées.</value></data>
+  <data name="DefenderExclusionsPartial" xml:space="preserve"><value>Exclusions Defender partiellement appliquées.</value></data>
+  <data name="DefenderExclusionsWarning" xml:space="preserve"><value>Avertissement d'exclusion Defender. Code de sortie : {0}</value></data>
+  <data name="DefenderExclusionsInfoTitle" xml:space="preserve"><value>Information de sécurité</value></data>
+  <data name="DefenderExclusionsInfoMessage" xml:space="preserve"><value>Pour éviter les fausses alertes virus lors de la désactivation de Windows Defender, des exclusions ont été ajoutées pour : le dossier de l'application, Installers, Bureau\Emulator et PreInstallTool. Il s'agit d'une précaution normale ; vous pouvez continuer l'installation.</value></data>
+  <data name="DefenderCloudDisabling" xml:space="preserve"><value>Désactivation de la protection cloud et de l'envoi d'échantillons...</value></data>
+  <data name="DefenderVerifyRetry" xml:space="preserve"><value>Certaines fonctionnalités Defender sont encore actives ; nouvelle tentative ({0}/{1})...</value></data>
+  <data name="DefenderVerifyWarning" xml:space="preserve"><value>Avertissement : les fonctionnalités Defender suivantes sont encore actives : {0}</value></data>
+  <data name="DefenderPartialActive" xml:space="preserve"><value>Étape Defender terminée ; fonctionnalités encore actives : {0}</value></data>
+  <data name="ConfigFileNotFound" xml:space="preserve"><value>Fichier de configuration introuvable : {0}</value></data>
+  <data name="ConfigFileUnreadable" xml:space="preserve"><value>Impossible de lire le fichier de configuration.</value></data>
+  <data name="ConfigNoModesOrSteps" xml:space="preserve"><value>Au moins un mode d'installation ou une étape doit être défini.</value></data>
+  <data name="Downloading" xml:space="preserve"><value>Téléchargement : {0}</value></data>
+  <data name="DownloadComplete" xml:space="preserve"><value>Téléchargement terminé : {0}</value></data>
+  <data name="InstallerAlreadyInstalledSkip" xml:space="preserve"><value>{0} est déjà installé, ignoré.</value></data>
+  <data name="InstallerAlreadyInstalledResult" xml:space="preserve"><value>{0} est déjà installé.</value></data>
+  <data name="InstallerInstallingFile" xml:space="preserve"><value>Installation de {0}...</value></data>
+  <data name="SilentInstallTryingUi" xml:space="preserve"><value>Code de sortie de l'installation silencieuse : {0}. Tentative d'automatisation UI...</value></data>
+  <data name="InstallCompletedAlreadyInstalled" xml:space="preserve"><value>Installation terminée (déjà installé).</value></data>
+  <data name="LicenseAccepted" xml:space="preserve"><value>Contrat de licence accepté.</value></data>
+  <data name="BingBarUnchecked" xml:space="preserve"><value>Sélection Bing Bar désactivée.</value></data>
+  <data name="ButtonClicked" xml:space="preserve"><value>"{0}" cliqué.</value></data>
+  <data name="ConfirmButtonClicked" xml:space="preserve"><value>Bouton de confirmation cliqué : {0}</value></data>
+  <data name="DirectXWizardStarting" xml:space="preserve"><value>Démarrage de l'assistant d'installation DirectX (sans arguments)...</value></data>
+  <data name="DirectXAlreadyInstalledSkip" xml:space="preserve"><value>DirectX runtime est déjà installé, ignoré.</value></data>
+  <data name="DirectXAlreadyInstalledResult" xml:space="preserve"><value>DirectX est déjà installé.</value></data>
+  <data name="DirectXWindowTitle" xml:space="preserve"><value>Fenêtre DirectX : {0}</value></data>
+  <data name="DirectXDownloadingWaiting" xml:space="preserve"><value>DirectX en cours de téléchargement/installation, attente...</value></data>
+  <data name="DirectXInstallCompleted" xml:space="preserve"><value>Installation DirectX terminée.</value></data>
+  <data name="DirectXProcessNotFound" xml:space="preserve"><value>Processus d'installation DirectX introuvable.</value></data>
+  <data name="DirectXWaitingCompletion" xml:space="preserve"><value>Attente de la fin de l'installation DirectX...</value></data>
+  <data name="DirectXInstallExitCode" xml:space="preserve"><value>Code de sortie de l'installation DirectX : {0}</value></data>
+  <data name="DirectXInstallFailed" xml:space="preserve"><value>Échec de l'installation DirectX. Code de sortie : {0}</value></data>
+  <data name="DirectXAutomationError" xml:space="preserve"><value>Erreur d'automatisation DirectX : {0}</value></data>
+  <data name="StepResultLog" xml:space="preserve"><value>[{0}] {1}</value></data>
+  <data name="BtnCheckForUpdates" xml:space="preserve"><value>Rechercher des mises à jour</value></data>
+  <data name="AppVersionLabel" xml:space="preserve"><value>Version {0}</value></data>
+  <data name="Update_Checking" xml:space="preserve"><value>Recherche de mises à jour...</value></data>
+  <data name="Update_UpToDate" xml:space="preserve"><value>UNKCLUB Tool est à jour (version {0}).</value></data>
+  <data name="Update_UpToDateTitle" xml:space="preserve"><value>À jour</value></data>
+  <data name="Update_AvailableTitle" xml:space="preserve"><value>Mise à jour disponible</value></data>
+  <data name="Update_AvailableMessage" xml:space="preserve"><value>Une nouvelle version {0} est disponible.{1}{1}{2}{1}{1}Télécharger et installer maintenant ?</value></data>
+  <data name="Update_NoReleaseNotes" xml:space="preserve"><value>Aucune note de version.</value></data>
+  <data name="Update_Downloading" xml:space="preserve"><value>Téléchargement de la mise à jour...</value></data>
+  <data name="Update_DownloadFailed" xml:space="preserve"><value>Impossible de télécharger la mise à jour : {0}</value></data>
+  <data name="Update_RestartPrompt" xml:space="preserve"><value>Application de la mise à jour. L'application va redémarrer.</value></data>
+  <data name="Update_RestartTitle" xml:space="preserve"><value>Mise à jour</value></data>
+  <data name="Update_CheckFailed" xml:space="preserve"><value>Impossible de vérifier les mises à jour : {0}</value></data>
+  <data name="Update_CheckFailedTitle" xml:space="preserve"><value>Erreur de mise à jour</value></data>
+</root>

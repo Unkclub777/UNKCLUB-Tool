@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="WindowTitle" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="DefenderStatusTitle" xml:space="preserve"><value>Defender Durumu</value></data>
+  <data name="DefenderNotReadYet" xml:space="preserve"><value>Henüz okunmadı</value></data>
+  <data name="DefenderLastUpdated" xml:space="preserve"><value>Son güncelleme: {0}</value></data>
+  <data name="DefenderReadFailed" xml:space="preserve"><value>Durum okunamadı</value></data>
+  <data name="LegendEnabled" xml:space="preserve"><value>Açık / Etkin</value></data>
+  <data name="LegendDisabled" xml:space="preserve"><value>Kapalı / Devre dışı</value></data>
+  <data name="LanguageLabel" xml:space="preserve"><value>Dil</value></data>
+  <data name="OptionLabel" xml:space="preserve"><value>Kurulum Modu</value></data>
+  <data name="ResellerLabel" xml:space="preserve"><value>Reseller Seçimi</value></data>
+  <data name="AppTagline" xml:space="preserve"><value>Emülatör kurulum ve hata düzeltme aracı</value></data>
+  <data name="LogLabel" xml:space="preserve"><value>Log</value></data>
+  <data name="BtnStartInstall" xml:space="preserve"><value>Kurulumu Başlat</value></data>
+  <data name="BtnCancel" xml:space="preserve"><value>İptal</value></data>
+  <data name="BtnLaunchMainProgram" xml:space="preserve"><value>Ana Programı Başlat</value></data>
+  <data name="PromptSelectOption" xml:space="preserve"><value>Lütfen bir seçenek belirleyin.</value></data>
+  <data name="PromptSelectModeAndStart" xml:space="preserve"><value>Reseller ve mod seçin, ardından kurulumu başlatın.</value></data>
+  <data name="ConfigLoaded" xml:space="preserve"><value>Yapılandırma yüklendi.</value></data>
+  <data name="ConfigLoadFailed" xml:space="preserve"><value>Yapılandırma yüklenemedi.</value></data>
+  <data name="ConfigErrorTitle" xml:space="preserve"><value>Yapılandırma Hatası</value></data>
+  <data name="ModeSelectedStatus" xml:space="preserve"><value>{0} seçildi. Kurulumu başlatabilirsiniz.</value></data>
+  <data name="ModeSelectedLog" xml:space="preserve"><value>{0} modu seçildi.</value></data>
+  <data name="InstallStarted" xml:space="preserve"><value>{0} başlatıldı.</value></data>
+  <data name="ProgressFormat" xml:space="preserve"><value>{0}/{1} - {2}: {3}</value></data>
+  <data name="InstallCompletedErrors" xml:space="preserve"><value>{0} hatalarla tamamlandı.</value></data>
+  <data name="InstallCompletedSuccess" xml:space="preserve"><value>{0} başarıyla tamamlandı.</value></data>
+  <data name="InstallCancelled" xml:space="preserve"><value>Kurulum iptal edildi.</value></data>
+  <data name="UnexpectedError" xml:space="preserve"><value>Beklenmeyen bir hata oluştu.</value></data>
+  <data name="UnexpectedErrorTitle" xml:space="preserve"><value>Hata</value></data>
+  <data name="AutoStart_StartedWithContinueArg" xml:space="preserve"><value>Uygulama --continue-error-fix argümanı ile başlatıldı.</value></data>
+  <data name="AutoStart_ContinueRequested" xml:space="preserve"><value>Yeniden başlatma sonrası devam isteği algılandı.</value></data>
+  <data name="AutoStart_ErrorFixResuming" xml:space="preserve"><value>Yeniden başlatma sonrası hata düzeltme akışı devam ediyor.</value></data>
+  <data name="AutoStart_StateSavedPostRebootPending" xml:space="preserve"><value>Hata düzeltme durumu PostRebootPending olarak kaydedildi: {0}</value></data>
+  <data name="MainProgramLaunched" xml:space="preserve"><value>Ana program başlatıldı.</value></data>
+  <data name="MainProgramLaunchFailed" xml:space="preserve"><value>Ana program başlatılamadı: {0}</value></data>
+  <data name="LaunchErrorTitle" xml:space="preserve"><value>Başlatma Hatası</value></data>
+  <data name="ErrorPrefix" xml:space="preserve"><value>HATA:</value></data>
+  <data name="LegacyModeName" xml:space="preserve"><value>Kurulum</value></data>
+  <data name="StepPending" xml:space="preserve"><value>Bekliyor</value></data>
+  <data name="AppName_Localized" xml:space="preserve"><value>UNKCLUB Tool</value></data>
+  <data name="AppDescription_Localized" xml:space="preserve"><value>Reseller ve kurulum modunu seçin, ardından kurulumu başlatın.</value></data>
+  <data name="ResellerSelectedStatus" xml:space="preserve"><value>{0} reseller, {1} modu seçildi. Kurulumu başlatabilirsiniz.</value></data>
+  <data name="Reseller_unkclub_Name" xml:space="preserve"><value>UNKCLUB</value></data>
+  <data name="Reseller_unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe otomatik olarak masaüstü Emulator klasörüne kopyalanır.</value></data>
+  <data name="Reseller_other_Name" xml:space="preserve"><value>Diğer Reseller</value></data>
+  <data name="Reseller_other_Description" xml:space="preserve"><value>Kendi reseller .exe dosyanızı masaüstü Emulator klasörüne koyarsınız.</value></data>
+  <data name="Reseller_OtherPromptTitle" xml:space="preserve"><value>Emülatör Uygulaması</value></data>
+  <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>Lütfen reseller uygulamanızın .exe dosyasını masaüstündeki Emulator klasörüne koyun. Kurulum son adımda bu dosya yönetici olarak çalıştırılacaktır.</value></data>
+  <data name="Mode_first-install_Name" xml:space="preserve"><value>İlk Kurulum</value></data>
+  <data name="Mode_first-install_Description" xml:space="preserve"><value>Programı ilk kez kurarken gerekli tüm bileşenler sırayla yüklenir. Kurulum dosyaları uygulama ile birlikte gelir.</value></data>
+  <data name="Mode_error-fix_Name" xml:space="preserve"><value>Hata Düzeltme</value></data>
+  <data name="Mode_error-fix_Description" xml:space="preserve"><value>Vanguard ve Riot Client sorunlarını düzeltir. Yeniden başlatma sonrası kurulum otomatik devam eder.</value></data>
+  <data name="Step_set-uac-lowest_Name" xml:space="preserve"><value>UAC seviyesini en alta ayarla</value></data>
+  <data name="Step_set-uac-lowest_Description" xml:space="preserve"><value>Kullanıcı Hesabı Denetimi (UAC) 'Hiçbir zaman bildirme' seviyesine ayarlanır. Tam etki için yeniden başlatma gerekebilir.</value></data>
+  <data name="Step_disable-defender_Name" xml:space="preserve"><value>Windows Defender korumasını devre dışı bırak</value></data>
+  <data name="Step_disable-defender_Description" xml:space="preserve"><value>Defender Control yöntemiyle Defender kapatılır. SmartScreen devre dışı bırakılır. Defender yüklü değilse adım güvenle atlanır.</value></data>
+  <data name="Step_install-first-setup_Name" xml:space="preserve"><value>İlk kurulum dosyalarını yükle</value></data>
+  <data name="Step_install-first-setup_Description" xml:space="preserve"><value>Gömülü kurulum dosyaları alfabetik sırayla yönetici olarak çalıştırılır. Zaten kurulu olan vcredist ve DirectX bileşenleri atlanır.</value></data>
+  <data name="Step_deploy-unkclub_Name" xml:space="preserve"><value>UNKCLUB uygulamasını masaüstüne kopyala</value></data>
+  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe dosyası masaüstündeki Emulator klasörüne kopyalanır. Klasör yoksa oluşturulur; dosya varsa üzerine yazılır. (Yalnızca UNKCLUB reseller)</value></data>
+  <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>Reseller uygulamasını Emulator klasörüne koy</value></data>
+  <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>Reseller .exe dosyanızı masaüstündeki Emulator klasörüne yerleştirin.</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>Reseller uygulamasını Emulator klasörüne koy</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>Son adımdan önce reseller .exe dosyanızın masaüstü Emulator klasöründe olduğundan emin olun.</value></data>
+  <data name="Step_error-fix-install-prerequisites_Name" xml:space="preserve"><value>Eksik ilk kurulum bileşenlerini yükle</value></data>
+  <data name="Step_error-fix-install-prerequisites_Description" xml:space="preserve"><value>vcredist, DirectX ve diğer ilk kurulum dosyaları kontrol edilir; eksik olanlar yüklenir.</value></data>
+  <data name="Step_error-fix-disable-defender_Name" xml:space="preserve"><value>Windows Defender korumasını devre dışı bırak</value></data>
+  <data name="Step_error-fix-disable-defender_Description" xml:space="preserve"><value>Defender Control yöntemiyle Defender kapatılır. SmartScreen devre dışı bırakılır.</value></data>
+  <data name="Step_install-error-fix_Name" xml:space="preserve"><value>Hata düzeltme dosyalarını yükle</value></data>
+  <data name="Step_install-error-fix_Description" xml:space="preserve"><value>HataDuzeltme klasöründeki dosyalar alfabetik sırayla yönetici olarak çalıştırılır.</value></data>
+  <data name="Step_error-fix-stop-all_Name" xml:space="preserve"><value>Vanguard ve Riot servislerini durdur</value></data>
+  <data name="Step_error-fix-stop-all_Description" xml:space="preserve"><value>Görev Yöneticisi yöntemiyle tüm Vanguard süreçleri zorla sonlandırılır, sc stop vgk/vgc/vgm uygulanır, ardından Riot Client süreçleri kapatılır.</value></data>
+  <data name="Step_error-fix-sc-stop_Name" xml:space="preserve"><value>vgk, vgc ve vgm servislerini sc stop ile durdur</value></data>
+  <data name="Step_error-fix-sc-stop_Description" xml:space="preserve"><value>Yönetici komut satırında sc stop vgk, sc stop vgc ve sc stop vgm çalıştırılır.</value></data>
+  <data name="Step_error-fix-delete-vanguard_Name" xml:space="preserve"><value>Vanguard klasörünü sil</value></data>
+  <data name="Step_error-fix-delete-vanguard_Description" xml:space="preserve"><value>Riot Vanguard kurulum klasörü kalıcı olarak silinir.</value></data>
+  <data name="Step_error-fix-launch-riot_Name" xml:space="preserve"><value>Riot Client'ı başlat</value></data>
+  <data name="Step_error-fix-launch-riot_Description" xml:space="preserve"><value>Riot Client açılır; Vanguard yeniden kurulum istemi görünecektir.</value></data>
+  <data name="Step_error-fix-restart_Name" xml:space="preserve"><value>Bilgisayarı yeniden başlat</value></data>
+  <data name="Step_error-fix-restart_Description" xml:space="preserve"><value>Vanguard kurulumu tamamlandıktan sonra bilgisayar yeniden başlatılır.</value></data>
+  <data name="Step_error-fix-verify-services_Name" xml:space="preserve"><value>Vanguard servislerini doğrula</value></data>
+  <data name="Step_error-fix-verify-services_Description" xml:space="preserve"><value>Yeniden başlatma sonrası Vanguard servisleri kontrol edilir; gerekirse otomatik başlatmaya alınır.</value></data>
+  <data name="Step_error-fix-stop-vanguard_Name" xml:space="preserve"><value>Vanguard servislerini tekrar durdur</value></data>
+  <data name="Step_error-fix-stop-vanguard_Description" xml:space="preserve"><value>Görev Yöneticisi yöntemiyle tüm Vanguard süreçleri zorla sonlandırılır; sc stop vgk/vgc/vgm uygulanır.</value></data>
+  <data name="Step_error-fix-stop-riot_Name" xml:space="preserve"><value>Riot Client'ı durdur</value></data>
+  <data name="Step_error-fix-stop-riot_Description" xml:space="preserve"><value>Kalan Vanguard süreçleri taskkill /F ile kapatılır; Riot Client ve ilgili servisler/süreçler sonlandırılır.</value></data>
+  <data name="Step_error-fix-run-unkclub_Name" xml:space="preserve"><value>UNKCLUB uygulamasını çalıştır</value></data>
+  <data name="Step_error-fix-run-unkclub_Description" xml:space="preserve"><value>Masaüstündeki Emulator klasöründen emülatör uygulaması yönetici olarak başlatılır.</value></data>
+  <data name="ErrorFix_PostRebootPrompt" xml:space="preserve"><value>Yeniden başlatma sonrası adımlar devam edecek. Kurulumu başlatın.</value></data>
+  <data name="ErrorFix_PostRebootResuming" xml:space="preserve"><value>Yeniden başlatma sonrası kurulum otomatik devam ediyor...</value></data>
+  <data name="ErrorFix_PostRebootAutoResumeTitle" xml:space="preserve"><value>Hata Düzeltme Devam Ediyor</value></data>
+  <data name="ErrorFix_PostRebootAutoResumeMessage" xml:space="preserve"><value>Bilgisayar yeniden başladı. Hata düzeltme kurulumunun 2. aşaması otomatik olarak başlatılıyor.</value></data>
+  <data name="ErrorFix_InfoTitle" xml:space="preserve"><value>Bilgi</value></data>
+  <data name="ErrorFix_ScStopService" xml:space="preserve"><value>sc stop {0} çalıştırılıyor...</value></data>
+  <data name="ErrorFix_ScStopCompleted" xml:space="preserve"><value>{0}/{1} servis sc stop ile durduruldu.</value></data>
+  <data name="ErrorFix_ServicesStopped" xml:space="preserve"><value>{0}/{1} servis durduruldu.</value></data>
+  <data name="ErrorFix_ProcessesStopped" xml:space="preserve"><value>{0} süreç durduruldu.</value></data>
+  <data name="ErrorFix_ServiceNotInstalled" xml:space="preserve"><value>{0} servisi yüklü değil.</value></data>
+  <data name="ErrorFix_ServiceAlreadyStopped" xml:space="preserve"><value>{0} servisi zaten durdurulmuş.</value></data>
+  <data name="ErrorFix_FolderDeleted" xml:space="preserve"><value>Klasör silindi: {0}</value></data>
+  <data name="ErrorFix_FolderNotFound" xml:space="preserve"><value>Klasör bulunamadı (atlandı): {0}</value></data>
+  <data name="ErrorFix_FolderDeleteFailed" xml:space="preserve"><value>Klasör silinemedi: {0} - {1}</value></data>
+  <data name="ErrorFix_FolderDeletePartial" xml:space="preserve"><value>Bazı klasörler silinemedi.</value></data>
+  <data name="ErrorFix_FoldersDeleted" xml:space="preserve"><value>{0} klasör silindi.</value></data>
+  <data name="ErrorFix_LaunchingProgram" xml:space="preserve"><value>Program başlatılıyor: {0}</value></data>
+  <data name="ErrorFix_RiotClientLaunched" xml:space="preserve"><value>Riot Client başlatıldı.</value></data>
+  <data name="ErrorFix_RiotClientNotFound" xml:space="preserve"><value>Riot Client bulunamadı.</value></data>
+  <data name="ErrorFix_RiotClientWaitMessage" xml:space="preserve"><value>Riot Client açıldı. Vanguard yeniden kurulum istemini tamamlayın. PC yeniden başlatma istendiğinde bir sonraki adıma geçin.</value></data>
+  <data name="ErrorFix_RestartTitle" xml:space="preserve"><value>Yeniden Başlatma</value></data>
+  <data name="ErrorFix_RestartMessage" xml:space="preserve"><value>Bilgisayarınız şimdi yeniden başlatılacak. Lütfen açık dosyalarınızı kaydedin.</value></data>
+  <data name="ErrorFix_RestartConfirmTitle" xml:space="preserve"><value>Vanguard Kurulumu</value></data>
+  <data name="ErrorFix_RestartConfirmMessage" xml:space="preserve"><value>Vanguard kurulumunu tamamladınız mı ve yeniden başlatma istendi mi?</value></data>
+  <data name="ErrorFix_RestartCancelled" xml:space="preserve"><value>Yeniden başlatma iptal edildi.</value></data>
+  <data name="ErrorFix_RestartScheduled" xml:space="preserve"><value>{0} saniye içinde yeniden başlatılacak.</value></data>
+  <data name="ErrorFix_ServicesVerified" xml:space="preserve"><value>Vanguard servisleri çalışıyor.</value></data>
+  <data name="ErrorFix_ServicesFixed" xml:space="preserve"><value>Servis başlangıç türleri düzeltildi.</value></data>
+  <data name="ErrorFix_ServicesFixedNoReboot" xml:space="preserve"><value>Ek yeniden başlatma gerekmez; servisler etkinleştirildi.</value></data>
+  <data name="ErrorFix_AutoStartRegistrationFailed" xml:space="preserve"><value>UYARI: Otomatik başlatma kaydı başarısız. Yeniden başlatma sonrası aracı elle açıp Hata Düzeltme modunu başlatın.</value></data>
+  <data name="ErrorFix_NoPendingState" xml:space="preserve"><value>Devam argümanı alındı ancak bekleyen hata düzeltme durumu bulunamadı.</value></data>
+  <data name="ErrorFix_PostRebootContinueArgLog" xml:space="preserve"><value>Yeniden başlatma sonrası devam argümanı algılandı.</value></data>
+  <data name="ErrorFix_ServicesNotReady" xml:space="preserve"><value>Vanguard servisleri hazır değil.</value></data>
+  <data name="ErrorFix_ServicesNotReadyWarning" xml:space="preserve"><value>Vanguard servisleri çalışmıyor; kuruluma devam ediliyor.</value></data>
+  <data name="ErrorFix_ServicesNotReadyContinuing" xml:space="preserve"><value>UYARI: Vanguard servisleri başlatılamadı. Sonraki adımlara devam ediliyor.</value></data>
+  <data name="ErrorFix_StartingService" xml:space="preserve"><value>{0} servisi başlatılıyor...</value></data>
+  <data name="ErrorFix_VanguardShutdownStarting" xml:space="preserve"><value>Vanguard kapatılıyor (Görev Yöneticisi yöntemi)...</value></data>
+  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Vanguard kapatma: servis={0}, süreç={1}</value></data>
+  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard durduruldu: servis={0}, süreç={1}</value></data>
+  <data name="ErrorFix_VanguardProcessStopStarting" xml:space="preserve"><value>Vanguard süreçleri ve servisleri sonlandırılıyor (taskkill /F + sc stop)...</value></data>
+  <data name="ErrorFix_VanguardProcessDiscoveryStarting" xml:space="preserve"><value>Çalışan Vanguard/Riot süreçleri taranıyor...</value></data>
+  <data name="ErrorFix_VanguardProcessDiscovered" xml:space="preserve"><value>Vanguard ile ilişkili süreç bulundu: {0}</value></data>
+  <data name="ErrorFix_VanguardProcessStopSummary" xml:space="preserve"><value>Vanguard sonlandırma tamamlandı: {0} servis, {1} süreç.</value></data>
+  <data name="ErrorFix_ForceKillingProcess" xml:space="preserve"><value>taskkill /F ile zorla sonlandırılıyor: {0}</value></data>
+  <data name="ErrorFix_VanguardProcessStopRetry" xml:space="preserve"><value>Kalan Vanguard/Riot süreçleri tespit edildi; tekrar deneniyor ({0}/{1})...</value></data>
+  <data name="ErrorFix_VanguardTrayExitStarting" xml:space="preserve"><value>Vanguard sistem tepsisi simgesi aranıyor...</value></data>
+  <data name="ErrorFix_VanguardTrayIconSearching" xml:space="preserve"><value>Görünür tepsi alanında Riot Vanguard simgesi aranıyor...</value></data>
+  <data name="ErrorFix_VanguardTrayIconFound" xml:space="preserve"><value>Riot Vanguard tepsi simgesi bulundu, menü açılıyor...</value></data>
+  <data name="ErrorFix_VanguardTrayExpanded" xml:space="preserve"><value>Gizli simgeler alanı açıldı.</value></data>
+  <data name="ErrorFix_VanguardTrayMenuClicked" xml:space="preserve"><value>Tepsi menüsünde '{0}' tıklandı.</value></data>
+  <data name="ErrorFix_VanguardTrayConfirmClicked" xml:space="preserve"><value>Onay penceresinde '{0}' tıklandı.</value></data>
+  <data name="ErrorFix_VanguardTrayExitSuccess" xml:space="preserve"><value>Vanguard tepsi üzerinden başarıyla kapatıldı.</value></data>
+  <data name="ErrorFix_VanguardTrayExitFailed" xml:space="preserve"><value>Vanguard tepsi otomasyonu başarısız; sc stop ve süreç sonlandırma deneniyor.</value></data>
+  <data name="ErrorFix_VgTrayNotRunning" xml:space="preserve"><value>vgtray.exe çalışmıyor; tepsi çıkışı atlanıyor.</value></data>
+  <data name="ErrorFix_RiotTrayExitStarting" xml:space="preserve"><value>Riot Client tepsi simgesi aranıyor...</value></data>
+  <data name="ErrorFix_RiotTrayIconSearching" xml:space="preserve"><value>Görünür tepsi alanında Riot Client simgesi aranıyor...</value></data>
+  <data name="ErrorFix_RiotTrayIconFound" xml:space="preserve"><value>Riot Client tepsi simgesi bulundu, menü açılıyor...</value></data>
+  <data name="ErrorFix_RiotTrayExitSuccess" xml:space="preserve"><value>Riot Client tepsi üzerinden kapatıldı.</value></data>
+  <data name="ErrorFix_RiotTrayExitFailed" xml:space="preserve"><value>Riot Client tepsi otomasyonu başarısız; süreç sonlandırma deneniyor.</value></data>
+  <data name="ErrorFix_ServiceWaiting" xml:space="preserve"><value>{0} bekleniyor (durum: {1})...</value></data>
+  <data name="ErrorFix_SettingServiceAutomatic" xml:space="preserve"><value>{0} otomatik başlatmaya alınıyor...</value></data>
+  <data name="ErrorFix_RestartNeededTitle" xml:space="preserve"><value>Ek Yeniden Başlatma</value></data>
+  <data name="ErrorFix_RestartNeededMessage" xml:space="preserve"><value>Servis ayarları değiştirildi. Değişikliklerin uygulanması için bilgisayarı yeniden başlatmak ister misiniz?</value></data>
+  <data name="ErrorFix_StoppingProcess" xml:space="preserve"><value>Süreç durduruluyor: {0}</value></data>
+  <data name="ErrorFix_ProcessStopFailed" xml:space="preserve"><value>{0} durdurulamadı: {1}</value></data>
+  <data name="ErrorFix_UnkclubLaunched" xml:space="preserve"><value>UNKCLUB başlatıldı.</value></data>
+  <data name="ErrorFix_UnkclubNotFound" xml:space="preserve"><value>{0} klasöründe {1} bulunamadı.</value></data>
+  <data name="ErrorFix_AnyAppNotFound" xml:space="preserve"><value>Masaüstü Emulator klasöründe .exe dosyası bulunamadı. Lütfen reseller uygulamanızı bu klasöre koyun.</value></data>
+  <data name="ErrorFix_AppLaunched" xml:space="preserve"><value>Emülatör uygulaması başlatıldı.</value></data>
+  <data name="ErrorFix_AppFollowStepsTitle" xml:space="preserve"><value>Emülatör</value></data>
+  <data name="ErrorFix_AppFollowSteps" xml:space="preserve"><value>Emülatör uygulaması başlatıldı. Lütfen ekrandaki adımları takip edin.</value></data>
+  <data name="ErrorFix_UnkclubFollowStepsTitle" xml:space="preserve"><value>Emülatör</value></data>
+  <data name="ErrorFix_UnkclubFollowSteps" xml:space="preserve"><value>UNKCLUB başlatıldı. Lütfen emülatör ekranındaki adımları takip edin.</value></data>
+  <data name="Feature_defender-service" xml:space="preserve"><value>Windows Defender Hizmeti</value></data>
+  <data name="Feature_real-time-protection" xml:space="preserve"><value>Gerçek Zamanlı Koruma</value></data>
+  <data name="Feature_behavior-monitoring" xml:space="preserve"><value>Davranış İzleme</value></data>
+  <data name="Feature_network-protection" xml:space="preserve"><value>Ağ Koruması</value></data>
+  <data name="Feature_cloud-protection" xml:space="preserve"><value>Bulut Koruması</value></data>
+  <data name="Feature_pua-protection" xml:space="preserve"><value>PUA Koruması</value></data>
+  <data name="Feature_tamper-protection" xml:space="preserve"><value>Kurcalamaya Karşı Koruma</value></data>
+  <data name="Feature_smartscreen-app" xml:space="preserve"><value>SmartScreen (Uygulama/Dosya)</value></data>
+  <data name="Feature_edge-smartscreen" xml:space="preserve"><value>Edge SmartScreen</value></data>
+  <data name="StepRunning" xml:space="preserve"><value>Çalışıyor...</value></data>
+  <data name="StepSkippedAlreadyInstalled" xml:space="preserve"><value>Zaten kurulu, atlandı.</value></data>
+  <data name="MainProgramNotFound" xml:space="preserve"><value>Ana program bulunamadı.</value></data>
+  <data name="UnknownStepType" xml:space="preserve"><value>Bilinmeyen adım tipi: {0}</value></data>
+  <data name="CommandNotDefined" xml:space="preserve"><value>Komut tanımlanmamış.</value></data>
+  <data name="CheckSuccess" xml:space="preserve"><value>Kontrol başarılı.</value></data>
+  <data name="CheckFailed" xml:space="preserve"><value>Kontrol başarısız. Çıkış kodu: {0}</value></data>
+  <data name="PathExistsNotDefined" xml:space="preserve"><value>pathExists tanımlanmamış.</value></data>
+  <data name="PathExists" xml:space="preserve"><value>Dosya veya klasör mevcut.</value></data>
+  <data name="PathNotFound" xml:space="preserve"><value>Bulunamadı: {0}</value></data>
+  <data name="RegistryKeyNotDefined" xml:space="preserve"><value>registryKey tanımlanmamış.</value></data>
+  <data name="RegistryCheckSuccess" xml:space="preserve"><value>Registry kontrolü başarılı.</value></data>
+  <data name="RegistryNotFound" xml:space="preserve"><value>Registry kaydı bulunamadı.</value></data>
+  <data name="EnvVarMissing" xml:space="preserve"><value>environmentVariable veya environmentExpectedContains eksik.</value></data>
+  <data name="EnvCheckSuccess" xml:space="preserve"><value>Ortam değişkeni kontrolü başarılı.</value></data>
+  <data name="EnvCheckFailed" xml:space="preserve"><value>{0} beklenen değeri içermiyor.</value></data>
+  <data name="RunningCommand" xml:space="preserve"><value>Komut çalıştırılıyor: {0} {1}</value></data>
+  <data name="CommandCompleted" xml:space="preserve"><value>Komut başarıyla tamamlandı.</value></data>
+  <data name="CommandFailed" xml:space="preserve"><value>Komut başarısız. Çıkış kodu: {0}</value></data>
+  <data name="InstallCompleted" xml:space="preserve"><value>Kurulum tamamlandı.</value></data>
+  <data name="InstallFailed" xml:space="preserve"><value>Kurulum başarısız. Çıkış kodu: {0}</value></data>
+  <data name="AdminCommandFailed" xml:space="preserve"><value>Yönetici komutu başlatılamadı.</value></data>
+  <data name="CommandTimeout" xml:space="preserve"><value>Komut zaman aşımına uğradı.</value></data>
+  <data name="AdminCommandCompleted" xml:space="preserve"><value>Yönetici komutu tamamlandı.</value></data>
+  <data name="CommandStarted" xml:space="preserve"><value>Komut başlatıldı.</value></data>
+  <data name="UrlNotDefined" xml:space="preserve"><value>url tanımlanmamış.</value></data>
+  <data name="Downloaded" xml:space="preserve"><value>İndirildi: {0}</value></data>
+  <data name="FolderPathNotDefined" xml:space="preserve"><value>folderPath tanımlanmamış.</value></data>
+  <data name="FolderNotFound" xml:space="preserve"><value>Klasör bulunamadı: {0}</value></data>
+  <data name="SecurityUnblockDone" xml:space="preserve"><value>Kurulum dosyalarının güvenlik engeli kaldırıldı.</value></data>
+  <data name="NoInstallersInFolder" xml:space="preserve"><value>Klasörde kurulum dosyası bulunamadı: {0}</value></data>
+  <data name="InstallersFound" xml:space="preserve"><value>{0} kurulum dosyası bulundu.</value></data>
+  <data name="Installing" xml:space="preserve"><value>[{0}/{1}] Kuruluyor: {2}</value></data>
+  <data name="SkippedInstaller" xml:space="preserve"><value>[{0}/{1}] Atlandı: {2} - {3}</value></data>
+  <data name="InstallerFailed" xml:space="preserve"><value>{0} kurulumu başarısız: {1}</value></data>
+  <data name="InstallerCompleted" xml:space="preserve"><value>[{0}/{1}] Tamamlandı: {2}</value></data>
+  <data name="AllInstallersSuccess" xml:space="preserve"><value>{0} kurulum dosyası başarıyla yüklendi.</value></data>
+  <data name="SourcePathNotDefined" xml:space="preserve"><value>sourcePath tanımlanmamış.</value></data>
+  <data name="SourceFileNotFound" xml:space="preserve"><value>Kaynak dosya bulunamadı: {0}</value></data>
+  <data name="DestinationNotDefined" xml:space="preserve"><value>destinationFolder/fileName veya destinationPath tanımlanmamış.</value></data>
+  <data name="CopyingFile" xml:space="preserve"><value>Dosya kopyalanıyor: {0} -&gt; {1}</value></data>
+  <data name="FileCopied" xml:space="preserve"><value>Dosya kopyalandı: {0}</value></data>
+  <data name="StepStarted" xml:space="preserve"><value>[{0}] başlatıldı.</value></data>
+  <data name="StepSkipped" xml:space="preserve"><value>[{0}] atlandı.</value></data>
+  <data name="StepFailed" xml:space="preserve"><value>[{0}] başarısız: {1}</value></data>
+  <data name="StepError" xml:space="preserve"><value>[{0}] hata: {1}</value></data>
+  <data name="DefenderDisabling" xml:space="preserve"><value>Windows Defender ve SmartScreen devre dışı bırakılıyor...</value></data>
+  <data name="DefenderApplied" xml:space="preserve"><value>Defender ve SmartScreen ayarları uygulandı.</value></data>
+  <data name="DefenderDisabled" xml:space="preserve"><value>Defender ve SmartScreen devre dışı bırakıldı.</value></data>
+  <data name="DefenderPartial" xml:space="preserve"><value>Defender adımı tamamlandı (kısmi/opsiyonel).</value></data>
+  <data name="DefenderDisableWarning" xml:space="preserve"><value>Defender devre dışı bırakma uyarısı. Çıkış kodu: {0}</value></data>
+  <data name="DefenderExclusionsAdding" xml:space="preserve"><value>Windows Defender istisnaları ekleniyor (yanlış virüs uyarısını önlemek için)...</value></data>
+  <data name="DefenderExclusionsAdded" xml:space="preserve"><value>Defender istisnaları eklendi.</value></data>
+  <data name="DefenderExclusionsPartial" xml:space="preserve"><value>Defender istisnaları kısmen uygulandı.</value></data>
+  <data name="DefenderExclusionsWarning" xml:space="preserve"><value>Defender istisna uyarısı. Çıkış kodu: {0}</value></data>
+  <data name="DefenderExclusionsInfoTitle" xml:space="preserve"><value>Güvenlik Bilgisi</value></data>
+  <data name="DefenderExclusionsInfoMessage" xml:space="preserve"><value>Windows Defender devre dışı bırakılırken yanlış virüs uyarısı almamanız için aşağıdaki konumlara istisna eklendi: uygulama klasörü, Installers, Masaüstü\Emulator ve PreInstallTool. Bu normal bir güvenlik önlemidir; kuruluma devam edebilirsiniz.</value></data>
+  <data name="DefenderCloudDisabling" xml:space="preserve"><value>Bulut tabanlı koruma ve örnek gönderimi devre dışı bırakılıyor...</value></data>
+  <data name="DefenderVerifyRetry" xml:space="preserve"><value>Bazı Defender özellikleri hâlâ açık; yeniden deneniyor ({0}/{1})...</value></data>
+  <data name="DefenderVerifyWarning" xml:space="preserve"><value>Uyarı: Aşağıdaki Defender özellikleri hâlâ açık: {0}</value></data>
+  <data name="DefenderPartialActive" xml:space="preserve"><value>Defender adımı tamamlandı; hâlâ açık özellikler: {0}</value></data>
+  <data name="ConfigFileNotFound" xml:space="preserve"><value>Yapılandırma dosyası bulunamadı: {0}</value></data>
+  <data name="ConfigFileUnreadable" xml:space="preserve"><value>Yapılandırma dosyası okunamadı.</value></data>
+  <data name="ConfigNoModesOrSteps" xml:space="preserve"><value>En az bir kurulum modu veya adım tanımlanmalıdır.</value></data>
+  <data name="Downloading" xml:space="preserve"><value>İndiriliyor: {0}</value></data>
+  <data name="DownloadComplete" xml:space="preserve"><value>İndirme tamamlandı: {0}</value></data>
+  <data name="InstallerAlreadyInstalledSkip" xml:space="preserve"><value>{0} zaten kurulu, atlanıyor.</value></data>
+  <data name="InstallerAlreadyInstalledResult" xml:space="preserve"><value>{0} zaten kurulu.</value></data>
+  <data name="InstallerInstallingFile" xml:space="preserve"><value>{0} kuruluyor...</value></data>
+  <data name="SilentInstallTryingUi" xml:space="preserve"><value>Sessiz kurulum çıkış kodu: {0}. UI otomasyon deneniyor...</value></data>
+  <data name="InstallCompletedAlreadyInstalled" xml:space="preserve"><value>Kurulum tamamlandı (zaten kurulu).</value></data>
+  <data name="LicenseAccepted" xml:space="preserve"><value>Lisans sözleşmesi kabul edildi.</value></data>
+  <data name="BingBarUnchecked" xml:space="preserve"><value>Bing Bar seçimi kaldırıldı.</value></data>
+  <data name="ButtonClicked" xml:space="preserve"><value>"{0}" tıklandı.</value></data>
+  <data name="ConfirmButtonClicked" xml:space="preserve"><value>Onay düğmesi tıklandı: {0}</value></data>
+  <data name="DirectXWizardStarting" xml:space="preserve"><value>DirectX kurulum sihirbazı başlatılıyor (argümansız)...</value></data>
+  <data name="DirectXAlreadyInstalledSkip" xml:space="preserve"><value>DirectX runtime zaten kurulu, atlanıyor.</value></data>
+  <data name="DirectXAlreadyInstalledResult" xml:space="preserve"><value>DirectX zaten kurulu.</value></data>
+  <data name="DirectXWindowTitle" xml:space="preserve"><value>DirectX penceresi: {0}</value></data>
+  <data name="DirectXDownloadingWaiting" xml:space="preserve"><value>DirectX indiriliyor/kuruluyor, bekleniyor...</value></data>
+  <data name="DirectXInstallCompleted" xml:space="preserve"><value>DirectX kurulumu tamamlandı.</value></data>
+  <data name="DirectXProcessNotFound" xml:space="preserve"><value>DirectX kurulum süreci bulunamadı.</value></data>
+  <data name="DirectXWaitingCompletion" xml:space="preserve"><value>DirectX kurulumunun tamamlanması bekleniyor...</value></data>
+  <data name="DirectXInstallExitCode" xml:space="preserve"><value>DirectX kurulum çıkış kodu: {0}</value></data>
+  <data name="DirectXInstallFailed" xml:space="preserve"><value>DirectX kurulumu başarısız. Çıkış kodu: {0}</value></data>
+  <data name="DirectXAutomationError" xml:space="preserve"><value>DirectX otomasyon hatası: {0}</value></data>
+  <data name="StepResultLog" xml:space="preserve"><value>[{0}] {1}</value></data>
+  <data name="BtnCheckForUpdates" xml:space="preserve"><value>Güncellemeleri Denetle</value></data>
+  <data name="AppVersionLabel" xml:space="preserve"><value>Sürüm {0}</value></data>
+  <data name="Update_Checking" xml:space="preserve"><value>Güncellemeler denetleniyor...</value></data>
+  <data name="Update_UpToDate" xml:space="preserve"><value>UNKCLUB Tool güncel (sürüm {0}).</value></data>
+  <data name="Update_UpToDateTitle" xml:space="preserve"><value>Güncel</value></data>
+  <data name="Update_AvailableTitle" xml:space="preserve"><value>Güncelleme Mevcut</value></data>
+  <data name="Update_AvailableMessage" xml:space="preserve"><value>Yeni sürüm {0} indirilebilir.{1}{1}{2}{1}{1}Şimdi indirip kurmak ister misiniz?</value></data>
+  <data name="Update_NoReleaseNotes" xml:space="preserve"><value>Sürüm notu yok.</value></data>
+  <data name="Update_Downloading" xml:space="preserve"><value>Güncelleme indiriliyor...</value></data>
+  <data name="Update_DownloadFailed" xml:space="preserve"><value>Güncelleme indirilemedi: {0}</value></data>
+  <data name="Update_RestartPrompt" xml:space="preserve"><value>Güncelleme uygulanıyor. Uygulama yeniden başlatılacak.</value></data>
+  <data name="Update_RestartTitle" xml:space="preserve"><value>Güncelleme</value></data>
+  <data name="Update_CheckFailed" xml:space="preserve"><value>Güncelleme denetlenemedi: {0}</value></data>
+  <data name="Update_CheckFailedTitle" xml:space="preserve"><value>Güncelleme Hatası</value></data>
+</root>

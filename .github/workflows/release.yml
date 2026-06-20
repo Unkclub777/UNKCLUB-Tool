@@ -1,0 +1,88 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. 1.0.1)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Resolve version
+        id: version
+        shell: pwsh
+        run: |
+          if ("${{ github.event_name }}" -eq 'workflow_dispatch') {
+            $version = "${{ inputs.version }}"
+          } else {
+            $version = "${{ github.ref_name }}".TrimStart('v')
+          }
+          "version=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Publish app
+        shell: pwsh
+        run: |
+          dotnet publish PreInstallTool/PreInstallTool.csproj `
+            -c Release `
+            -o publish `
+            /p:Version=${{ steps.version.outputs.version }} `
+            /p:AssemblyVersion=${{ steps.version.outputs.version }}.0 `
+            /p:FileVersion=${{ steps.version.outputs.version }}.0 `
+            /p:InformationalVersion=${{ steps.version.outputs.version }}
+
+          if (Test-Path publish/Installers) {
+            Remove-Item publish/Installers -Recurse -Force
+          }
+
+          if (Test-Path publish/install-config.json) {
+            Remove-Item publish/install-config.json -Force
+          }
+
+          Compress-Archive -Path publish/* -DestinationPath PreInstallTool.zip -Force
+
+      - name: Update version.json
+        shell: pwsh
+        run: |
+          $version = "${{ steps.version.outputs.version }}"
+          $manifest = @{
+            version = $version
+            downloadUrl = "https://github.com/${{ github.repository }}/releases/download/v$version/PreInstallTool.zip"
+            releaseNotes = "Release v$version"
+          } | ConvertTo-Json -Depth 3
+          Set-Content -Path version.json -Value $manifest -Encoding UTF8
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: UNKCLUB Tool v${{ steps.version.outputs.version }}
+          files: |
+            PreInstallTool.zip
+            version.json
+          generate_release_notes: true
+
+      - name: Commit version.json bump
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add version.json
+          git diff --cached --quiet || git commit -m "chore: bump version.json to v${{ steps.version.outputs.version }}"
+          git push

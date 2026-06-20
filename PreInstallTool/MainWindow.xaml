@@ -1,0 +1,589 @@
+<Window x:Class="PreInstallTool.MainWindow"
+
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+        Title="{Binding WindowTitle}"
+
+        Height="820"
+
+        Width="1180"
+
+        MinHeight="680"
+
+        MinWidth="980"
+
+        WindowStartupLocation="CenterScreen"
+
+        Background="{StaticResource BackgroundBrush}">
+
+    <Grid Margin="24">
+
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="280"/>
+
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+
+
+
+        <Border Grid.Column="0"
+
+                Background="{StaticResource PanelBrush}"
+
+                CornerRadius="12"
+
+                Padding="16"
+
+                Margin="0,0,16,0">
+
+            <DockPanel LastChildFill="True">
+
+                <StackPanel DockPanel.Dock="Top" Margin="0,0,0,12">
+
+                    <TextBlock Text="{Binding DefenderStatus.DefenderStatusTitle}"
+
+                               FontSize="16"
+
+                               FontWeight="SemiBold"
+
+                               Foreground="{StaticResource TextBrush}"/>
+
+                    <TextBlock Text="{Binding DefenderStatus.LastUpdatedText}"
+
+                               Margin="0,6,0,0"
+
+                               FontSize="11"
+
+                               Foreground="{StaticResource MutedTextBrush}"/>
+
+                </StackPanel>
+
+
+
+                <StackPanel DockPanel.Dock="Bottom" Margin="0,12,0,0">
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+
+                        <Ellipse Width="10" Height="10" Fill="#22C55E" Margin="0,0,8,0"/>
+
+                        <TextBlock Text="{Binding DefenderStatus.LegendEnabled}"
+
+                                   FontSize="11"
+
+                                   Foreground="{StaticResource MutedTextBrush}"/>
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Ellipse Width="10" Height="10" Fill="#EF4444" Margin="0,0,8,0"/>
+
+                        <TextBlock Text="{Binding DefenderStatus.LegendDisabled}"
+
+                                   FontSize="11"
+
+                                   Foreground="{StaticResource MutedTextBrush}"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                    <ItemsControl ItemsSource="{Binding DefenderStatus.Features}">
+
+                        <ItemsControl.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Grid Margin="0,0,0,10">
+
+                                    <Grid.ColumnDefinitions>
+
+                                        <ColumnDefinition Width="Auto"/>
+
+                                        <ColumnDefinition Width="*"/>
+
+                                    </Grid.ColumnDefinitions>
+
+                                    <Ellipse Grid.Column="0"
+
+                                             Width="10"
+
+                                             Height="10"
+
+                                             Fill="{Binding StatusBrush}"
+
+                                             VerticalAlignment="Center"
+
+                                             Margin="0,0,10,0"/>
+
+                                    <TextBlock Grid.Column="1"
+
+                                               Text="{Binding Name}"
+
+                                               TextWrapping="Wrap"
+
+                                               Foreground="{StaticResource TextBrush}"
+
+                                               FontSize="13"
+
+                                               VerticalAlignment="Center"/>
+
+                                </Grid>
+
+                            </DataTemplate>
+
+                        </ItemsControl.ItemTemplate>
+
+                    </ItemsControl>
+
+                </ScrollViewer>
+
+            </DockPanel>
+
+        </Border>
+
+
+
+        <Grid Grid.Column="1">
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="*"/>
+
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+
+
+
+            <Grid Grid.Row="0" Margin="0,0,0,16">
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="*"/>
+
+                    <ColumnDefinition Width="Auto"/>
+
+                </Grid.ColumnDefinitions>
+
+
+
+                <StackPanel Grid.Column="0">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="UNK"
+
+                                   FontSize="32"
+
+                                   FontWeight="Bold"
+
+                                   Foreground="#F8FAFC"/>
+
+                        <TextBlock Text="CLUB"
+
+                                   FontSize="32"
+
+                                   FontWeight="Bold"
+
+                                   Foreground="#8B0000"
+
+                                   Margin="0,0,6,0"/>
+
+                        <TextBlock Text="Tool"
+
+                                   FontSize="32"
+
+                                   FontWeight="Bold"
+
+                                   Foreground="#F8FAFC"/>
+
+                    </StackPanel>
+
+                    <TextBlock Text="{Binding AppTagline}"
+
+                               Margin="0,6,0,0"
+
+                               FontSize="13"
+
+                               Foreground="{StaticResource MutedTextBrush}"/>
+
+                    <TextBlock Text="{Binding Description}"
+
+                               Margin="0,8,0,0"
+
+                               FontSize="14"
+
+                               TextWrapping="Wrap"
+
+                               Foreground="{StaticResource MutedTextBrush}"/>
+
+                    <TextBlock Text="{Binding AppVersionLabel}"
+
+                               Margin="0,6,0,0"
+
+                               FontSize="11"
+
+                               Foreground="{StaticResource MutedTextBrush}"/>
+
+                </StackPanel>
+
+
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Top" MinWidth="200">
+
+                    <TextBlock Text="{Binding LanguageLabel}"
+
+                               FontSize="12"
+
+                               Foreground="{StaticResource MutedTextBrush}"
+
+                               Margin="0,0,0,6"/>
+
+                    <ComboBox ItemsSource="{Binding Languages}"
+
+                              SelectedItem="{Binding SelectedLanguage}"
+
+                              DisplayMemberPath="DisplayName"/>
+
+                </StackPanel>
+
+            </Grid>
+
+
+
+            <StackPanel Grid.Row="1" Margin="0,0,0,16">
+
+                <TextBlock Text="{Binding ResellerLabel}"
+
+                           FontSize="16"
+
+                           FontWeight="SemiBold"
+
+                           Foreground="{StaticResource TextBrush}"
+
+                           Margin="0,0,0,10"/>
+
+
+
+                <ItemsControl ItemsSource="{Binding Resellers}">
+
+                    <ItemsControl.ItemsPanel>
+
+                        <ItemsPanelTemplate>
+
+                            <UniformGrid Columns="2"/>
+
+                        </ItemsPanelTemplate>
+
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Button Margin="0,0,10,0"
+
+                                    Padding="0"
+
+                                    Background="Transparent"
+
+                                    BorderThickness="0"
+
+                                    Command="{Binding DataContext.SelectResellerCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+
+                                    CommandParameter="{Binding Id}">
+
+                                <Button.Template>
+
+                                    <ControlTemplate TargetType="Button">
+
+                                        <Border Background="{Binding BackgroundBrush}"
+
+                                                BorderBrush="{Binding BorderBrush}"
+
+                                                BorderThickness="2"
+
+                                                CornerRadius="12"
+
+                                                Padding="18"
+
+                                                Cursor="Hand">
+
+                                            <StackPanel>
+
+                                                <TextBlock Text="{Binding Name}"
+
+                                                           FontSize="18"
+
+                                                           FontWeight="Bold"
+
+                                                           Foreground="{StaticResource TextBrush}"/>
+
+                                                <TextBlock Text="{Binding Description}"
+
+                                                           Margin="0,8,0,0"
+
+                                                           TextWrapping="Wrap"
+
+                                                           Foreground="{StaticResource MutedTextBrush}"/>
+
+                                            </StackPanel>
+
+                                        </Border>
+
+                                    </ControlTemplate>
+
+                                </Button.Template>
+
+                            </Button>
+
+                        </DataTemplate>
+
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+
+            </StackPanel>
+
+
+
+            <StackPanel Grid.Row="2" Margin="0,0,0,16">
+
+                <TextBlock Text="{Binding OptionLabel}"
+
+                           FontSize="16"
+
+                           FontWeight="SemiBold"
+
+                           Foreground="{StaticResource TextBrush}"
+
+                           Margin="0,0,0,10"/>
+
+
+
+                <ItemsControl ItemsSource="{Binding Modes}">
+
+                    <ItemsControl.ItemsPanel>
+
+                        <ItemsPanelTemplate>
+
+                            <UniformGrid Columns="2"/>
+
+                        </ItemsPanelTemplate>
+
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Button Margin="0,0,10,0"
+
+                                    Padding="0"
+
+                                    Background="Transparent"
+
+                                    BorderThickness="0"
+
+                                    Command="{Binding DataContext.SelectModeCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+
+                                    CommandParameter="{Binding Id}">
+
+                                <Button.Template>
+
+                                    <ControlTemplate TargetType="Button">
+
+                                        <Border Background="{Binding BackgroundBrush}"
+
+                                                BorderBrush="{Binding BorderBrush}"
+
+                                                BorderThickness="2"
+
+                                                CornerRadius="12"
+
+                                                Padding="18"
+
+                                                Cursor="Hand">
+
+                                            <StackPanel>
+
+                                                <TextBlock Text="{Binding Name}"
+
+                                                           FontSize="18"
+
+                                                           FontWeight="Bold"
+
+                                                           Foreground="{StaticResource TextBrush}"/>
+
+                                                <TextBlock Text="{Binding Description}"
+
+                                                           Margin="0,8,0,0"
+
+                                                           TextWrapping="Wrap"
+
+                                                           Foreground="{StaticResource MutedTextBrush}"/>
+
+                                            </StackPanel>
+
+                                        </Border>
+
+                                    </ControlTemplate>
+
+                                </Button.Template>
+
+                            </Button>
+
+                        </DataTemplate>
+
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+
+            </StackPanel>
+
+
+
+            <Border Grid.Row="3"
+
+                    Background="{StaticResource PanelBrush}"
+
+                    CornerRadius="12"
+
+                    Padding="16"
+
+                    Margin="0,0,0,16">
+
+                <StackPanel>
+
+                    <TextBlock Text="{Binding SelectedModeDescription}"
+
+                               Foreground="{StaticResource MutedTextBrush}"
+
+                               TextWrapping="Wrap"
+
+                               Margin="0,0,0,12"/>
+
+                    <TextBlock Text="{Binding StatusText}"
+
+                               Foreground="{StaticResource TextBrush}"
+
+                               FontSize="14"
+
+                               Margin="0,0,0,12"/>
+
+                    <ProgressBar Value="{Binding ProgressValue, Mode=OneWay}"
+
+                                 Height="12"
+
+                                 Minimum="0"
+
+                                 Maximum="100"/>
+
+                </StackPanel>
+
+            </Border>
+
+
+
+            <Border Grid.Row="4"
+
+                    Background="{StaticResource PanelBrush}"
+
+                    CornerRadius="12"
+
+                    Padding="12"
+
+                    Margin="0,0,0,16">
+
+                <DockPanel LastChildFill="True">
+
+                    <TextBlock DockPanel.Dock="Top"
+
+                               Text="{Binding LogLabel}"
+
+                               FontWeight="SemiBold"
+
+                               Foreground="{StaticResource TextBrush}"
+
+                               Margin="0,0,0,8"/>
+
+                    <ListBox ItemsSource="{Binding LogLines}"
+
+                             Background="#0B1220"
+
+                             Foreground="#CBD5E1"
+
+                             BorderThickness="0"
+
+                             FontFamily="Consolas"
+
+                             FontSize="12"/>
+
+                </DockPanel>
+
+            </Border>
+
+
+
+            <StackPanel Grid.Row="5"
+
+                        Orientation="Horizontal"
+
+                        HorizontalAlignment="Right">
+
+                <Button Content="{Binding BtnStartInstall}"
+
+                        Command="{Binding StartCommand}"
+
+                        Margin="0,0,10,0"/>
+
+                <Button Content="{Binding BtnCancel}"
+
+                        Background="#64748B"
+
+                        Command="{Binding CancelCommand}"
+
+                        Margin="0,0,10,0"/>
+
+                <Button Content="{Binding BtnCheckForUpdates}"
+
+                        Background="#334155"
+
+                        Command="{Binding CheckForUpdatesCommand}"
+
+                        Margin="0,0,10,0"/>
+
+                <Button Content="{Binding BtnLaunchMainProgram}"
+
+                        Background="#059669"
+
+                        Command="{Binding LaunchMainProgramCommand}"
+
+                        Visibility="{Binding CanLaunchMainProgram, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+
+</Window>
+
+
