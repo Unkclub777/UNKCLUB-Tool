@@ -32,7 +32,21 @@ public partial class App : Application
 
         LocalizationService.Initialize();
 
-        AppResourceService.EnsureInitialized();
+        try
+        {
+            AppResourceService.EnsureInitialized();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                $"Installer files could not be prepared.\n\n{ex.Message}",
+                "UNKCLUB Tool",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+            Shutdown();
+            return;
+        }
+
         OsCompatibilityService.EnsureSupportedOrWarn();
 
         ContinueErrorFixRequested = e.Args.Any(static arg =>

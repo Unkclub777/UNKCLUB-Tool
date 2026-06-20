@@ -6,6 +6,7 @@ Dagitim/
 publish/
 PreInstallTool.zip
 PreInstallTool/embedded-bundle.zip
+PreInstallTool/installers-bundle.zip
 PreInstallTool/embedded-staging/
 
 # User-specific IDE / secrets
@@ -31,3 +32,5 @@ Kurulum dosyaları/*
 
 # Optional: exclude the main emulator binary if distributed separately
 # Kurulum dosyaları/UNKCLUB.exe
+
+publish-test/

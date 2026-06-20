@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version (e.g. 1.1.1)'
+        description: 'Release version (e.g. 1.2.0)'
         required: true
         type: string
 
@@ -36,10 +36,9 @@ jobs:
           }
           "version=$version" >> $env:GITHUB_OUTPUT
 
-      - name: Publish app
+      - name: Publish app (small exe, no embedded installers)
         shell: pwsh
         run: |
-          # PackEmbeddedResources (MSBuild ZipDirectory) runs during publish and embeds install payloads.
           dotnet publish PreInstallTool/PreInstallTool.csproj `
             -c Release `
             -r win-x64 `
@@ -53,15 +52,16 @@ jobs:
           Move-Item -Path publish-staging/PreInstallTool.exe -Destination "publish/UNKCLUB Tool.exe" -Force
           Remove-Item publish-staging -Recurse -Force -ErrorAction SilentlyContinue
 
-          Compress-Archive -Path "publish/UNKCLUB Tool.exe" -DestinationPath UNKCLUB-Tool.zip -Force
-
       - name: Update version.json
         shell: pwsh
         run: |
           $version = "${{ steps.version.outputs.version }}"
+          $repo = "${{ github.repository }}"
           $manifest = @{
             version = $version
-            downloadUrl = "https://github.com/${{ github.repository }}/releases/download/v$version/UNKCLUB-Tool.zip"
+            downloadUrl = "https://github.com/$repo/releases/download/v$version/UNKCLUB Tool.exe"
+            installersBundleUrl = "https://github.com/$repo/releases/download/v$version/installers-bundle.zip"
+            installersBundleVersion = $version
             releaseNotes = "Release v$version"
           } | ConvertTo-Json -Depth 3
           Set-Content -Path version.json -Value $manifest -Encoding UTF8
@@ -73,9 +73,12 @@ jobs:
           name: UNKCLUB Tool v${{ steps.version.outputs.version }}
           files: |
             publish/UNKCLUB Tool.exe
-            UNKCLUB-Tool.zip
             version.json
+            PreInstallTool/installers-bundle.zip
+          fail_on_unmatched_files: false
           generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit version.json bump
         shell: pwsh

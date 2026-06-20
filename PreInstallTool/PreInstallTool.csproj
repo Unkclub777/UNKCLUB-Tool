@@ -12,15 +12,17 @@
     <AssemblyTitle>UNKCLUB Tool</AssemblyTitle>
     <Product>UNKCLUB Tool</Product>
     <Company>UNKCLUB</Company>
-    <Version>1.1.1</Version>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
-    <FileVersion>1.1.1.0</FileVersion>
-    <InformationalVersion>1.1.1</InformationalVersion>
+    <Version>1.2.0</Version>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <InformationalVersion>1.2.0</InformationalVersion>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>true</SelfContained>
     <PublishSingleFile>true</PublishSingleFile>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <PublishTrimmed>false</PublishTrimmed>
+    <InstallersStagingDir>$(ProjectDir)embedded-staging\</InstallersStagingDir>
+    <InstallersBundlePath>$(ProjectDir)installers-bundle.zip</InstallersBundlePath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -54,48 +56,35 @@
     </None>
   </ItemGroup>
 
-  <PropertyGroup>
-    <EmbeddedStagingDir>$(ProjectDir)embedded-staging\</EmbeddedStagingDir>
-    <EmbeddedBundlePath>$(ProjectDir)embedded-bundle.zip</EmbeddedBundlePath>
-    <PrepareResourcesDependsOn>PackEmbeddedResources;$(PrepareResourcesDependsOn)</PrepareResourcesDependsOn>
-  </PropertyGroup>
+  <!-- Builds installers-bundle.zip for GitHub Release upload (not embedded in the exe). -->
+  <Target Name="PackInstallersBundle">
+    <MakeDir Directories="$(InstallersStagingDir)Installers\IlkKurulum" />
+    <MakeDir Directories="$(InstallersStagingDir)Installers\App" />
 
-  <!-- Bundle must exist before PrepareResources embeds it into the assembly (required for single-file publish). -->
-  <Target Name="PackEmbeddedResources">
-    <MakeDir Directories="$(EmbeddedStagingDir)Installers\IlkKurulum" />
-    <MakeDir Directories="$(EmbeddedStagingDir)Installers\App" />
-
-    <Copy SourceFiles="install-config.json" DestinationFolder="$(EmbeddedStagingDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="install-config.json" DestinationFolder="$(InstallersStagingDir)" SkipUnchangedFiles="true" />
 
     <ItemGroup>
-      <_EmbeddedIlkKurulum Include="..\Kurulum dosyaları\**\*" Exclude="..\Kurulum dosyaları\UNKCLUB.exe;..\Kurulum dosyaları\UNKCLUB.exe.exe" />
+      <_InstallersIlkKurulum Include="..\Kurulum dosyaları\**\*" Exclude="..\Kurulum dosyaları\UNKCLUB.exe;..\Kurulum dosyaları\UNKCLUB.exe.exe" />
     </ItemGroup>
-    <Copy SourceFiles="@(_EmbeddedIlkKurulum)" DestinationFolder="$(EmbeddedStagingDir)Installers\IlkKurulum\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(_InstallersIlkKurulum)" DestinationFolder="$(InstallersStagingDir)Installers\IlkKurulum\%(RecursiveDir)" SkipUnchangedFiles="true" />
 
     <Copy SourceFiles="..\Kurulum dosyaları\UNKCLUB.exe.exe"
-          DestinationFiles="$(EmbeddedStagingDir)Installers\App\UNKCLUB.exe"
+          DestinationFiles="$(InstallersStagingDir)Installers\App\UNKCLUB.exe"
           Condition="Exists('..\Kurulum dosyaları\UNKCLUB.exe.exe')"
           SkipUnchangedFiles="true" />
     <Copy SourceFiles="..\Kurulum dosyaları\UNKCLUB.exe"
-          DestinationFiles="$(EmbeddedStagingDir)Installers\App\UNKCLUB.exe"
+          DestinationFiles="$(InstallersStagingDir)Installers\App\UNKCLUB.exe"
           Condition="Exists('..\Kurulum dosyaları\UNKCLUB.exe')"
           SkipUnchangedFiles="true" />
 
-    <Delete Files="$(EmbeddedBundlePath)" Condition="Exists('$(EmbeddedBundlePath)')" />
+    <Delete Files="$(InstallersBundlePath)" Condition="Exists('$(InstallersBundlePath)')" />
     <ZipDirectory
-      SourceDirectory="$(EmbeddedStagingDir)"
-      DestinationFile="$(EmbeddedBundlePath)"
+      SourceDirectory="$(InstallersStagingDir)"
+      DestinationFile="$(InstallersBundlePath)"
       Overwrite="true" />
 
-    <Error Condition="!Exists('$(EmbeddedBundlePath)')"
-           Text="embedded-bundle.zip was not created at $(EmbeddedBundlePath)." />
-
-    <ItemGroup>
-      <EmbeddedResource Remove="@(EmbeddedResource)" Condition="'%(Filename)%(Extension)' == 'embedded-bundle.zip'" />
-      <EmbeddedResource Include="$(EmbeddedBundlePath)">
-        <LogicalName>embedded.bundle.zip</LogicalName>
-      </EmbeddedResource>
-    </ItemGroup>
+    <Error Condition="!Exists('$(InstallersBundlePath)')"
+           Text="installers-bundle.zip was not created at $(InstallersBundlePath)." />
   </Target>
 
   <Target Name="UnblockInstallerFiles" AfterTargets="Build">

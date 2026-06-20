@@ -1,5 +1,7 @@
 {
-  "version": "1.1.1",
-  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.1.1/UNKCLUB-Tool.zip",
-  "releaseNotes": "Embedded bundle fix (MSBuild ZipDirectory), GitHub-only distribution, auto-update supports zip or exe assets."
+  "version": "1.2.0",
+  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.2.0/UNKCLUB Tool.exe",
+  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.2.0/installers-bundle.zip",
+  "installersBundleVersion": "1.2.0",
+  "releaseNotes": "Split distribution: small exe from GitHub; installer payloads downloaded as installers-bundle.zip on first run or after update."
 }

@@ -1,19 +1,23 @@
 using System.IO;
 using System.IO.Compression;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
-using System.Text;
+using System.Text.Json;
 
 namespace PreInstallTool.Services;
 
 /// <summary>
-/// Resolves installer/config paths: beside the exe (legacy folder distribution) or
-/// extracted once from the embedded bundle to %LocalAppData%\UNKCLUB-Tool\.
+/// Resolves installer/config paths: beside the exe (legacy/dev), extracted cache under
+/// %LocalAppData%\UNKCLUB-Tool\, or downloaded once from the GitHub Release asset
+/// installers-bundle.zip.
 /// </summary>
 public static class AppResourceService
 {
-    private const string EmbeddedBundleLogicalName = "embedded.bundle.zip";
-    private const string ExtractedVersionFileName = ".extracted-version";
+    private const string ExtractedVersionFileName = ".installers-bundle-version";
+    private const string LocalAppFolderName = "UNKCLUB-Tool";
 
+    private static readonly HttpClient HttpClient = CreateHttpClient();
     private static readonly object InitLock = new();
     private static string? _resourceRoot;
     private static bool _initialized;
@@ -54,24 +58,13 @@ public static class AppResourceService
 
     private static string ResolveResourceRoot()
     {
-        var baseDirectory = AppContext.BaseDirectory.TrimEnd(
-            Path.DirectorySeparatorChar,
-            Path.AltDirectorySeparatorChar);
-
-        var externalInstallers = Path.Combine(baseDirectory, "Installers");
-        var externalConfig = Path.Combine(baseDirectory, "install-config.json");
-
-        if (File.Exists(externalConfig) &&
-            Directory.Exists(externalInstallers) &&
-            Directory.EnumerateFileSystemEntries(externalInstallers).Any())
+        var devRoot = TryResolveDevResourceRoot();
+        if (devRoot is not null)
         {
-            return baseDirectory;
+            return devRoot;
         }
 
-        var extractRoot = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "UNKCLUB-Tool");
-
+        var extractRoot = GetLocalCacheRoot();
         var versionMarker = Path.Combine(extractRoot, ExtractedVersionFileName);
         var currentVersion = GetCurrentAssemblyVersionLabel();
 
@@ -80,10 +73,57 @@ public static class AppResourceService
             return extractRoot;
         }
 
-        ExtractEmbeddedBundle(extractRoot);
         Directory.CreateDirectory(extractRoot);
+        DownloadAndExtractInstallersBundle(extractRoot, currentVersion);
         File.WriteAllText(versionMarker, currentVersion);
         return extractRoot;
+    }
+
+    private static string GetLocalCacheRoot() =>
+        Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            LocalAppFolderName);
+
+    private static string? TryResolveDevResourceRoot()
+    {
+        var baseDirectory = AppContext.BaseDirectory.TrimEnd(
+            Path.DirectorySeparatorChar,
+            Path.AltDirectorySeparatorChar);
+
+        if (IsValidResourceRoot(baseDirectory))
+        {
+            return baseDirectory;
+        }
+
+        var directory = baseDirectory;
+        for (var depth = 0; depth < 8 && !string.IsNullOrEmpty(directory); depth++)
+        {
+            var preInstallToolDir = Path.Combine(directory, "PreInstallTool");
+            var stagingRoot = Path.Combine(preInstallToolDir, "embedded-staging");
+            if (IsValidResourceRoot(stagingRoot))
+            {
+                return stagingRoot;
+            }
+
+            directory = Path.GetDirectoryName(directory);
+        }
+
+        return null;
+    }
+
+    private static bool IsValidResourceRoot(string root)
+    {
+        if (string.IsNullOrWhiteSpace(root) || !Directory.Exists(root))
+        {
+            return false;
+        }
+
+        var installersRoot = Path.Combine(root, "Installers");
+        var configPath = Path.Combine(root, "install-config.json");
+
+        return File.Exists(configPath) &&
+               Directory.Exists(installersRoot) &&
+               Directory.EnumerateFileSystemEntries(installersRoot).Any();
     }
 
     private static bool IsExtractedBundleValid(string extractRoot, string versionMarker, string currentVersion)
@@ -94,94 +134,99 @@ public static class AppResourceService
             return false;
         }
 
-        var installersRoot = Path.Combine(extractRoot, "Installers");
-        var configPath = Path.Combine(extractRoot, "install-config.json");
-
-        return Directory.Exists(installersRoot) &&
-               Directory.EnumerateFileSystemEntries(installersRoot).Any() &&
-               File.Exists(configPath);
+        return IsValidResourceRoot(extractRoot);
     }
 
-    private static void ExtractEmbeddedBundle(string targetRoot)
+    private static void DownloadAndExtractInstallersBundle(string targetRoot, string versionLabel)
     {
-        var assembly = Assembly.GetExecutingAssembly();
-        using var resourceStream = OpenEmbeddedBundleStream(assembly)
-            ?? throw CreateBundleNotFoundException(assembly);
+        var downloadUrl = ResolveInstallersBundleDownloadUrl(versionLabel)
+            ?? throw new InvalidOperationException(
+                $"Could not resolve a download URL for {UpdateConstants.InstallersBundleFileName} (v{versionLabel}).");
 
-        if (Directory.Exists(targetRoot))
-        {
-            Directory.Delete(targetRoot, recursive: true);
-        }
+        var tempZip = Path.Combine(
+            Path.GetTempPath(),
+            $"unkclub-installers-{Guid.NewGuid():N}.zip");
 
-        Directory.CreateDirectory(targetRoot);
-
-        using var archive = new ZipArchive(resourceStream, ZipArchiveMode.Read);
-        archive.ExtractToDirectory(targetRoot, overwriteFiles: true);
-    }
-
-    private static Stream? OpenEmbeddedBundleStream(Assembly assembly)
-    {
-        var direct = assembly.GetManifestResourceStream(EmbeddedBundleLogicalName);
-        if (direct != null)
-        {
-            return direct;
-        }
-
-        var defaultName = $"{assembly.GetName().Name}.{EmbeddedBundleLogicalName}";
-        var defaultStream = assembly.GetManifestResourceStream(defaultName);
-        if (defaultStream != null)
-        {
-            return defaultStream;
-        }
-
-        var suffixMatch = assembly.GetManifestResourceNames()
-            .FirstOrDefault(name => name.EndsWith(EmbeddedBundleLogicalName, StringComparison.OrdinalIgnoreCase));
-
-        return suffixMatch != null
-            ? assembly.GetManifestResourceStream(suffixMatch)
-            : null;
-    }
-
-    private static InvalidOperationException CreateBundleNotFoundException(Assembly assembly)
-    {
-        var available = assembly.GetManifestResourceNames();
-        WriteResourceDebugLog(available);
-
-        var listed = available.Length == 0
-            ? "(none)"
-            : string.Join(", ", available);
-
-        return new InvalidOperationException(
-            $"Embedded bundle '{EmbeddedBundleLogicalName}' was not found in the application assembly. " +
-            $"Available manifest resources: {listed}");
-    }
-
-    private static void WriteResourceDebugLog(string[] availableResources)
-    {
         try
         {
-            var logDir = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "UNKCLUB-Tool");
-            Directory.CreateDirectory(logDir);
+            DownloadFileAsync(downloadUrl, tempZip).GetAwaiter().GetResult();
 
-            var logPath = Path.Combine(logDir, "embedded-resource-debug.log");
-            var builder = new StringBuilder();
-            builder.AppendLine($"Timestamp: {DateTimeOffset.Now:O}");
-            builder.AppendLine($"Assembly: {Assembly.GetExecutingAssembly().FullName}");
-            builder.AppendLine($"Expected: {EmbeddedBundleLogicalName}");
-            builder.AppendLine("Available manifest resources:");
-            foreach (var name in availableResources)
+            if (Directory.Exists(targetRoot))
             {
-                builder.AppendLine($"  - {name}");
+                Directory.Delete(targetRoot, recursive: true);
             }
 
-            File.WriteAllText(logPath, builder.ToString());
+            Directory.CreateDirectory(targetRoot);
+            ZipFile.ExtractToDirectory(tempZip, targetRoot, overwriteFiles: true);
+
+            if (!IsValidResourceRoot(targetRoot))
+            {
+                throw new InvalidOperationException(
+                    $"Downloaded {UpdateConstants.InstallersBundleFileName} does not contain install-config.json and Installers.");
+            }
+        }
+        finally
+        {
+            if (File.Exists(tempZip))
+            {
+                File.Delete(tempZip);
+            }
+        }
+    }
+
+    private static string? ResolveInstallersBundleDownloadUrl(string versionLabel)
+    {
+        var manifestUrl =
+            $"https://raw.githubusercontent.com/{UpdateConstants.GitHubOwner}/{UpdateConstants.GitHubRepo}/{UpdateConstants.DefaultBranch}/version.json";
+
+        try
+        {
+            var manifestJson = HttpClient.GetStringAsync(manifestUrl).GetAwaiter().GetResult();
+            using var document = JsonDocument.Parse(manifestJson);
+            var root = document.RootElement;
+
+            if (root.TryGetProperty("installersBundleUrl", out var bundleUrlElement))
+            {
+                var bundleUrl = bundleUrlElement.GetString();
+                if (!string.IsNullOrWhiteSpace(bundleUrl))
+                {
+                    return bundleUrl;
+                }
+            }
+
+            if (root.TryGetProperty("installersBundleVersion", out var bundleVersionElement))
+            {
+                versionLabel = bundleVersionElement.GetString() ?? versionLabel;
+            }
         }
         catch
         {
-            // Best-effort debug logging only.
+            // Fall back to the release asset URL derived from the app version.
         }
+
+        return BuildReleaseAssetUrl(versionLabel, UpdateConstants.InstallersBundleFileName);
+    }
+
+    internal static string BuildReleaseAssetUrl(string versionLabel, string assetFileName)
+    {
+        var normalized = versionLabel.Trim();
+        if (normalized.StartsWith("v", StringComparison.OrdinalIgnoreCase))
+        {
+            normalized = normalized[1..];
+        }
+
+        return $"https://github.com/{UpdateConstants.GitHubOwner}/{UpdateConstants.GitHubRepo}/releases/download/v{normalized}/{assetFileName}";
+    }
+
+    private static async Task DownloadFileAsync(string url, string destinationPath)
+    {
+        using var response = await HttpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead)
+            .ConfigureAwait(false);
+        response.EnsureSuccessStatusCode();
+
+        await using var source = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+        await using var destination = File.Create(destinationPath);
+        await source.CopyToAsync(destination).ConfigureAwait(false);
     }
 
     private static string GetCurrentAssemblyVersionLabel()
@@ -194,5 +239,16 @@ public static class AppResourceService
         }
 
         return assembly.GetName().Version?.ToString(3) ?? "0.0.0";
+    }
+
+    private static HttpClient CreateHttpClient()
+    {
+        var client = new HttpClient
+        {
+            Timeout = TimeSpan.FromMinutes(15)
+        };
+        client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("UNKCLUB-Tool", "1.2.0"));
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        return client;
     }
 }
