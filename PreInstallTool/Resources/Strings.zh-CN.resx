@@ -278,6 +278,8 @@
   <data name="Update_RestartTitle" xml:space="preserve"><value>更新</value></data>
   <data name="Update_CheckFailed" xml:space="preserve"><value>无法检查更新：{0}</value></data>
   <data name="Update_CheckFailedTitle" xml:space="preserve"><value>更新错误</value></data>
+  <data name="Update_SilentApplying" xml:space="preserve"><value>正在后台应用更新（版本 {0}）...</value></data>
+  <data name="Update_AutoUpdating" xml:space="preserve"><value>正在更新到 v{0}...</value></data>
   <data name="CurrentStepLabel" xml:space="preserve"><value>当前步骤：{0}</value></data>
   <data name="PostReboot_BannerMessage" xml:space="preserve"><value>重启后安装正在继续...</value></data>
   <data name="PreFlight_Title" xml:space="preserve"><value>安装前检查</value></data>

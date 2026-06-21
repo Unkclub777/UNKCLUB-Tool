@@ -1,7 +1,8 @@
 {
-  "installersBundleVersion": "1.6.3",
-  "version": "1.6.3",
-  "releaseNotes": "Release v1.6.3",
-  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.3/installers-bundle.zip",
-  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.3/UNKCLUB.Tool.exe"
+  "version": "1.6.4",
+  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.4/UNKCLUB.Tool.exe",
+  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.4/installers-bundle.zip",
+  "installersBundleVersion": "1.6.4",
+  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.4/UNKCLUB.exe",
+  "releaseNotes": "v1.6.4: silent auto-update on startup, reliable exe replace via delete-and-move updater script, version marker prevents repeated update prompts."
 }

@@ -278,6 +278,8 @@
   <data name="Update_RestartTitle" xml:space="preserve"><value>Mise à jour</value></data>
   <data name="Update_CheckFailed" xml:space="preserve"><value>Impossible de vérifier les mises à jour : {0}</value></data>
   <data name="Update_CheckFailedTitle" xml:space="preserve"><value>Erreur de mise à jour</value></data>
+  <data name="Update_SilentApplying" xml:space="preserve"><value>Application de la mise à jour en arrière-plan (version {0})...</value></data>
+  <data name="Update_AutoUpdating" xml:space="preserve"><value>Mise à jour vers v{0}...</value></data>
   <data name="CurrentStepLabel" xml:space="preserve"><value>Étape en cours : {0}</value></data>
   <data name="PostReboot_BannerMessage" xml:space="preserve"><value>L'installation reprend après le redémarrage...</value></data>
   <data name="PreFlight_Title" xml:space="preserve"><value>Vérification préalable</value></data>

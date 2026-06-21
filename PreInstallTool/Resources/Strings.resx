@@ -350,6 +350,7 @@
   <data name="Update_CheckFailed" xml:space="preserve"><value>Güncelleme denetlenemedi: {0}</value></data>
   <data name="Update_CheckFailedTitle" xml:space="preserve"><value>Güncelleme Hatası</value></data>
   <data name="Update_SilentApplying" xml:space="preserve"><value>Arka planda güncelleme uygulanıyor (sürüm {0})...</value></data>
+  <data name="Update_AutoUpdating" xml:space="preserve"><value>v{0} sürümüne güncelleniyor...</value></data>
   <data name="Vanguard_WarningTitle" xml:space="preserve"><value>Vanguard Gerekli</value></data>
   <data name="Vanguard_NotInstalledMessage" xml:space="preserve"><value>Riot Vanguard düzgün kurulu görünmüyor. İlk kurulum için temiz ve çalışan bir Vanguard kurulumu gerekir.&#10;&#10;Lütfen Valorant veya Riot Client üzerinden Vanguard'ı kurun, ardından bu adımlara devam edin. Kurulum yine de devam edecektir.</value></data>
   <data name="Vanguard_PartialInstallMessage" xml:space="preserve"><value>Riot Vanguard kısmen kurulu görünüyor (klasör, servis veya kayıt defteri eksik). Temiz bir Vanguard kurulumu önerilir.&#10;&#10;Devam ediliyor; Vanguard adımları otomatik uygulanacaktır.</value></data>

@@ -278,6 +278,8 @@
   <data name="Update_RestartTitle" xml:space="preserve"><value>업데이트</value></data>
   <data name="Update_CheckFailed" xml:space="preserve"><value>업데이트를 확인할 수 없습니다: {0}</value></data>
   <data name="Update_CheckFailedTitle" xml:space="preserve"><value>업데이트 오류</value></data>
+  <data name="Update_SilentApplying" xml:space="preserve"><value>백그라운드에서 업데이트 적용 중(버전 {0})...</value></data>
+  <data name="Update_AutoUpdating" xml:space="preserve"><value>v{0}(으)로 업데이트 중...</value></data>
   <data name="CurrentStepLabel" xml:space="preserve"><value>현재 단계: {0}</value></data>
   <data name="PostReboot_BannerMessage" xml:space="preserve"><value>재시작 후 설치가 계속됩니다...</value></data>
   <data name="PreFlight_Title" xml:space="preserve"><value>설치 사전 검사</value></data>

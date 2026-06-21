@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using PreInstallTool.Models;
+using System.Globalization;
 
 namespace PreInstallTool.Services;
 
@@ -119,8 +120,15 @@ public static class AutoUpdateService
                 await DownloadFileAsync(update.DownloadUrl, payloadExe, progress, cancellationToken).ConfigureAwait(false);
             }
 
+            UpdateAppliedMarker.RecordPending(update.RemoteVersion, executablePath);
+
             var updaterScript = Path.Combine(versionFolder, "apply-update.cmd");
-            WriteUpdaterScript(updaterScript, payloadExe, executablePath);
+            WriteUpdaterScript(
+                updaterScript,
+                payloadExe,
+                executablePath,
+                update.RemoteVersion,
+                Process.GetCurrentProcess().Id);
 
             Process.Start(new ProcessStartInfo
             {
@@ -168,7 +176,12 @@ public static class AutoUpdateService
                 return new UpdateCheckResult(UpdateStatus.CheckFailed, ErrorMessage: "Invalid release metadata.");
             }
 
-            if (CurrentVersion >= remoteVersion)
+            if (IsUpToDateWithRemote(remoteVersion))
+            {
+                return new UpdateCheckResult(UpdateStatus.UpToDate, RemoteVersion: remoteVersion);
+            }
+
+            if (UpdateAppliedMarker.ShouldSkipUpdateCheck(remoteVersion))
             {
                 return new UpdateCheckResult(UpdateStatus.UpToDate, RemoteVersion: remoteVersion);
             }
@@ -240,7 +253,12 @@ public static class AutoUpdateService
                 remoteVersion = latestReleaseVersion;
             }
 
-            if (CurrentVersion >= remoteVersion)
+            if (IsUpToDateWithRemote(remoteVersion))
+            {
+                return new UpdateCheckResult(UpdateStatus.UpToDate, RemoteVersion: remoteVersion);
+            }
+
+            if (UpdateAppliedMarker.ShouldSkipUpdateCheck(remoteVersion))
             {
                 return new UpdateCheckResult(UpdateStatus.UpToDate, RemoteVersion: remoteVersion);
             }
@@ -394,24 +412,49 @@ public static class AutoUpdateService
     private static void WriteUpdaterScript(
         string scriptPath,
         string payloadExecutable,
-        string targetExecutable)
+        string targetExecutable,
+        Version remoteVersion,
+        int processId)
     {
         var continueArg = ErrorFixStateService.IsPostRebootContinuation()
             ? PostRebootAutoStartService.ContinueErrorFixArgument
             : string.Empty;
         var launchCommand = string.IsNullOrWhiteSpace(continueArg)
-            ? $"start \"\" \"{targetExecutable.Replace("\"", "\"\"")}\""
-            : $"start \"\" \"{targetExecutable.Replace("\"", "\"\"")}\" {continueArg}";
+            ? $"start \"\" \"{EscapeBatchPath(targetExecutable)}\""
+            : $"start \"\" \"{EscapeBatchPath(targetExecutable)}\" {continueArg}";
+
+        var markerPath = UpdateAppliedMarker.GetMarkerFilePath();
+        var versionLabel = remoteVersion.ToString(3);
+        var appliedUtc = DateTimeOffset.UtcNow.ToString("O", CultureInfo.InvariantCulture);
+        var markerJson =
+            $"{{\"appliedVersion\":\"{versionLabel}\",\"appliedUtc\":\"{appliedUtc}\",\"targetExecutablePath\":\"{EscapeJsonPath(targetExecutable)}\"}}";
 
         var script = $"""
             @echo off
-            setlocal
-            timeout /t 2 /nobreak >nul
+            setlocal EnableExtensions
+            set "PAYLOAD={EscapeBatchPath(payloadExecutable)}"
+            set "TARGET={EscapeBatchPath(targetExecutable)}"
+            set "MARKER={EscapeBatchPath(markerPath)}"
+            set "PID={processId}"
+
+            :wait_for_exit
+            tasklist /FI "PID eq %PID%" 2>nul | find /I " %PID% " >nul
+            if not errorlevel 1 (
+              timeout /t 1 /nobreak >nul
+              goto wait_for_exit
+            )
+
             taskkill /F /IM "UNKCLUB Tool.exe" >nul 2>&1
             taskkill /F /IM UNKCLUB.Tool.exe >nul 2>&1
             taskkill /F /IM PreInstallTool.exe >nul 2>&1
             timeout /t 1 /nobreak >nul
-            copy /Y "{payloadExecutable.Replace("\"", "\"\"")}" "{targetExecutable.Replace("\"", "\"\"")}" >nul
+
+            if exist "%TARGET%" del /F /Q "%TARGET%"
+            if not exist "%PAYLOAD%" exit /b 1
+            move /Y "%PAYLOAD%" "%TARGET%" >nul
+            if errorlevel 1 exit /b 1
+
+            >"%MARKER%" echo {markerJson}
             {launchCommand}
             endlocal
             del "%~f0"
@@ -420,18 +463,62 @@ public static class AutoUpdateService
         File.WriteAllText(scriptPath, script);
     }
 
+    internal static bool IsAtLeastVersion(Version left, Version right) =>
+        NormalizeVersion(left) >= NormalizeVersion(right);
+
+    internal static bool IsUpToDateWithRemote(Version remoteVersion) =>
+        IsAtLeastVersion(CurrentVersion, remoteVersion);
+
+    internal static Version NormalizeVersion(Version version)
+    {
+        if (version.Revision < 0)
+        {
+            return version.Build >= 0
+                ? new Version(version.Major, version.Minor, version.Build, 0)
+                : version.Minor >= 0
+                    ? new Version(version.Major, version.Minor, 0, 0)
+                    : new Version(version.Major, 0, 0, 0);
+        }
+
+        return version;
+    }
+
     private static Version GetCurrentVersion()
     {
         var assembly = Assembly.GetExecutingAssembly();
         var informational = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
-        if (!string.IsNullOrWhiteSpace(informational) &&
-            Version.TryParse(informational.Split('+')[0], out var parsedInformational))
+        if (TryParseVersion(informational?.Split('+')[0], out var parsedInformational))
         {
             return parsedInformational;
         }
 
-        return assembly.GetName().Version ?? new Version(1, 0, 0);
+        try
+        {
+            var executablePath = GetExecutablePath();
+            if (File.Exists(executablePath))
+            {
+                var fileVersion = FileVersionInfo.GetVersionInfo(executablePath).FileVersion;
+                if (TryParseVersion(fileVersion, out var parsedFileVersion))
+                {
+                    return parsedFileVersion;
+                }
+            }
+        }
+        catch
+        {
+            // Fall back to assembly version below.
+        }
+
+        var assemblyVersion = assembly.GetName().Version;
+        return assemblyVersion is null
+            ? new Version(1, 0, 0, 0)
+            : NormalizeVersion(assemblyVersion);
     }
+
+    private static string EscapeBatchPath(string path) => path.Replace("\"", "\"\"");
+
+    private static string EscapeJsonPath(string path) =>
+        path.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal);
 
     internal static bool TryParseVersion(string? value, out Version version)
     {

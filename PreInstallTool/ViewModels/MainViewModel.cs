@@ -1018,7 +1018,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
             if (result.Status == UpdateStatus.UpdateAvailable)
             {
-                await PromptAndApplyUpdateAsync(result, showDownloadErrors: false).ConfigureAwait(true);
+                await ApplyUpdateSilentlyAsync(result).ConfigureAwait(true);
             }
         }
         catch
@@ -1113,16 +1113,38 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
     private async Task ApplyUpdateSilentlyAsync(UpdateCheckResult result)
     {
-        StatusText = LocalizationService.Format(
-            "Update_SilentApplying",
-            result.RemoteVersion?.ToString(3) ?? string.Empty);
+        var versionLabel = result.RemoteVersion?.ToString(3) ?? string.Empty;
+        StatusText = LocalizationService.Format("Update_AutoUpdating", versionLabel);
+
+        var progress = new Progress<string>(message =>
+        {
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                StatusText = message;
+            }
+        });
 
         var applyResult = await Task.Run(() =>
-                AutoUpdateService.DownloadAndApplyUpdateAsync(result))
+                AutoUpdateService.DownloadAndApplyUpdateAsync(result, progress))
             .ConfigureAwait(true);
 
         if (!applyResult.Success)
         {
+            if (applyResult.IsNotFoundFailure)
+            {
+                UpdateDiagnostics.LogWarning(
+                    applyResult.ErrorMessage ?? "Auto-update download returned HTTP 404.");
+            }
+            else if (!string.IsNullOrWhiteSpace(applyResult.ErrorMessage))
+            {
+                UpdateDiagnostics.LogWarning($"Auto-update failed: {applyResult.ErrorMessage}");
+            }
+
+            if (IsApplicationReady && !IsRunning)
+            {
+                StatusText = string.Empty;
+            }
+
             return;
         }
 

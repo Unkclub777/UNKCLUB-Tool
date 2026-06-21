@@ -278,6 +278,8 @@
   <data name="Update_RestartTitle" xml:space="preserve"><value>Atualização</value></data>
   <data name="Update_CheckFailed" xml:space="preserve"><value>Não foi possível verificar atualizações: {0}</value></data>
   <data name="Update_CheckFailedTitle" xml:space="preserve"><value>Erro de atualização</value></data>
+  <data name="Update_SilentApplying" xml:space="preserve"><value>Aplicando atualização em segundo plano (versão {0})...</value></data>
+  <data name="Update_AutoUpdating" xml:space="preserve"><value>Atualizando para v{0}...</value></data>
   <data name="CurrentStepLabel" xml:space="preserve"><value>Etapa atual: {0}</value></data>
   <data name="PostReboot_BannerMessage" xml:space="preserve"><value>A instalação continua após a reinicialização...</value></data>
   <data name="PreFlight_Title" xml:space="preserve"><value>Verificação pré-instalação</value></data>

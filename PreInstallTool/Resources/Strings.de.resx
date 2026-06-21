@@ -278,6 +278,8 @@
   <data name="Update_RestartTitle" xml:space="preserve"><value>Update</value></data>
   <data name="Update_CheckFailed" xml:space="preserve"><value>Updates konnten nicht geprüft werden: {0}</value></data>
   <data name="Update_CheckFailedTitle" xml:space="preserve"><value>Update-Fehler</value></data>
+  <data name="Update_SilentApplying" xml:space="preserve"><value>Update wird im Hintergrund angewendet (Version {0})...</value></data>
+  <data name="Update_AutoUpdating" xml:space="preserve"><value>Aktualisierung auf v{0}...</value></data>
   <data name="CurrentStepLabel" xml:space="preserve"><value>Aktueller Schritt: {0}</value></data>
   <data name="PostReboot_BannerMessage" xml:space="preserve"><value>Installation wird nach Neustart fortgesetzt...</value></data>
   <data name="PreFlight_Title" xml:space="preserve"><value>Vorab-Prüfung</value></data>
