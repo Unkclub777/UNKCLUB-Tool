@@ -1,4 +1,4 @@
-# UNKCLUB Tool — maintainer release helper (pack bundle, checklist, open GitHub release page).
+# UNKCLUB Tool - maintainer release helper (pack bundle, checklist, open GitHub release page).
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -28,7 +28,7 @@ Write-Host '[ ] Kurulum dosyalari/ payloads present (except UNKCLUB.exe in bundl
 Write-Host '[ ] dotnet build Release passes'
 Write-Host '[ ] Commit and push master'
 Write-Host "[ ] git tag $tag && git push origin $tag"
-Write-Host '[ ] Wait for CI to publish UNKCLUB Tool.exe'
+Write-Host '[ ] Wait for CI to publish UNKCLUB.Tool.exe'
 Write-Host "[ ] Upload installers-bundle.zip and UNKCLUB.exe:"
 Write-Host "    gh release upload $tag PreInstallTool/installers-bundle.zip UNKCLUB.exe --clobber"
 Write-Host ''
@@ -51,6 +51,22 @@ if (Test-Path -LiteralPath $versionJson) {
     }
 }
 
+
+$releasesPage = 'https://github.com/Unkclub777/UNKCLUB-Tool/releases'
+$tagApi = "https://api.github.com/repos/Unkclub777/UNKCLUB-Tool/releases/tags/$tag"
+try {
+    $release = Invoke-RestMethod -Uri $tagApi -Headers @{ 'User-Agent' = 'UNKCLUB-Tool-publish' } -ErrorAction Stop
+    $exeAsset = $release.assets | Where-Object { $_.name -match '^UNKCLUB(\.| )Tool\.exe$' } | Select-Object -First 1
+    if ($exeAsset) {
+        Write-Host "Release $tag is published. Download:" -ForegroundColor Green
+        Write-Host $exeAsset.browser_download_url
+    } else {
+        Write-Warning "Release $tag exists but no UNKCLUB Tool exe asset found. Open $releasesPage"
+    }
+} catch {
+    Write-Warning "Release $tag not found on GitHub yet. After CI finishes, download from:"
+    Write-Host $releasesPage
+}
 $releaseUrl = 'https://github.com/Unkclub777/UNKCLUB-Tool/releases/new?tag=' + [uri]::EscapeDataString($tag)
 Write-Host "Opening release page: $releaseUrl" -ForegroundColor Cyan
 Start-Process $releaseUrl

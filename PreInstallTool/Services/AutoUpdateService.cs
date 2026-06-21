@@ -408,6 +408,7 @@ public static class AutoUpdateService
             setlocal
             timeout /t 2 /nobreak >nul
             taskkill /F /IM "UNKCLUB Tool.exe" >nul 2>&1
+            taskkill /F /IM UNKCLUB.Tool.exe >nul 2>&1
             taskkill /F /IM PreInstallTool.exe >nul 2>&1
             timeout /t 1 /nobreak >nul
             copy /Y "{payloadExecutable.Replace("\"", "\"\"")}" "{targetExecutable.Replace("\"", "\"\"")}" >nul
