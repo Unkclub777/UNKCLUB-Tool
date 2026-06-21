@@ -289,6 +289,7 @@ public static class AppResourceService
         }
 
         Exception? lastError = null;
+        var manifest = VersionManifestLoader.TryFetch();
         foreach (var downloadUrl in downloadUrls)
         {
             var tempZip = Path.Combine(
@@ -306,7 +307,12 @@ public static class AppResourceService
                             UpdateConstants.InstallersBundleFileName));
                         ReportProgress(Localization.LocalizationService.Get("Bundle_Downloading"));
 
-                        DownloadFileAsync(downloadUrl, tempZip).GetAwaiter().GetResult();
+                        DownloadFileAsync(downloadUrl, tempZip, manifest).GetAwaiter().GetResult();
+
+                        FileHashService.VerifySha256OrThrow(
+                            tempZip,
+                            manifest?.InstallersBundleSha256,
+                            UpdateConstants.InstallersBundleFileName);
 
                         if (Directory.Exists(targetRoot))
                         {
@@ -359,7 +365,7 @@ public static class AppResourceService
     private static List<string> ResolveInstallersBundleDownloadUrls(string versionLabel)
     {
         var urls = new List<string>();
-        var manifest = TryFetchVersionManifest();
+        var manifest = VersionManifestLoader.TryFetch();
 
         if (manifest is not null && !string.IsNullOrWhiteSpace(manifest.InstallersBundleVersion))
         {
@@ -398,25 +404,9 @@ public static class AppResourceService
         urls.Add(url);
     }
 
-    private static VersionManifestInfo? TryFetchVersionManifest()
-    {
-        var manifestUrl =
-            $"https://raw.githubusercontent.com/{UpdateConstants.GitHubOwner}/{UpdateConstants.GitHubRepo}/{UpdateConstants.DefaultBranch}/version.json";
-
-        try
-        {
-            var manifestJson = HttpClient.GetStringAsync(manifestUrl).GetAwaiter().GetResult();
-            return JsonSerializer.Deserialize<VersionManifestInfo>(manifestJson);
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
     private static string GetRequiredBundleVersion()
     {
-        var manifest = TryFetchVersionManifest();
+        var manifest = VersionManifestLoader.TryFetch();
         if (!string.IsNullOrWhiteSpace(manifest?.InstallersBundleVersion))
         {
             return manifest.InstallersBundleVersion.Trim();
@@ -425,7 +415,7 @@ public static class AppResourceService
         return GetCurrentAssemblyVersionLabel();
     }
 
-    private static async Task DownloadFileAsync(string url, string destinationPath)
+    private static async Task DownloadFileAsync(string url, string destinationPath, VersionManifestInfo? manifest)
     {
         using var response = await HttpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead)
             .ConfigureAwait(false);
@@ -486,11 +476,5 @@ public static class AppResourceService
         client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("UNKCLUB-Tool", versionLabel));
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         return client;
-    }
-
-    private sealed class VersionManifestInfo
-    {
-        public string? InstallersBundleUrl { get; set; }
-        public string? InstallersBundleVersion { get; set; }
     }
 }

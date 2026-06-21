@@ -441,4 +441,15 @@
   <data name="InstallSummary_UnknownStep" xml:space="preserve"><value>Bilinmeyen adım</value></data>
   <data name="InstallSummary_UnkclubNotDeployed" xml:space="preserve"><value>(UNKCLUB.exe henüz dağıtılmadı)</value></data>
   <data name="Bundle_AppVersionCacheInvalidated" xml:space="preserve"><value>Uygulama sürümü değişti; kurulum önbelleği temizleniyor...</value></data>
+  <data name="WindowTitleVersion" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
+  <data name="AppVersionLabelFull" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
+  <data name="Bundle_Preparing" xml:space="preserve"><value>Hazırlanıyor...</value></data>
+  <data name="ServiceRestore_Saved" xml:space="preserve"><value>Servis geri yükleme betiği kaydedildi: {0}</value></data>
+  <data name="ServiceRestore_JsonSaved" xml:space="preserve"><value>Devre dışı servis kaydı: {0}</value></data>
+  <data name="Shortcut_Created" xml:space="preserve"><value>Masaüstü kısayolu oluşturuldu: {0}</value></data>
+  <data name="Shortcut_DesktopSkipped" xml:space="preserve"><value>Masaüstü kök kısayolu atlandı: {0}</value></data>
+  <data name="Shortcut_CreateFailed" xml:space="preserve"><value>Kısayol oluşturulamadı: {0}</value></data>
+  <data name="Toast_InstallSuccessTitle" xml:space="preserve"><value>Kurulum tamamlandı</value></data>
+  <data name="Toast_InstallSuccessMessage" xml:space="preserve"><value>UNKCLUB kurulumu başarıyla tamamlandı.</value></data>
+  <data name="DownloadHashMismatch" xml:space="preserve"><value>{0} dosyasının SHA256 özeti eşleşmedi. Beklenen: {1}, alınan: {2}</value></data>
 </root>

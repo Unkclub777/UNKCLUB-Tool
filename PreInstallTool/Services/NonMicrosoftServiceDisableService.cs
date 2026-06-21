@@ -62,6 +62,7 @@ public static class NonMicrosoftServiceDisableService
         public int SkippedExcluded { get; init; }
         public int AlreadyDisabled { get; init; }
         public IReadOnlyList<string> DisabledServices { get; init; } = [];
+        public IReadOnlyList<ServiceRestoreScriptService.DisabledServiceRecord> DisabledServiceRecords { get; init; } = [];
     }
 
     public static bool IsRunningAsAdministrator()
@@ -81,6 +82,7 @@ public static class NonMicrosoftServiceDisableService
         log?.Report(LocalizationService.Get("NonMsService_Starting"));
 
         var disabled = new List<string>();
+        var disabledRecords = new List<ServiceRestoreScriptService.DisabledServiceRecord>();
         var failed = 0;
         var skippedMicrosoft = 0;
         var skippedExcluded = 0;
@@ -122,7 +124,12 @@ public static class NonMicrosoftServiceDisableService
                 }
 
                 var start = serviceKey.GetValue("Start");
-                if (start is int startValue && startValue == ServiceDisabled)
+                if (start is not int originalStart)
+                {
+                    continue;
+                }
+
+                if (originalStart == ServiceDisabled)
                 {
                     alreadyDisabled++;
                     continue;
@@ -132,6 +139,12 @@ public static class NonMicrosoftServiceDisableService
                 if (TryDisableService(serviceName, log))
                 {
                     disabled.Add(serviceName);
+                    disabledRecords.Add(new ServiceRestoreScriptService.DisabledServiceRecord
+                    {
+                        Name = serviceName,
+                        OriginalStart = originalStart,
+                        StartType = ServiceRestoreScriptService.MapRegistryStartToScConfig(originalStart)
+                    });
                     log?.Report(LocalizationService.Format("NonMsService_Disabled", serviceName));
                 }
                 else
@@ -167,7 +180,8 @@ public static class NonMicrosoftServiceDisableService
             SkippedMicrosoft = skippedMicrosoft,
             SkippedExcluded = skippedExcluded,
             AlreadyDisabled = alreadyDisabled,
-            DisabledServices = disabled
+            DisabledServices = disabled,
+            DisabledServiceRecords = disabledRecords
         };
     }
 

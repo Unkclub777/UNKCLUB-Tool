@@ -471,6 +471,11 @@ public sealed class InstallOrchestrator
         File.Copy(sourcePath, destinationPath, overwrite: true);
         SystemChecks.UnblockFile(destinationPath);
 
+        if (IsUnkclubExecutable(destinationPath))
+        {
+            TryCreateUnkclubShortcut(destinationPath, log);
+        }
+
         return new InstallResult(true, LocalizationService.Format("FileCopied", destinationPath));
     }
 
@@ -488,6 +493,8 @@ public sealed class InstallOrchestrator
                     .DownloadToPathAsync(destinationPath, log, CancellationToken.None)
                     .GetAwaiter()
                     .GetResult();
+
+                TryCreateUnkclubShortcut(deployedPath, log);
 
                 return new InstallResult(true, LocalizationService.Format("UnkclubApp_Deployed", deployedPath));
             }
@@ -915,9 +922,29 @@ public sealed class InstallOrchestrator
         }
 
         var result = NonMicrosoftServiceDisableService.DisableAllNonMicrosoftServices(log);
+        if (result.DisabledServiceRecords.Count > 0)
+        {
+            ServiceRestoreScriptService.WriteRestoreArtifacts(result.DisabledServiceRecords, log);
+        }
+
         return new InstallResult(
             true,
             LocalizationService.Format("NonMsService_Result", result.DisabledCount, result.FailedCount));
+    }
+
+    private static bool IsUnkclubExecutable(string path) =>
+        Path.GetFileName(path).Equals(UpdateConstants.UnkclubAppFileName, StringComparison.OrdinalIgnoreCase);
+
+    private static void TryCreateUnkclubShortcut(string deployedPath, IProgress<string>? log)
+    {
+        try
+        {
+            DesktopShortcutService.CreateUnkclubShortcut(deployedPath, log);
+        }
+        catch (Exception ex)
+        {
+            log?.Report(LocalizationService.Format("Shortcut_CreateFailed", ex.Message));
+        }
     }
 
     private static InstallResult ExecuteEnsureServicesAutomatic(InstallStep step, IProgress<string>? log)

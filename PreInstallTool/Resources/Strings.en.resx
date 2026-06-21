@@ -371,4 +371,15 @@
   <data name="InstallSummary_UnknownStep" xml:space="preserve"><value>Unknown step</value></data>
   <data name="InstallSummary_UnkclubNotDeployed" xml:space="preserve"><value>(UNKCLUB.exe not deployed yet)</value></data>
   <data name="Bundle_AppVersionCacheInvalidated" xml:space="preserve"><value>App version changed; clearing setup cache...</value></data>
+  <data name="WindowTitleVersion" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
+  <data name="AppVersionLabelFull" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
+  <data name="Bundle_Preparing" xml:space="preserve"><value>Preparing...</value></data>
+  <data name="ServiceRestore_Saved" xml:space="preserve"><value>Service restore script saved: {0}</value></data>
+  <data name="ServiceRestore_JsonSaved" xml:space="preserve"><value>Disabled services record saved: {0}</value></data>
+  <data name="Shortcut_Created" xml:space="preserve"><value>Desktop shortcut created: {0}</value></data>
+  <data name="Shortcut_DesktopSkipped" xml:space="preserve"><value>Root desktop shortcut skipped: {0}</value></data>
+  <data name="Shortcut_CreateFailed" xml:space="preserve"><value>Could not create shortcut: {0}</value></data>
+  <data name="Toast_InstallSuccessTitle" xml:space="preserve"><value>Installation complete</value></data>
+  <data name="Toast_InstallSuccessMessage" xml:space="preserve"><value>UNKCLUB setup finished successfully.</value></data>
+  <data name="DownloadHashMismatch" xml:space="preserve"><value>SHA256 mismatch for {0}. Expected: {1}, actual: {2}</value></data>
 </root>

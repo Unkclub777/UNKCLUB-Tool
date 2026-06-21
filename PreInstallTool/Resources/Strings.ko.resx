@@ -320,4 +320,15 @@
   <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig 서비스: Microsoft 숨기기, 타사 서비스 모두 비활성화. Vanguard/Riot 제외.</value></data>
   <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>Microsoft 외 서비스 비활성화</value></data>
   <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig 서비스: Microsoft 숨기기, 타사 서비스 모두 비활성화. Vanguard/Riot 제외.</value></data>
+  <data name="WindowTitleVersion" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
+  <data name="AppVersionLabelFull" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
+  <data name="Bundle_Preparing" xml:space="preserve"><value>준비 중...</value></data>
+  <data name="ServiceRestore_Saved" xml:space="preserve"><value>서비스 복원 스크립트 저장됨: {0}</value></data>
+  <data name="ServiceRestore_JsonSaved" xml:space="preserve"><value>비활성화된 서비스 기록: {0}</value></data>
+  <data name="Shortcut_Created" xml:space="preserve"><value>바탕화면 바로 가기 생성됨: {0}</value></data>
+  <data name="Shortcut_DesktopSkipped" xml:space="preserve"><value>바탕화면 루트 바로 가기 건너뜀: {0}</value></data>
+  <data name="Shortcut_CreateFailed" xml:space="preserve"><value>바로 가기를 만들 수 없음: {0}</value></data>
+  <data name="Toast_InstallSuccessTitle" xml:space="preserve"><value>설치 완료</value></data>
+  <data name="Toast_InstallSuccessMessage" xml:space="preserve"><value>UNKCLUB 설치가 성공적으로 완료되었습니다.</value></data>
+  <data name="DownloadHashMismatch" xml:space="preserve"><value>{0}의 SHA256 불일치. 예상: {1}, 실제: {2}</value></data>
 </root>

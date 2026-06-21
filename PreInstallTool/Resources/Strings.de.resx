@@ -320,4 +320,15 @@
   <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Dienste: Microsoft-Dienste ausblenden, alle Drittanbieter-Dienste auf Deaktiviert setzen. Vanguard/Riot ausgenommen.</value></data>
   <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>Nicht-Microsoft-Dienste deaktivieren</value></data>
   <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Dienste: Microsoft-Dienste ausblenden, alle Drittanbieter-Dienste auf Deaktiviert setzen. Vanguard/Riot ausgenommen.</value></data>
+  <data name="WindowTitleVersion" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
+  <data name="AppVersionLabelFull" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
+  <data name="Bundle_Preparing" xml:space="preserve"><value>Wird vorbereitet...</value></data>
+  <data name="ServiceRestore_Saved" xml:space="preserve"><value>Service-Wiederherstellungsskript gespeichert: {0}</value></data>
+  <data name="ServiceRestore_JsonSaved" xml:space="preserve"><value>Deaktivierte Dienste gespeichert: {0}</value></data>
+  <data name="Shortcut_Created" xml:space="preserve"><value>Desktop-Verknüpfung erstellt: {0}</value></data>
+  <data name="Shortcut_DesktopSkipped" xml:space="preserve"><value>Desktop-Stammverknüpfung übersprungen: {0}</value></data>
+  <data name="Shortcut_CreateFailed" xml:space="preserve"><value>Verknüpfung konnte nicht erstellt werden: {0}</value></data>
+  <data name="Toast_InstallSuccessTitle" xml:space="preserve"><value>Installation abgeschlossen</value></data>
+  <data name="Toast_InstallSuccessMessage" xml:space="preserve"><value>UNKCLUB-Setup erfolgreich abgeschlossen.</value></data>
+  <data name="DownloadHashMismatch" xml:space="preserve"><value>SHA256 stimmt nicht für {0}. Erwartet: {1}, erhalten: {2}</value></data>
 </root>

@@ -539,6 +539,8 @@
 
                     <ProgressBar Value="{Binding ProgressValue, Mode=OneWay}"
 
+                                 IsIndeterminate="{Binding IsProgressIndeterminate}"
+
                                  Height="12"
 
                                  Minimum="0"
@@ -658,6 +660,32 @@
             </StackPanel>
 
         </Grid>
+
+        <Border Grid.ColumnSpan="2"
+                Background="#CC0F172A"
+                CornerRadius="12"
+                Padding="32"
+                Visibility="{Binding IsBundlePreparing, Converter={StaticResource BoolToVisibilityConverter}}">
+
+            <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        MaxWidth="520">
+
+                <TextBlock Text="{Binding BundlePrepStatusText}"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextBrush}"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           Margin="0,0,0,20"/>
+
+                <ProgressBar IsIndeterminate="True"
+                             Height="10"
+                             Width="360"/>
+
+            </StackPanel>
+
+        </Border>
 
     </Grid>
 

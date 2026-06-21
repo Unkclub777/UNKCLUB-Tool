@@ -43,6 +43,7 @@ public static class UnkclubAppService
             $"unkclub-app-{Guid.NewGuid():N}.exe");
 
         Exception? lastError = null;
+        var manifest = VersionManifestLoader.TryFetch();
         try
         {
             foreach (var downloadUrl in downloadUrls)
@@ -57,12 +58,17 @@ public static class UnkclubAppService
                             "UnkclubApp_Downloading",
                             Path.GetFileName(destinationPath)));
 
-                        await DownloadFileAsync(downloadUrl, tempPath, log, cancellationToken).ConfigureAwait(false);
+                        await DownloadFileAsync(downloadUrl, tempPath, log, cancellationToken, manifest).ConfigureAwait(false);
 
                         if (!File.Exists(tempPath) || new FileInfo(tempPath).Length < 1024)
                         {
                             throw new InvalidOperationException("UNKCLUB_DOWNLOAD_INVALID");
                         }
+
+                        FileHashService.VerifySha256OrThrow(
+                            tempPath,
+                            manifest?.UnkclubAppSha256,
+                            UpdateConstants.UnkclubAppFileName);
 
                         if (File.Exists(destinationPath))
                         {
@@ -183,7 +189,7 @@ public static class UnkclubAppService
     private static List<string> ResolveDownloadUrls(string versionLabel)
     {
         var urls = new List<string>();
-        var manifest = TryFetchVersionManifest();
+        var manifest = VersionManifestLoader.TryFetch();
 
         if (!string.IsNullOrWhiteSpace(manifest?.UnkclubAppUrl))
         {
@@ -207,22 +213,6 @@ public static class UnkclubAppService
         return urls;
     }
 
-    private static VersionManifestInfo? TryFetchVersionManifest()
-    {
-        var manifestUrl =
-            $"https://raw.githubusercontent.com/{UpdateConstants.GitHubOwner}/{UpdateConstants.GitHubRepo}/{UpdateConstants.DefaultBranch}/version.json";
-
-        try
-        {
-            var manifestJson = HttpClient.GetStringAsync(manifestUrl).GetAwaiter().GetResult();
-            return System.Text.Json.JsonSerializer.Deserialize<VersionManifestInfo>(manifestJson);
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
     private static void AddUniqueUrl(List<string> urls, string url)
     {
         if (urls.Any(existing => existing.Equals(url, StringComparison.OrdinalIgnoreCase)))
@@ -237,7 +227,8 @@ public static class UnkclubAppService
         string url,
         string destinationPath,
         IProgress<string>? log,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        VersionManifestInfo? manifest)
     {
         using var response = await HttpClient
             .GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
@@ -293,10 +284,5 @@ public static class UnkclubAppService
         client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("UNKCLUB-Tool", versionLabel));
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/octet-stream"));
         return client;
-    }
-
-    private sealed class VersionManifestInfo
-    {
-        public string? UnkclubAppUrl { get; set; }
     }
 }

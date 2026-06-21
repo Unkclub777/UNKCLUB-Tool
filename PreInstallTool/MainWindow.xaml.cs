@@ -26,10 +26,15 @@ public partial class MainWindow : Window
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, () =>
+        Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, async () =>
         {
-            _ = RunAutoResumeSafelyAsync();
-            _ = RunStartupUpdateCheckSafelyAsync();
+            if (!await _viewModel.PrepareBundleAsync().ConfigureAwait(true))
+            {
+                return;
+            }
+
+            await RunAutoResumeSafelyAsync().ConfigureAwait(true);
+            await RunStartupUpdateCheckSafelyAsync().ConfigureAwait(true);
         });
     }
 

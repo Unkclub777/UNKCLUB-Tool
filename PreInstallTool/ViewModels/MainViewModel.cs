@@ -35,6 +35,9 @@ public sealed class MainViewModel : INotifyPropertyChanged
     private readonly List<StartupLogEntry> _startupLogEntries = [];
     private bool _postRebootResumeAttempted;
     private bool _isCheckingForUpdates;
+    private bool _isBundlePreparing = true;
+    private bool _isApplicationReady;
+    private string _bundlePrepStatusText = string.Empty;
 
     public MainViewModel()
     {
@@ -47,12 +50,12 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
         SelectModeCommand = new RelayCommand<string>(SelectMode, _ => !IsRunning);
         SelectResellerCommand = new RelayCommand<string>(SelectReseller, _ => !IsRunning);
-        StartCommand = new RelayCommand(async () => await StartInstallAsync(), () => !IsRunning && SelectedMode is not null);
+        StartCommand = new RelayCommand(async () => await StartInstallAsync(), () => !IsRunning && IsApplicationReady && SelectedMode is not null);
         CancelCommand = new RelayCommand(CancelInstall, () => IsRunning);
         LaunchMainProgramCommand = new RelayCommand(LaunchMainProgram, () => IsCompleted && !HasFailed);
         CheckForUpdatesCommand = new RelayCommand(
             async () => await CheckForUpdatesAsync(silent: false),
-            () => !IsRunning && !IsCheckingForUpdates);
+            () => !IsRunning && !IsCheckingForUpdates && IsApplicationReady);
         CopyLogCommand = new RelayCommand(CopyLog, () => LogLines.Count > 0);
         SaveLogCommand = new RelayCommand(SaveLog, () => LogLines.Count > 0);
 
@@ -64,13 +67,86 @@ public sealed class MainViewModel : INotifyPropertyChanged
         AppResourceService.ProgressReported += OnResourceDownloadProgress;
         ApplyLocalization();
         InitializeResellers();
-        LoadConfig();
         RefreshPostRebootBanner();
+        BundlePrepStatusText = LocalizationService.Get("Bundle_Preparing");
+    }
+
+    public bool IsApplicationReady
+    {
+        get => _isApplicationReady;
+        private set => SetProperty(ref _isApplicationReady, value);
+    }
+
+    public bool IsBundlePreparing
+    {
+        get => _isBundlePreparing;
+        private set
+        {
+            if (SetProperty(ref _isBundlePreparing, value))
+            {
+                OnPropertyChanged(nameof(IsProgressIndeterminate));
+            }
+        }
+    }
+
+    public bool IsProgressIndeterminate => IsBundlePreparing || IsRunning;
+
+    public string BundlePrepStatusText
+    {
+        get => _bundlePrepStatusText;
+        private set => SetProperty(ref _bundlePrepStatusText, value);
+    }
+
+    public async Task<bool> PrepareBundleAsync()
+    {
+        IsBundlePreparing = true;
+        IsApplicationReady = false;
+        BundlePrepStatusText = LocalizationService.Get("Bundle_Preparing");
+
+        while (true)
+        {
+            try
+            {
+                await Task.Run(AppResourceService.EnsureInitialized).ConfigureAwait(true);
+                LoadConfig();
+                IsApplicationReady = true;
+                IsBundlePreparing = false;
+                ((RelayCommand)StartCommand).RaiseCanExecuteChanged();
+                ((RelayCommand)CheckForUpdatesCommand).RaiseCanExecuteChanged();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                var detail = App.MapBundleErrorDetail(ex);
+                var result = MessageBox.Show(
+                    LocalizationService.Format("Bundle_DownloadFailed", detail),
+                    LocalizationService.GetString("Bundle_PrepareFailedTitle"),
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Error);
+
+                if (result != MessageBoxResult.OK)
+                {
+                    Application.Current.Shutdown();
+                    return false;
+                }
+
+                AppResourceService.ResetForRetry();
+                BundlePrepStatusText = LocalizationService.Get("Bundle_Preparing");
+            }
+        }
     }
 
     private void OnResourceDownloadProgress(string message)
     {
-        Application.Current?.Dispatcher.BeginInvoke(() => AddLog(message));
+        Application.Current?.Dispatcher.BeginInvoke(() =>
+        {
+            if (IsBundlePreparing)
+            {
+                BundlePrepStatusText = message;
+            }
+
+            AddLog(message);
+        });
     }
 
     public DefenderStatusViewModel DefenderStatus { get; }
@@ -91,7 +167,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
     public ICommand SaveLogCommand { get; }
 
     public string AppVersionLabel =>
-        LocalizationService.Format("AppVersionLabel", AutoUpdateService.CurrentVersionLabel);
+        LocalizationService.Format("AppVersionLabelFull", AutoUpdateService.CurrentVersionLabel);
 
     public string BtnCheckForUpdates => LocalizationService.Get("BtnCheckForUpdates");
 
@@ -121,7 +197,8 @@ public sealed class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public string WindowTitle => LocalizationService.Get("WindowTitle");
+    public string WindowTitle =>
+        LocalizationService.Format("WindowTitleVersion", AutoUpdateService.CurrentVersionLabel);
     public string LanguageLabel => LocalizationService.Get("LanguageLabel");
     public string OptionLabel => LocalizationService.Get("OptionLabel");
     public string ResellerLabel => LocalizationService.Get("ResellerLabel");
@@ -217,6 +294,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
                 ((RelayCommand<string>)SelectModeCommand).RaiseCanExecuteChanged();
                 ((RelayCommand<string>)SelectResellerCommand).RaiseCanExecuteChanged();
                 ((RelayCommand)CheckForUpdatesCommand).RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(IsProgressIndeterminate));
 
                 if (!value)
                 {
@@ -633,6 +711,9 @@ public sealed class MainViewModel : INotifyPropertyChanged
                 LocalizationService.GetString("InstallSummary_SuccessTitle"),
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
+
+            ToastNotificationService.ShowInstallSuccessToast();
+            DesktopShortcutService.OpenFolderInExplorer(DesktopPathService.GetEmulatorFolderPath());
             return;
         }
 
@@ -803,6 +884,8 @@ public sealed class MainViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(BtnSaveLog));
         OnPropertyChanged(nameof(PostRebootBannerText));
         OnPropertyChanged(nameof(AppVersionLabel));
+        OnPropertyChanged(nameof(WindowTitle));
+        OnPropertyChanged(nameof(BundlePrepStatusText));
 
         if (_config is not null)
         {

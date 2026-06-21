@@ -22,13 +22,6 @@ public partial class App : Application
         LocalizationService.Initialize();
         AppResourceService.InvalidateCacheIfAppVersionChanged();
 
-        if (!TryEnsureResourceBundle())
-        {
-            SingleInstanceService.Dispose();
-            Shutdown();
-            return;
-        }
-
         OsCompatibilityService.EnsureSupportedOrWarn();
 
         ContinueErrorFixRequested = e.Args.Any(static arg =>
@@ -49,35 +42,7 @@ public partial class App : Application
         base.OnExit(e);
     }
 
-    private static bool TryEnsureResourceBundle()
-    {
-        while (true)
-        {
-            try
-            {
-                AppResourceService.EnsureInitialized();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                var detail = MapBundleErrorDetail(ex);
-                var result = MessageBox.Show(
-                    LocalizationService.Format("Bundle_DownloadFailed", detail),
-                    LocalizationService.GetString("Bundle_PrepareFailedTitle"),
-                    MessageBoxButton.OKCancel,
-                    MessageBoxImage.Error);
-
-                if (result != MessageBoxResult.OK)
-                {
-                    return false;
-                }
-
-                AppResourceService.ResetForRetry();
-            }
-        }
-    }
-
-    private static string MapBundleErrorDetail(Exception ex)
+    internal static string MapBundleErrorDetail(Exception ex)
     {
         if (ex.Message is "BUNDLE_URL_UNRESOLVED")
         {

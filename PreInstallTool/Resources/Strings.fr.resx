@@ -320,4 +320,15 @@
   <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Services : masquer Microsoft, désactiver tous les services tiers. Vanguard/Riot exclus.</value></data>
   <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>Désactiver les services non Microsoft</value></data>
   <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Services : masquer Microsoft, désactiver tous les services tiers. Vanguard/Riot exclus.</value></data>
+  <data name="WindowTitleVersion" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
+  <data name="AppVersionLabelFull" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
+  <data name="Bundle_Preparing" xml:space="preserve"><value>Préparation...</value></data>
+  <data name="ServiceRestore_Saved" xml:space="preserve"><value>Script de restauration des services enregistré : {0}</value></data>
+  <data name="ServiceRestore_JsonSaved" xml:space="preserve"><value>Enregistrement des services désactivés : {0}</value></data>
+  <data name="Shortcut_Created" xml:space="preserve"><value>Raccourci bureau créé : {0}</value></data>
+  <data name="Shortcut_DesktopSkipped" xml:space="preserve"><value>Raccourci bureau racine ignoré : {0}</value></data>
+  <data name="Shortcut_CreateFailed" xml:space="preserve"><value>Impossible de créer le raccourci : {0}</value></data>
+  <data name="Toast_InstallSuccessTitle" xml:space="preserve"><value>Installation terminée</value></data>
+  <data name="Toast_InstallSuccessMessage" xml:space="preserve"><value>Configuration UNKCLUB terminée avec succès.</value></data>
+  <data name="DownloadHashMismatch" xml:space="preserve"><value>SHA256 incorrect pour {0}. Attendu : {1}, obtenu : {2}</value></data>
 </root>
