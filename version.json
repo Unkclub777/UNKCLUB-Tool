@@ -1,8 +1,8 @@
 ﻿{
-  "version": "1.6.0",
-  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.0/UNKCLUB Tool.exe",
-  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.0/installers-bundle.zip",
-  "installersBundleVersion": "1.6.0",
-  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.0/UNKCLUB.exe",
-  "releaseNotes": "v1.6.0: service restore script, desktop shortcut with Run as admin, open folder on success, Windows toast, optional SHA256 download verification, first-start loading overlay, version in title."
+  "version": "1.6.1",
+  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.1/UNKCLUB.Tool.exe",
+  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.1/installers-bundle.zip",
+  "installersBundleVersion": "1.6.1",
+  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.1/UNKCLUB.exe",
+  "releaseNotes": "v1.6.1: fix auto-update 404 when GitHub stores release exe as UNKCLUB.Tool.exe; verify download URL before prompting; skip blocking error on startup; 24h cache after 404."
 }

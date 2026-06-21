@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -24,7 +25,96 @@ internal static class GitHubReleaseAssetResolver
     {
         var tag = NormalizeTag(versionLabel);
         return
-            $"https://github.com/{UpdateConstants.GitHubOwner}/{UpdateConstants.GitHubRepo}/releases/download/{tag}/{assetFileName}";
+            $"https://github.com/{UpdateConstants.GitHubOwner}/{UpdateConstants.GitHubRepo}/releases/download/{tag}/{Uri.EscapeDataString(assetFileName)}";
+    }
+
+    /// <summary>
+    /// Resolves a verified release executable URL: direct download HEAD first, then API assets.
+    /// </summary>
+    public static async Task<string?> ResolveVerifiedReleaseExecutableUrlAsync(
+        string versionLabel,
+        IReadOnlyList<GitHubReleaseAssetInfo>? apiAssets,
+        CancellationToken cancellationToken = default)
+    {
+        foreach (var fileName in UpdateConstants.ReleaseExecutableFileNames)
+        {
+            var directUrl = BuildDirectDownloadUrl(versionLabel, fileName);
+            if (await IsUrlReachableAsync(directUrl, cancellationToken).ConfigureAwait(false))
+            {
+                return directUrl;
+            }
+        }
+
+        var fromApi = FindAssetUrl(apiAssets, UpdateConstants.ReleaseExecutableFileNames);
+        if (!string.IsNullOrWhiteSpace(fromApi) &&
+            await IsUrlReachableAsync(fromApi, cancellationToken).ConfigureAwait(false))
+        {
+            return fromApi;
+        }
+
+        foreach (var fileName in UpdateConstants.ReleaseExecutableFileNames)
+        {
+            var resolved = ResolveAssetUrl(versionLabel, fileName);
+            if (!string.IsNullOrWhiteSpace(resolved) &&
+                await IsUrlReachableAsync(resolved, cancellationToken).ConfigureAwait(false))
+            {
+                return resolved;
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Verifies that a download URL responds with HTTP 200 (HEAD, falling back to ranged GET).
+    /// </summary>
+    public static async Task<bool> IsUrlReachableAsync(string url, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            return false;
+        }
+
+        try
+        {
+            using var headRequest = new HttpRequestMessage(HttpMethod.Head, url);
+            using var headResponse = await HttpClient.SendAsync(
+                    headRequest,
+                    HttpCompletionOption.ResponseHeadersRead,
+                    cancellationToken)
+                .ConfigureAwait(false);
+
+            if (headResponse.StatusCode == HttpStatusCode.NotFound)
+            {
+                return false;
+            }
+
+            if (headResponse.IsSuccessStatusCode)
+            {
+                return true;
+            }
+        }
+        catch
+        {
+            // Some endpoints reject HEAD; try a minimal GET below.
+        }
+
+        try
+        {
+            using var getRequest = new HttpRequestMessage(HttpMethod.Get, url);
+            getRequest.Headers.Range = new RangeHeaderValue(0, 0);
+            using var getResponse = await HttpClient.SendAsync(
+                    getRequest,
+                    HttpCompletionOption.ResponseHeadersRead,
+                    cancellationToken)
+                .ConfigureAwait(false);
+
+            return getResponse.IsSuccessStatusCode;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     /// <summary>
@@ -82,16 +172,44 @@ internal static class GitHubReleaseAssetResolver
         return FindAssetUrl(release?.Assets, assetFileName);
     }
 
-    private static string? FindAssetUrl(List<GitHubReleaseAssetResponse>? assets, string assetFileName)
+    internal static string? FindAssetUrl(
+        IReadOnlyList<GitHubReleaseAssetInfo>? assets,
+        params string[] assetFileNames)
+    {
+        if (assets is null || assets.Count == 0 || assetFileNames.Length == 0)
+        {
+            return null;
+        }
+
+        foreach (var assetFileName in assetFileNames)
+        {
+            var match = assets
+                .FirstOrDefault(a => a.Name.Equals(assetFileName, StringComparison.OrdinalIgnoreCase))
+                ?.BrowserDownloadUrl;
+
+            if (!string.IsNullOrWhiteSpace(match))
+            {
+                return match;
+            }
+        }
+
+        return null;
+    }
+
+    private static string? FindAssetUrl(
+        List<GitHubReleaseAssetResponse>? assets,
+        string assetFileName)
     {
         if (assets is null || assets.Count == 0)
         {
             return null;
         }
 
-        return assets
-            .FirstOrDefault(a => a.Name.Equals(assetFileName, StringComparison.OrdinalIgnoreCase))
-            ?.BrowserDownloadUrl;
+        var mapped = assets
+            .Select(a => new GitHubReleaseAssetInfo(a.Name, a.BrowserDownloadUrl))
+            .ToList();
+
+        return FindAssetUrl(mapped, assetFileName);
     }
 
     private static string NormalizeTag(string versionLabel)
@@ -134,3 +252,5 @@ internal static class GitHubReleaseAssetResolver
         public string BrowserDownloadUrl { get; set; } = string.Empty;
     }
 }
+
+internal sealed record GitHubReleaseAssetInfo(string Name, string BrowserDownloadUrl);

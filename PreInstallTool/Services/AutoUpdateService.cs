@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -21,13 +22,34 @@ public static class AutoUpdateService
 
     public static async Task<UpdateCheckResult> CheckForUpdatesAsync(CancellationToken cancellationToken = default)
     {
+        if (UpdateCheckSkipCache.ShouldSkip())
+        {
+            UpdateDiagnostics.LogWarning("Skipping update check due to recent 404 (cached 24h).");
+            return new UpdateCheckResult(
+                UpdateStatus.CheckFailed,
+                ErrorMessage: "Update check skipped after recent download failure.",
+                IsNotFoundFailure: true);
+        }
+
         var releaseResult = await TryCheckGitHubReleaseAsync(cancellationToken).ConfigureAwait(false);
-        if (releaseResult.Status != UpdateStatus.CheckFailed)
+
+        if (releaseResult.Status == UpdateStatus.UpToDate)
         {
             return releaseResult;
         }
 
-        return await TryCheckVersionJsonAsync(cancellationToken).ConfigureAwait(false);
+        if (releaseResult.Status == UpdateStatus.UpdateAvailable)
+        {
+            return releaseResult;
+        }
+
+        if (releaseResult.Status == UpdateStatus.CheckFailed && releaseResult.IsNotFoundFailure)
+        {
+            UpdateCheckSkipCache.RecordNotFound();
+            return releaseResult;
+        }
+
+        return await TryCheckVersionJsonAsync(releaseResult.RemoteVersion, cancellationToken).ConfigureAwait(false);
     }
 
     public static async Task<UpdateApplyResult> DownloadAndApplyUpdateAsync(
@@ -44,13 +66,25 @@ public static class AutoUpdateService
 
         try
         {
+            if (!await GitHubReleaseAssetResolver
+                    .IsUrlReachableAsync(update.DownloadUrl, cancellationToken)
+                    .ConfigureAwait(false))
+            {
+                UpdateCheckSkipCache.RecordNotFound();
+                UpdateDiagnostics.LogWarning($"Update download URL not reachable: {update.DownloadUrl}");
+                return new UpdateApplyResult(
+                    false,
+                    "Release download URL returned HTTP 404.",
+                    IsNotFoundFailure: true);
+            }
+
             var executablePath = GetExecutablePath();
             var installDirectory = Path.GetDirectoryName(executablePath)
                 ?? AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 
             var updatesRoot = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "UNKCLUB-Tool",
+                UpdateConstants.LocalAppFolderName,
                 "Updates");
             Directory.CreateDirectory(updatesRoot);
 
@@ -84,6 +118,7 @@ public static class AutoUpdateService
                 payloadExe = Path.Combine(stagingDirectory, UpdateConstants.ReleaseExecutableFileName);
                 await DownloadFileAsync(update.DownloadUrl, payloadExe, progress, cancellationToken).ConfigureAwait(false);
             }
+
             var updaterScript = Path.Combine(versionFolder, "apply-update.cmd");
             WriteUpdaterScript(updaterScript, payloadExe, executablePath);
 
@@ -96,6 +131,12 @@ public static class AutoUpdateService
             });
 
             return new UpdateApplyResult(true);
+        }
+        catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+        {
+            UpdateCheckSkipCache.RecordNotFound();
+            UpdateDiagnostics.LogWarning($"Update download failed with 404: {ex.Message}");
+            return new UpdateApplyResult(false, ex.Message, IsNotFoundFailure: true);
         }
         catch (Exception ex)
         {
@@ -112,7 +153,10 @@ public static class AutoUpdateService
             using var response = await HttpClient.GetAsync(url, cancellationToken).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {
-                return new UpdateCheckResult(UpdateStatus.CheckFailed, ErrorMessage: $"GitHub API: {(int)response.StatusCode}");
+                UpdateDiagnostics.LogWarning($"GitHub releases/latest returned {(int)response.StatusCode}.");
+                return new UpdateCheckResult(
+                    UpdateStatus.CheckFailed,
+                    ErrorMessage: $"GitHub API: {(int)response.StatusCode}");
             }
 
             await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
@@ -124,16 +168,31 @@ public static class AutoUpdateService
                 return new UpdateCheckResult(UpdateStatus.CheckFailed, ErrorMessage: "Invalid release metadata.");
             }
 
-            var downloadUrl = FindReleaseAssetUrl(release.Assets);
-
             if (CurrentVersion >= remoteVersion)
             {
                 return new UpdateCheckResult(UpdateStatus.UpToDate, RemoteVersion: remoteVersion);
             }
 
+            var apiAssets = release.Assets?
+                .Select(a => new GitHubReleaseAssetInfo(a.Name, a.BrowserDownloadUrl))
+                .ToList();
+
+            var downloadUrl = await GitHubReleaseAssetResolver
+                .ResolveVerifiedReleaseExecutableUrlAsync(
+                    remoteVersion.ToString(3),
+                    apiAssets,
+                    cancellationToken)
+                .ConfigureAwait(false);
+
             if (string.IsNullOrWhiteSpace(downloadUrl))
             {
-                return new UpdateCheckResult(UpdateStatus.CheckFailed, ErrorMessage: "Release asset not found.");
+                UpdateDiagnostics.LogWarning(
+                    $"Release v{remoteVersion} has no reachable executable asset (checked direct URLs and API).");
+                return new UpdateCheckResult(
+                    UpdateStatus.CheckFailed,
+                    RemoteVersion: remoteVersion,
+                    ErrorMessage: "Release asset not found or unreachable.",
+                    IsNotFoundFailure: true);
             }
 
             return new UpdateCheckResult(
@@ -144,11 +203,14 @@ public static class AutoUpdateService
         }
         catch (Exception ex)
         {
+            UpdateDiagnostics.LogWarning($"GitHub release check failed: {ex.Message}");
             return new UpdateCheckResult(UpdateStatus.CheckFailed, ErrorMessage: ex.Message);
         }
     }
 
-    private static async Task<UpdateCheckResult> TryCheckVersionJsonAsync(CancellationToken cancellationToken)
+    private static async Task<UpdateCheckResult> TryCheckVersionJsonAsync(
+        Version? latestReleaseVersion,
+        CancellationToken cancellationToken)
     {
         try
         {
@@ -157,7 +219,9 @@ public static class AutoUpdateService
             using var response = await HttpClient.GetAsync(url, cancellationToken).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {
-                return new UpdateCheckResult(UpdateStatus.CheckFailed, ErrorMessage: $"version.json: {(int)response.StatusCode}");
+                return new UpdateCheckResult(
+                    UpdateStatus.CheckFailed,
+                    ErrorMessage: $"version.json: {(int)response.StatusCode}");
             }
 
             await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
@@ -169,20 +233,39 @@ public static class AutoUpdateService
                 return new UpdateCheckResult(UpdateStatus.CheckFailed, ErrorMessage: "Invalid version.json.");
             }
 
+            if (latestReleaseVersion is not null && remoteVersion > latestReleaseVersion)
+            {
+                UpdateDiagnostics.LogWarning(
+                    $"version.json ({remoteVersion}) is newer than latest GitHub release ({latestReleaseVersion}); ignoring manifest version.");
+                remoteVersion = latestReleaseVersion;
+            }
+
             if (CurrentVersion >= remoteVersion)
             {
                 return new UpdateCheckResult(UpdateStatus.UpToDate, RemoteVersion: remoteVersion);
             }
 
-            if (string.IsNullOrWhiteSpace(manifest.DownloadUrl))
+            var downloadUrl = await ResolveVerifiedManifestDownloadUrlAsync(
+                    manifest,
+                    remoteVersion.ToString(3),
+                    cancellationToken)
+                .ConfigureAwait(false);
+
+            if (string.IsNullOrWhiteSpace(downloadUrl))
             {
-                return new UpdateCheckResult(UpdateStatus.CheckFailed, ErrorMessage: "version.json has no downloadUrl.");
+                UpdateDiagnostics.LogWarning(
+                    $"version.json advertises v{remoteVersion} but no reachable download URL was found.");
+                return new UpdateCheckResult(
+                    UpdateStatus.CheckFailed,
+                    RemoteVersion: remoteVersion,
+                    ErrorMessage: "Update download URL unreachable.",
+                    IsNotFoundFailure: true);
             }
 
             return new UpdateCheckResult(
                 UpdateStatus.UpdateAvailable,
                 remoteVersion,
-                manifest.DownloadUrl,
+                downloadUrl,
                 manifest.ReleaseNotes);
         }
         catch (Exception ex)
@@ -191,16 +274,22 @@ public static class AutoUpdateService
         }
     }
 
-    private static string? FindReleaseAssetUrl(List<GitHubReleaseAsset>? assets)
+    private static async Task<string?> ResolveVerifiedManifestDownloadUrlAsync(
+        VersionManifest manifest,
+        string versionLabel,
+        CancellationToken cancellationToken)
     {
-        if (assets is null || assets.Count == 0)
+        if (!string.IsNullOrWhiteSpace(manifest.DownloadUrl) &&
+            await GitHubReleaseAssetResolver
+                .IsUrlReachableAsync(manifest.DownloadUrl, cancellationToken)
+                .ConfigureAwait(false))
         {
-            return null;
+            return manifest.DownloadUrl;
         }
 
-        return assets
-            .FirstOrDefault(a => a.Name.Equals(UpdateConstants.ReleaseExecutableFileName, StringComparison.OrdinalIgnoreCase))
-            ?.BrowserDownloadUrl;
+        return await GitHubReleaseAssetResolver
+            .ResolveVerifiedReleaseExecutableUrlAsync(versionLabel, apiAssets: null, cancellationToken)
+            .ConfigureAwait(false);
     }
 
     private static bool IsZipDownload(string downloadUrl) =>
@@ -237,13 +326,7 @@ public static class AutoUpdateService
 
     private static string ResolvePayloadExecutable(string stagingDirectory)
     {
-        var preferredNames = new[]
-        {
-            "UNKCLUB Tool.exe",
-            "PreInstallTool.exe"
-        };
-
-        foreach (var name in preferredNames)
+        foreach (var name in UpdateConstants.ReleaseExecutableFileNames)
         {
             var directPath = Path.Combine(stagingDirectory, name);
             if (File.Exists(directPath))
@@ -255,8 +338,8 @@ public static class AutoUpdateService
         var nestedMatch = Directory
             .EnumerateFiles(stagingDirectory, "*.exe", SearchOption.AllDirectories)
             .FirstOrDefault(path =>
-                path.EndsWith("UNKCLUB Tool.exe", StringComparison.OrdinalIgnoreCase) ||
-                path.EndsWith("PreInstallTool.exe", StringComparison.OrdinalIgnoreCase));
+                UpdateConstants.ReleaseExecutableFileNames.Any(name =>
+                    path.EndsWith(name, StringComparison.OrdinalIgnoreCase)));
 
         if (nestedMatch is not null)
         {

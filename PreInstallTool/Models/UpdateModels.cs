@@ -12,6 +12,10 @@ public sealed record UpdateCheckResult(
     Version? RemoteVersion = null,
     string? DownloadUrl = null,
     string? ReleaseNotes = null,
-    string? ErrorMessage = null);
+    string? ErrorMessage = null,
+    bool IsNotFoundFailure = false);
 
-public sealed record UpdateApplyResult(bool Success, string? ErrorMessage = null);
+public sealed record UpdateApplyResult(
+    bool Success,
+    string? ErrorMessage = null,
+    bool IsNotFoundFailure = false);

@@ -337,6 +337,7 @@
   <data name="Update_NoReleaseNotes" xml:space="preserve"><value>Sürüm notu yok.</value></data>
   <data name="Update_Downloading" xml:space="preserve"><value>Güncelleme indiriliyor...</value></data>
   <data name="Update_DownloadFailed" xml:space="preserve"><value>Güncelleme indirilemedi: {0}</value></data>
+  <data name="Update_DownloadNotFound" xml:space="preserve"><value>Güncelleme dosyası GitHub'da bulunamadı (HTTP 404). Release'e UNKCLUB Tool.exe eklenmemiş olabilir veya depo gizli olabilir. Uygulama normal şekilde devam edecek; daha sonra tekrar deneyin veya Releases sayfasından manuel indirin.</value></data>
   <data name="Update_RestartPrompt" xml:space="preserve"><value>Güncelleme uygulanıyor. Uygulama yeniden başlatılacak.</value></data>
   <data name="Update_RestartTitle" xml:space="preserve"><value>Güncelleme</value></data>
   <data name="Update_CheckFailed" xml:space="preserve"><value>Güncelleme denetlenemedi: {0}</value></data>

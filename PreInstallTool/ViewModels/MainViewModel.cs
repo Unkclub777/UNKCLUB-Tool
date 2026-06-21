@@ -1018,7 +1018,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
             if (result.Status == UpdateStatus.UpdateAvailable)
             {
-                await PromptAndApplyUpdateAsync(result).ConfigureAwait(true);
+                await PromptAndApplyUpdateAsync(result, showDownloadErrors: false).ConfigureAwait(true);
             }
         }
         catch
@@ -1028,6 +1028,10 @@ public sealed class MainViewModel : INotifyPropertyChanged
         finally
         {
             IsCheckingForUpdates = false;
+            if (IsApplicationReady && !IsRunning)
+            {
+                StatusText = string.Empty;
+            }
         }
     }
 
@@ -1078,7 +1082,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
                     break;
 
                 case UpdateStatus.CheckFailed:
-                    if (!silent)
+                    if (!silent && !result.IsNotFoundFailure)
                     {
                         MessageBox.Show(
                             LocalizationService.Format("Update_CheckFailed", result.ErrorMessage ?? string.Empty),
@@ -1125,7 +1129,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
         Application.Current.Shutdown();
     }
 
-    private async Task PromptAndApplyUpdateAsync(UpdateCheckResult result)
+    private async Task PromptAndApplyUpdateAsync(UpdateCheckResult result, bool showDownloadErrors = true)
     {
         var releaseNotes = string.IsNullOrWhiteSpace(result.ReleaseNotes)
             ? LocalizationService.Get("Update_NoReleaseNotes")
@@ -1153,11 +1157,28 @@ public sealed class MainViewModel : INotifyPropertyChanged
 
         if (!applyResult.Success)
         {
-            MessageBox.Show(
-                LocalizationService.Format("Update_DownloadFailed", applyResult.ErrorMessage ?? string.Empty),
-                LocalizationService.GetString("Update_CheckFailedTitle"),
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
+            if (applyResult.IsNotFoundFailure)
+            {
+                UpdateDiagnostics.LogWarning(
+                    applyResult.ErrorMessage ?? "Update download returned HTTP 404.");
+            }
+            else if (showDownloadErrors)
+            {
+                var message = applyResult.IsNotFoundFailure
+                    ? LocalizationService.Get("Update_DownloadNotFound")
+                    : LocalizationService.Format("Update_DownloadFailed", applyResult.ErrorMessage ?? string.Empty);
+                MessageBox.Show(
+                    message,
+                    LocalizationService.GetString("Update_CheckFailedTitle"),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+
+            if (IsApplicationReady && !IsRunning)
+            {
+                StatusText = string.Empty;
+            }
+
             return;
         }
 

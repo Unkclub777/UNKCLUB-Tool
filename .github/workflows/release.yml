@@ -59,7 +59,7 @@ jobs:
           $repo = "${{ github.repository }}"
           $manifest = @{
             version = $version
-            downloadUrl = "https://github.com/$repo/releases/download/v$version/UNKCLUB Tool.exe"
+            downloadUrl = "https://github.com/$repo/releases/download/v$version/UNKCLUB.Tool.exe"
             installersBundleUrl = "https://github.com/$repo/releases/download/v$version/installers-bundle.zip"
             installersBundleVersion = $version
             releaseNotes = "Release v$version"

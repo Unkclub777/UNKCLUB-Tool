@@ -291,6 +291,7 @@
   <data name="Update_NoReleaseNotes" xml:space="preserve"><value>No release notes.</value></data>
   <data name="Update_Downloading" xml:space="preserve"><value>Downloading update...</value></data>
   <data name="Update_DownloadFailed" xml:space="preserve"><value>Could not download update: {0}</value></data>
+  <data name="Update_DownloadNotFound" xml:space="preserve"><value>The update file was not found on GitHub (HTTP 404). The release may be missing UNKCLUB Tool.exe, or the repository may be private. The app will continue normally; try again later or download manually from Releases.</value></data>
   <data name="Update_RestartPrompt" xml:space="preserve"><value>Applying update. The application will restart.</value></data>
   <data name="Update_RestartTitle" xml:space="preserve"><value>Update</value></data>
   <data name="Update_CheckFailed" xml:space="preserve"><value>Could not check for updates: {0}</value></data>
