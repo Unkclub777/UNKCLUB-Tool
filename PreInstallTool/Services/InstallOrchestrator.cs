@@ -143,7 +143,6 @@ public sealed class InstallOrchestrator
             "stopvanguard" => ExecuteStopVanguardProcesses(step, log),
             "stopvanguardprocesses" => ExecuteStopVanguardProcesses(step, log),
             "stopuserprocesses" => ExecuteStopUserProcesses(step, log),
-            "disablenonmicrosoftservices" => ExecuteDisableNonMicrosoftServices(step, log),
             "ensureservicesautomatic" => ExecuteEnsureServicesAutomatic(step, log),
             "restartcomputer" => ExecuteRestartComputer(step, log),
             "rundesktopapp" => ExecuteRunDesktopApp(step, log),
@@ -912,24 +911,6 @@ public sealed class InstallOrchestrator
         return new InstallResult(
             true,
             LocalizationService.Format("UserProcessStop_Result", stopped));
-    }
-
-    private static InstallResult ExecuteDisableNonMicrosoftServices(InstallStep step, IProgress<string>? log)
-    {
-        if (!NonMicrosoftServiceDisableService.IsRunningAsAdministrator())
-        {
-            return new InstallResult(false, LocalizationService.Get("NonMsService_NotAdmin"));
-        }
-
-        var result = NonMicrosoftServiceDisableService.DisableAllNonMicrosoftServices(log);
-        if (result.DisabledServiceRecords.Count > 0)
-        {
-            ServiceRestoreScriptService.WriteRestoreArtifacts(result.DisabledServiceRecords, log);
-        }
-
-        return new InstallResult(
-            true,
-            LocalizationService.Format("NonMsService_Result", result.DisabledCount, result.FailedCount));
     }
 
     private static bool IsUnkclubExecutable(string path) =>

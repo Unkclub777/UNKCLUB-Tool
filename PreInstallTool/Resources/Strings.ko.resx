@@ -305,26 +305,9 @@
   <data name="InstallSummary_UnknownStep" xml:space="preserve"><value>알 수 없는 단계</value></data>
   <data name="InstallSummary_UnkclubNotDeployed" xml:space="preserve"><value>(UNKCLUB.exe 아직 배포되지 않음)</value></data>
   <data name="Bundle_AppVersionCacheInvalidated" xml:space="preserve"><value>앱 버전이 변경되어 설치 캐시를 정리합니다...</value></data>
-  <data name="NonMsService_NotAdmin" xml:space="preserve"><value>Microsoft 외 서비스를 비활성화하려면 관리자 권한이 필요합니다.</value></data>
-  <data name="NonMsService_Starting" xml:space="preserve"><value>Microsoft 외 서비스 검색 중 (msconfig: Microsoft 서비스 숨기기 + 모두 비활성화)...</value></data>
-  <data name="NonMsService_RegistryOpenFailed" xml:space="preserve"><value>서비스 레지스트리 키를 열 수 없습니다.</value></data>
-  <data name="NonMsService_SkippedExcluded" xml:space="preserve"><value>제외: {0}</value></data>
-  <data name="NonMsService_Disabling" xml:space="preserve"><value>비활성화 중: {0}</value></data>
-  <data name="NonMsService_Disabled" xml:space="preserve"><value>비활성화됨: {0}</value></data>
-  <data name="NonMsService_DisableFailed" xml:space="preserve"><value>비활성화 실패: {0}</value></data>
-  <data name="NonMsService_DisableFailedDetail" xml:space="preserve"><value>비활성화 실패: {0} — {1}</value></data>
-  <data name="NonMsService_Summary" xml:space="preserve"><value>요약: {0} 비활성화, {1} Microsoft 건너뜀, {2} 제외, {3} 이미 비활성화, {4} 실패.</value></data>
-  <data name="NonMsService_DisabledEntry" xml:space="preserve"><value>  • {0}</value></data>
-  <data name="NonMsService_Result" xml:space="preserve"><value>{0}개 서비스 비활성화 ({1}개 실패).</value></data>
-  <data name="Step_first-install-disable-non-ms-services_Name" xml:space="preserve"><value>Microsoft 외 서비스 비활성화</value></data>
-  <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig 서비스: Microsoft 숨기기, 타사 서비스 모두 비활성화. Vanguard/Riot 제외.</value></data>
-  <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>Microsoft 외 서비스 비활성화</value></data>
-  <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig 서비스: Microsoft 숨기기, 타사 서비스 모두 비활성화. Vanguard/Riot 제외.</value></data>
   <data name="WindowTitleVersion" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
   <data name="AppVersionLabelFull" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
   <data name="Bundle_Preparing" xml:space="preserve"><value>준비 중...</value></data>
-  <data name="ServiceRestore_Saved" xml:space="preserve"><value>서비스 복원 스크립트 저장됨: {0}</value></data>
-  <data name="ServiceRestore_JsonSaved" xml:space="preserve"><value>비활성화된 서비스 기록: {0}</value></data>
   <data name="Shortcut_Created" xml:space="preserve"><value>바탕화면 바로 가기 생성됨: {0}</value></data>
   <data name="Shortcut_DesktopSkipped" xml:space="preserve"><value>바탕화면 루트 바로 가기 건너뜀: {0}</value></data>
   <data name="Shortcut_CreateFailed" xml:space="preserve"><value>바로 가기를 만들 수 없음: {0}</value></data>

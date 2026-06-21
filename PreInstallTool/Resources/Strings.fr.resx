@@ -305,26 +305,9 @@
   <data name="InstallSummary_UnknownStep" xml:space="preserve"><value>Étape inconnue</value></data>
   <data name="InstallSummary_UnkclubNotDeployed" xml:space="preserve"><value>(UNKCLUB.exe pas encore déployé)</value></data>
   <data name="Bundle_AppVersionCacheInvalidated" xml:space="preserve"><value>Version de l'application modifiée ; nettoyage du cache...</value></data>
-  <data name="NonMsService_NotAdmin" xml:space="preserve"><value>Des droits administrateur sont requis pour désactiver les services non Microsoft.</value></data>
-  <data name="NonMsService_Starting" xml:space="preserve"><value>Analyse des services non Microsoft (msconfig : masquer Microsoft + tout désactiver)...</value></data>
-  <data name="NonMsService_RegistryOpenFailed" xml:space="preserve"><value>Impossible d'ouvrir la clé de registre des services.</value></data>
-  <data name="NonMsService_SkippedExcluded" xml:space="preserve"><value>Exclu : {0}</value></data>
-  <data name="NonMsService_Disabling" xml:space="preserve"><value>Désactivation : {0}</value></data>
-  <data name="NonMsService_Disabled" xml:space="preserve"><value>Désactivé : {0}</value></data>
-  <data name="NonMsService_DisableFailed" xml:space="preserve"><value>Échec de désactivation : {0}</value></data>
-  <data name="NonMsService_DisableFailedDetail" xml:space="preserve"><value>Échec de désactivation : {0} — {1}</value></data>
-  <data name="NonMsService_Summary" xml:space="preserve"><value>Résumé : {0} désactivé(s), {1} Microsoft ignoré(s), {2} exclu(s), {3} déjà désactivé(s), {4} échec(s).</value></data>
-  <data name="NonMsService_DisabledEntry" xml:space="preserve"><value>  • {0}</value></data>
-  <data name="NonMsService_Result" xml:space="preserve"><value>{0} service(s) désactivé(s) ({1} échec(s)).</value></data>
-  <data name="Step_first-install-disable-non-ms-services_Name" xml:space="preserve"><value>Désactiver les services non Microsoft</value></data>
-  <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Services : masquer Microsoft, désactiver tous les services tiers. Vanguard/Riot exclus.</value></data>
-  <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>Désactiver les services non Microsoft</value></data>
-  <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Services : masquer Microsoft, désactiver tous les services tiers. Vanguard/Riot exclus.</value></data>
   <data name="WindowTitleVersion" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
   <data name="AppVersionLabelFull" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
   <data name="Bundle_Preparing" xml:space="preserve"><value>Préparation...</value></data>
-  <data name="ServiceRestore_Saved" xml:space="preserve"><value>Script de restauration des services enregistré : {0}</value></data>
-  <data name="ServiceRestore_JsonSaved" xml:space="preserve"><value>Enregistrement des services désactivés : {0}</value></data>
   <data name="Shortcut_Created" xml:space="preserve"><value>Raccourci bureau créé : {0}</value></data>
   <data name="Shortcut_DesktopSkipped" xml:space="preserve"><value>Raccourci bureau racine ignoré : {0}</value></data>
   <data name="Shortcut_CreateFailed" xml:space="preserve"><value>Impossible de créer le raccourci : {0}</value></data>

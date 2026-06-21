@@ -18,13 +18,6 @@
           "phase": "pre-reboot"
         },
         {
-          "id": "first-install-disable-non-ms-services",
-          "name": "Microsoft dışı servisleri devre dışı bırak",
-          "description": "msconfig Hizmetler: 'Tüm Microsoft hizmetlerini gizle' + 'Tümünü devre dışı bırak' — üçüncü taraf servisler Disabled olarak ayarlanır. Vanguard/Riot servisleri hariç.",
-          "type": "disableNonMicrosoftServices",
-          "phase": "pre-reboot"
-        },
-        {
           "id": "first-install-ensure-vanguard-auto",
           "name": "Vanguard servislerini otomatik başlatmaya al",
           "description": "vgk, vgc, vgm ve Riot Client servisleri yeniden başlatma sonrası otomatik başlasın diye Automatic olarak ayarlanır.",
@@ -192,13 +185,6 @@
           "name": "Kullanıcı uygulamalarını durdur",
           "description": "Kurulum başlamadan önce Windows sistem bileşenleri hariç çalışan kullanıcı uygulamaları sonlandırılır.",
           "type": "stopUserProcesses",
-          "phase": "pre-reboot"
-        },
-        {
-          "id": "error-fix-disable-non-ms-services",
-          "name": "Microsoft dışı servisleri devre dışı bırak",
-          "description": "msconfig Hizmetler: 'Tüm Microsoft hizmetlerini gizle' + 'Tümünü devre dışı bırak' — üçüncü taraf servisler Disabled olarak ayarlanır. Vanguard/Riot servisleri hariç.",
-          "type": "disableNonMicrosoftServices",
           "phase": "pre-reboot"
         },
         {

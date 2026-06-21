@@ -393,21 +393,6 @@
   <data name="UserProcessStop_Completed" xml:space="preserve"><value>{0} kullanıcı uygulaması sonlandırıldı.</value></data>
   <data name="UserProcessStop_Result" xml:space="preserve"><value>{0} kullanıcı uygulaması sonlandırıldı.</value></data>
   <data name="EnsureServicesAutomatic_Completed" xml:space="preserve"><value>{0}/{1} servis otomatik başlatmaya alındı.</value></data>
-  <data name="NonMsService_NotAdmin" xml:space="preserve"><value>Microsoft dışı servisleri devre dışı bırakmak için yönetici yetkisi gerekli.</value></data>
-  <data name="NonMsService_Starting" xml:space="preserve"><value>Microsoft dışı servisler taranıyor (msconfig: Microsoft hizmetlerini gizle + tümünü devre dışı bırak)...</value></data>
-  <data name="NonMsService_RegistryOpenFailed" xml:space="preserve"><value>Servis kayıt defteri anahtarı açılamadı.</value></data>
-  <data name="NonMsService_SkippedExcluded" xml:space="preserve"><value>Hariç tutuldu: {0}</value></data>
-  <data name="NonMsService_Disabling" xml:space="preserve"><value>Devre dışı bırakılıyor: {0}</value></data>
-  <data name="NonMsService_Disabled" xml:space="preserve"><value>Devre dışı bırakıldı: {0}</value></data>
-  <data name="NonMsService_DisableFailed" xml:space="preserve"><value>Devre dışı bırakılamadı: {0}</value></data>
-  <data name="NonMsService_DisableFailedDetail" xml:space="preserve"><value>Devre dışı bırakılamadı: {0} — {1}</value></data>
-  <data name="NonMsService_Summary" xml:space="preserve"><value>Özet: {0} devre dışı, {1} Microsoft atlandı, {2} hariç tutuldu, {3} zaten devre dışı, {4} başarısız.</value></data>
-  <data name="NonMsService_DisabledEntry" xml:space="preserve"><value>  • {0}</value></data>
-  <data name="NonMsService_Result" xml:space="preserve"><value>{0} servis devre dışı bırakıldı ({1} başarısız).</value></data>
-  <data name="Step_first-install-disable-non-ms-services_Name" xml:space="preserve"><value>Microsoft dışı servisleri devre dışı bırak</value></data>
-  <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Hizmetler: Microsoft hizmetleri gizlenir, üçüncü taraf servisler Disabled olarak ayarlanır. Vanguard/Riot hariç.</value></data>
-  <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>Microsoft dışı servisleri devre dışı bırak</value></data>
-  <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Hizmetler: Microsoft hizmetleri gizlenir, üçüncü taraf servisler Disabled olarak ayarlanır. Vanguard/Riot hariç.</value></data>
   <data name="UnkclubApp_Downloading" xml:space="preserve"><value>{0} GitHub'dan indiriliyor...</value></data>
   <data name="UnkclubApp_Downloaded" xml:space="preserve"><value>{0} indirildi.</value></data>
   <data name="UnkclubApp_Deployed" xml:space="preserve"><value>UNKCLUB uygulaması dağıtıldı: {0}</value></data>
@@ -452,8 +437,6 @@
   <data name="WindowTitleVersion" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
   <data name="AppVersionLabelFull" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
   <data name="Bundle_Preparing" xml:space="preserve"><value>Hazırlanıyor...</value></data>
-  <data name="ServiceRestore_Saved" xml:space="preserve"><value>Servis geri yükleme betiği kaydedildi: {0}</value></data>
-  <data name="ServiceRestore_JsonSaved" xml:space="preserve"><value>Devre dışı servis kaydı: {0}</value></data>
   <data name="Shortcut_Created" xml:space="preserve"><value>Masaüstü kısayolu oluşturuldu: {0}</value></data>
   <data name="Shortcut_DesktopSkipped" xml:space="preserve"><value>Masaüstü kök kısayolu atlandı: {0}</value></data>
   <data name="Shortcut_CreateFailed" xml:space="preserve"><value>Kısayol oluşturulamadı: {0}</value></data>

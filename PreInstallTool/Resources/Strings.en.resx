@@ -323,21 +323,6 @@
   <data name="UserProcessStop_Completed" xml:space="preserve"><value>{0} user application(s) terminated.</value></data>
   <data name="UserProcessStop_Result" xml:space="preserve"><value>{0} user application(s) terminated.</value></data>
   <data name="EnsureServicesAutomatic_Completed" xml:space="preserve"><value>{0}/{1} service(s) set to automatic startup.</value></data>
-  <data name="NonMsService_NotAdmin" xml:space="preserve"><value>Administrator rights are required to disable non-Microsoft services.</value></data>
-  <data name="NonMsService_Starting" xml:space="preserve"><value>Scanning non-Microsoft services (msconfig: hide Microsoft services + disable all)...</value></data>
-  <data name="NonMsService_RegistryOpenFailed" xml:space="preserve"><value>Could not open the services registry key.</value></data>
-  <data name="NonMsService_SkippedExcluded" xml:space="preserve"><value>Excluded: {0}</value></data>
-  <data name="NonMsService_Disabling" xml:space="preserve"><value>Disabling: {0}</value></data>
-  <data name="NonMsService_Disabled" xml:space="preserve"><value>Disabled: {0}</value></data>
-  <data name="NonMsService_DisableFailed" xml:space="preserve"><value>Failed to disable: {0}</value></data>
-  <data name="NonMsService_DisableFailedDetail" xml:space="preserve"><value>Failed to disable: {0} — {1}</value></data>
-  <data name="NonMsService_Summary" xml:space="preserve"><value>Summary: {0} disabled, {1} Microsoft skipped, {2} excluded, {3} already disabled, {4} failed.</value></data>
-  <data name="NonMsService_DisabledEntry" xml:space="preserve"><value>  • {0}</value></data>
-  <data name="NonMsService_Result" xml:space="preserve"><value>{0} service(s) disabled ({1} failed).</value></data>
-  <data name="Step_first-install-disable-non-ms-services_Name" xml:space="preserve"><value>Disable non-Microsoft services</value></data>
-  <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Services: hide Microsoft services, disable all third-party services. Vanguard/Riot excluded.</value></data>
-  <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>Disable non-Microsoft services</value></data>
-  <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Services: hide Microsoft services, disable all third-party services. Vanguard/Riot excluded.</value></data>
   <data name="UnkclubApp_Downloading" xml:space="preserve"><value>Downloading {0} from GitHub...</value></data>
   <data name="UnkclubApp_Downloaded" xml:space="preserve"><value>Downloaded to {0}.</value></data>
   <data name="UnkclubApp_Deployed" xml:space="preserve"><value>UNKCLUB app deployed: {0}</value></data>
@@ -382,8 +367,6 @@
   <data name="WindowTitleVersion" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
   <data name="AppVersionLabelFull" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
   <data name="Bundle_Preparing" xml:space="preserve"><value>Preparing...</value></data>
-  <data name="ServiceRestore_Saved" xml:space="preserve"><value>Service restore script saved: {0}</value></data>
-  <data name="ServiceRestore_JsonSaved" xml:space="preserve"><value>Disabled services record saved: {0}</value></data>
   <data name="Shortcut_Created" xml:space="preserve"><value>Desktop shortcut created: {0}</value></data>
   <data name="Shortcut_DesktopSkipped" xml:space="preserve"><value>Root desktop shortcut skipped: {0}</value></data>
   <data name="Shortcut_CreateFailed" xml:space="preserve"><value>Could not create shortcut: {0}</value></data>

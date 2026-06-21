@@ -305,26 +305,9 @@
   <data name="InstallSummary_UnknownStep" xml:space="preserve"><value>未知步骤</value></data>
   <data name="InstallSummary_UnkclubNotDeployed" xml:space="preserve"><value>（UNKCLUB.exe 尚未部署）</value></data>
   <data name="Bundle_AppVersionCacheInvalidated" xml:space="preserve"><value>应用版本已更改；正在清除安装缓存...</value></data>
-  <data name="NonMsService_NotAdmin" xml:space="preserve"><value>需要管理员权限才能禁用非 Microsoft 服务。</value></data>
-  <data name="NonMsService_Starting" xml:space="preserve"><value>正在扫描非 Microsoft 服务（msconfig：隐藏 Microsoft 服务 + 全部禁用）...</value></data>
-  <data name="NonMsService_RegistryOpenFailed" xml:space="preserve"><value>无法打开服务注册表项。</value></data>
-  <data name="NonMsService_SkippedExcluded" xml:space="preserve"><value>已排除：{0}</value></data>
-  <data name="NonMsService_Disabling" xml:space="preserve"><value>正在禁用：{0}</value></data>
-  <data name="NonMsService_Disabled" xml:space="preserve"><value>已禁用：{0}</value></data>
-  <data name="NonMsService_DisableFailed" xml:space="preserve"><value>禁用失败：{0}</value></data>
-  <data name="NonMsService_DisableFailedDetail" xml:space="preserve"><value>禁用失败：{0} — {1}</value></data>
-  <data name="NonMsService_Summary" xml:space="preserve"><value>摘要：{0} 已禁用，{1} Microsoft 已跳过，{2} 已排除，{3} 已禁用，{4} 失败。</value></data>
-  <data name="NonMsService_DisabledEntry" xml:space="preserve"><value>  • {0}</value></data>
-  <data name="NonMsService_Result" xml:space="preserve"><value>{0} 个服务已禁用（{1} 个失败）。</value></data>
-  <data name="Step_first-install-disable-non-ms-services_Name" xml:space="preserve"><value>禁用非 Microsoft 服务</value></data>
-  <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig 服务：隐藏 Microsoft 服务，禁用所有第三方服务。Vanguard/Riot 除外。</value></data>
-  <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>禁用非 Microsoft 服务</value></data>
-  <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig 服务：隐藏 Microsoft 服务，禁用所有第三方服务。Vanguard/Riot 除外。</value></data>
   <data name="WindowTitleVersion" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
   <data name="AppVersionLabelFull" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
   <data name="Bundle_Preparing" xml:space="preserve"><value>正在准备...</value></data>
-  <data name="ServiceRestore_Saved" xml:space="preserve"><value>服务恢复脚本已保存：{0}</value></data>
-  <data name="ServiceRestore_JsonSaved" xml:space="preserve"><value>已禁用服务记录：{0}</value></data>
   <data name="Shortcut_Created" xml:space="preserve"><value>桌面快捷方式已创建：{0}</value></data>
   <data name="Shortcut_DesktopSkipped" xml:space="preserve"><value>跳过桌面根快捷方式：{0}</value></data>
   <data name="Shortcut_CreateFailed" xml:space="preserve"><value>无法创建快捷方式：{0}</value></data>

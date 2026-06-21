@@ -305,26 +305,9 @@
   <data name="InstallSummary_UnknownStep" xml:space="preserve"><value>Etapa desconhecida</value></data>
   <data name="InstallSummary_UnkclubNotDeployed" xml:space="preserve"><value>(UNKCLUB.exe ainda não implantado)</value></data>
   <data name="Bundle_AppVersionCacheInvalidated" xml:space="preserve"><value>Versão do app alterada; limpando cache de instalação...</value></data>
-  <data name="NonMsService_NotAdmin" xml:space="preserve"><value>Privilégios de administrador são necessários para desativar serviços não Microsoft.</value></data>
-  <data name="NonMsService_Starting" xml:space="preserve"><value>Analisando serviços não Microsoft (msconfig: ocultar Microsoft + desativar todos)...</value></data>
-  <data name="NonMsService_RegistryOpenFailed" xml:space="preserve"><value>Não foi possível abrir a chave de registro de serviços.</value></data>
-  <data name="NonMsService_SkippedExcluded" xml:space="preserve"><value>Excluído: {0}</value></data>
-  <data name="NonMsService_Disabling" xml:space="preserve"><value>Desativando: {0}</value></data>
-  <data name="NonMsService_Disabled" xml:space="preserve"><value>Desativado: {0}</value></data>
-  <data name="NonMsService_DisableFailed" xml:space="preserve"><value>Falha ao desativar: {0}</value></data>
-  <data name="NonMsService_DisableFailedDetail" xml:space="preserve"><value>Falha ao desativar: {0} — {1}</value></data>
-  <data name="NonMsService_Summary" xml:space="preserve"><value>Resumo: {0} desativado(s), {1} Microsoft ignorado(s), {2} excluído(s), {3} já desativado(s), {4} falha(s).</value></data>
-  <data name="NonMsService_DisabledEntry" xml:space="preserve"><value>  • {0}</value></data>
-  <data name="NonMsService_Result" xml:space="preserve"><value>{0} serviço(s) desativado(s) ({1} falha(s)).</value></data>
-  <data name="Step_first-install-disable-non-ms-services_Name" xml:space="preserve"><value>Desativar serviços não Microsoft</value></data>
-  <data name="Step_first-install-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Serviços: ocultar Microsoft, desativar todos os serviços de terceiros. Vanguard/Riot excluídos.</value></data>
-  <data name="Step_error-fix-disable-non-ms-services_Name" xml:space="preserve"><value>Desativar serviços não Microsoft</value></data>
-  <data name="Step_error-fix-disable-non-ms-services_Description" xml:space="preserve"><value>msconfig Serviços: ocultar Microsoft, desativar todos os serviços de terceiros. Vanguard/Riot excluídos.</value></data>
   <data name="WindowTitleVersion" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
   <data name="AppVersionLabelFull" xml:space="preserve"><value>UNKCLUB Tool v{0}</value></data>
   <data name="Bundle_Preparing" xml:space="preserve"><value>Preparando...</value></data>
-  <data name="ServiceRestore_Saved" xml:space="preserve"><value>Script de restauração de serviços salvo: {0}</value></data>
-  <data name="ServiceRestore_JsonSaved" xml:space="preserve"><value>Registro de serviços desativados: {0}</value></data>
   <data name="Shortcut_Created" xml:space="preserve"><value>Atalho da área de trabalho criado: {0}</value></data>
   <data name="Shortcut_DesktopSkipped" xml:space="preserve"><value>Atalho na raiz da área de trabalho ignorado: {0}</value></data>
   <data name="Shortcut_CreateFailed" xml:space="preserve"><value>Não foi possível criar o atalho: {0}</value></data>

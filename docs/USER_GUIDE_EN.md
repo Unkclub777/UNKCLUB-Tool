@@ -18,10 +18,9 @@
 9. [Starting Installation](#9-starting-installation)
 10. [After Reboot (Auto-Resume)](#10-after-reboot-auto-resume)
 11. [Desktop Output](#11-desktop-output)
-12. [restore-services.ps1](#12-restore-servicesps1)
-13. [Troubleshooting](#13-troubleshooting)
-14. [FAQ](#14-faq)
-15. [Support & Updates](#15-support--updates)
+12. [Troubleshooting](#12-troubleshooting)
+13. [FAQ](#13-faq)
+14. [Support & Updates](#14-support--updates)
 
 ---
 
@@ -284,8 +283,6 @@ The log panel shows each step as it runs. Key moments where **you** may need to 
 4. **Restart confirmation** — the tool asks: *Have you completed the Vanguard installation and been prompted to restart?* Click **Yes** to proceed.
 5. **PC restart** — you receive a 10-second warning. Save all work. The PC restarts automatically.
 
-During phase 1, the tool also saves **restore-services.ps1** and **disabled-services.json** to your Desktop `unkclub(new)` folder (see [Section 12](#12-restore-servicesps1)).
-
 ### Phase 2 — After reboot (automatic)
 
 See [Section 10](#10-after-reboot-auto-resume).
@@ -329,9 +326,7 @@ Located at your actual Desktop path (including OneDrive Desktop if you use OneDr
 ```
 Desktop\unkclub(new)\
 ├── UNKCLUB.exe              ← Emulator application (UNKCLUB reseller)
-├── UNKCLUB.lnk              ← Shortcut (Run as administrator)
-├── restore-services.ps1     ← Service restore script
-└── disabled-services.json   ← Record of disabled services
+└── UNKCLUB.lnk              ← Shortcut (Run as administrator)
 ```
 
 ### Desktop shortcut
@@ -346,42 +341,7 @@ If you chose **Other Reseller**, place your reseller `.exe` in `unkclub(new)` be
 
 ---
 
-## 12. restore-services.ps1
-
-During installation, UNKCLUB Tool **disables third-party (non-Microsoft) Windows services** to ensure a clean setup. Vanguard and Riot services are **not** disabled.
-
-### What is created
-
-After the “Disable non-Microsoft services” step, the tool saves two files in `Desktop\unkclub(new)\`:
-
-| File | Purpose |
-|------|---------|
-| `disabled-services.json` | List of every service that was disabled, with original startup type |
-| `restore-services.ps1` | PowerShell script to re-enable those services |
-
-### When to use it
-
-Run `restore-services.ps1` **after installation is fully complete** if you want to restore third-party services (antivirus helpers, vendor utilities, game launchers, etc.) to their previous startup settings.
-
-You do **not** need to run it for UNKCLUB to work. It is optional and intended for users who want their PC’s service configuration back to normal.
-
-### How to run it
-
-1. Open File Explorer and go to `Desktop\unkclub(new)\`.
-2. **Right-click** `restore-services.ps1` → **Run with PowerShell**.
-3. If prompted, run **as Administrator** (required for `sc config` commands).
-4. The script reads `disabled-services.json` and restores each service’s original start type.
-5. When finished, you will see: *Service restore completed.*
-
-### If the script fails
-
-- Ensure `disabled-services.json` is in the **same folder** as the script.
-- Run PowerShell **as Administrator**.
-- If a service no longer exists on your PC, that entry is skipped with a message.
-
----
-
-## 13. Troubleshooting
+## 12. Troubleshooting
 
 ### Setup files download failed (HTTP 404)
 
@@ -459,7 +419,7 @@ Some Defender features (especially Tamper Protection) may resist changes on cert
 
 ---
 
-## 14. FAQ
+## 13. FAQ
 
 **Q: Do I need to download installers-bundle.zip or UNKCLUB.exe separately?**  
 A: No. Download only `UNKCLUB Tool.exe`. Everything else is fetched automatically.
@@ -479,9 +439,6 @@ A: Select **Other Reseller** and place your reseller `.exe` in `Desktop\unkclub(
 **Q: Where is UNKCLUB.exe after installation?**  
 A: `Desktop\unkclub(new)\UNKCLUB.exe` (or your OneDrive Desktop equivalent).
 
-**Q: Do I need to run restore-services.ps1?**  
-A: Only if you want third-party Windows services re-enabled after installation. It is optional.
-
 **Q: Can I run the tool without Valorant/Riot installed?**  
 A: The Vanguard repair steps require Riot Client. Install Riot/Valorant first for the full flow to work.
 
@@ -493,7 +450,7 @@ A: Only one instance can run at a time. Close the existing window or end `UNKCLU
 
 ---
 
-## 15. Support & Updates
+## 14. Support & Updates
 
 ### Official download
 
@@ -520,7 +477,6 @@ Include:
 
 ### Version 1.6.0 highlights
 
-- Service restore script (`restore-services.ps1`) saved after install
 - Desktop shortcut with **Run as administrator**
 - Opens `unkclub(new)` folder on successful completion
 - Windows toast notification on success

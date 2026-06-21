@@ -1,8 +1,8 @@
 {
-  "version": "1.6.2",
-  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.2/UNKCLUB.Tool.exe",
-  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.2/installers-bundle.zip",
-  "installersBundleVersion": "1.6.2",
-  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.2/UNKCLUB.exe",
-  "releaseNotes": "v1.6.2: comprehensive testing and bug fixes — consistent UNKCLUB Tool.exe release naming, install progress bar, stale error-fix resume, pre-flight checks, config validation, auto-update download retry, unit tests."
+  "version": "1.6.3",
+  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.3/UNKCLUB.Tool.exe",
+  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.3/installers-bundle.zip",
+  "installersBundleVersion": "1.6.3",
+  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.3/UNKCLUB.exe",
+  "releaseNotes": "v1.6.3: removed non-Microsoft service disabling step — it was cutting internet and causing issues. Vanguard/Riot service handling unchanged."
 }
