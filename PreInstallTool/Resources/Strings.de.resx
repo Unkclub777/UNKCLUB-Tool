@@ -47,11 +47,11 @@
   <data name="AppDescription_Localized" xml:space="preserve"><value>Reseller und Installationsmodus wählen, dann Installation starten.</value></data>
   <data name="ResellerSelectedStatus" xml:space="preserve"><value>{0} Reseller, Modus {1} gewählt. Sie können die Installation starten.</value></data>
   <data name="Reseller_unkclub_Name" xml:space="preserve"><value>UNKCLUB</value></data>
-  <data name="Reseller_unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe wird automatisch in den Desktop-Emulator-Ordner kopiert.</value></data>
+  <data name="Reseller_unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe wird automatisch in den Desktop-unkclub(new)-Ordner kopiert.</value></data>
   <data name="Reseller_other_Name" xml:space="preserve"><value>Anderer Reseller</value></data>
-  <data name="Reseller_other_Description" xml:space="preserve"><value>Legen Sie Ihre eigene Reseller-.exe in den Desktop-Emulator-Ordner.</value></data>
+  <data name="Reseller_other_Description" xml:space="preserve"><value>Legen Sie Ihre eigene Reseller-.exe in den Desktop-unkclub(new)-Ordner.</value></data>
   <data name="Reseller_OtherPromptTitle" xml:space="preserve"><value>Emulator-Anwendung</value></data>
-  <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>Bitte legen Sie die .exe Ihrer Reseller-Anwendung in den Desktop-Emulator-Ordner. Sie wird im letzten Schritt als Administrator gestartet.</value></data>
+  <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>Bitte legen Sie die .exe Ihrer Reseller-Anwendung in den Desktop-unkclub(new)-Ordner. Sie wird im letzten Schritt als Administrator gestartet.</value></data>
   <data name="Mode_first-install_Name" xml:space="preserve"><value>Erstinstallation</value></data>
   <data name="Mode_first-install_Description" xml:space="preserve"><value>Bei der Ersteinrichtung werden alle erforderlichen Komponenten der Reihe nach installiert. Die Setup-Dateien sind in der Anwendung enthalten.</value></data>
   <data name="Mode_error-fix_Name" xml:space="preserve"><value>Fehlerbehebung</value></data>
@@ -63,11 +63,11 @@
   <data name="Step_install-first-setup_Name" xml:space="preserve"><value>Erste Setup-Dateien installieren</value></data>
   <data name="Step_install-first-setup_Description" xml:space="preserve"><value>Eingebettete Setup-Dateien werden als Administrator in alphabetischer Reihenfolge ausgeführt. Bereits installierte vcredist- und DirectX-Komponenten werden übersprungen.</value></data>
   <data name="Step_deploy-unkclub_Name" xml:space="preserve"><value>UNKCLUB-App auf den Desktop kopieren</value></data>
-  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe wird in den Emulator-Ordner auf dem Desktop kopiert. Ordner wird erstellt falls fehlend; vorhandene Datei wird überschrieben. (Nur UNKCLUB-Reseller)</value></data>
-  <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>Reseller-App in Emulator-Ordner legen</value></data>
-  <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>Legen Sie Ihre Reseller-.exe in den Desktop-Emulator-Ordner.</value></data>
-  <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>Reseller-App in Emulator-Ordner legen</value></data>
-  <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>Stellen Sie vor dem letzten Schritt sicher, dass Ihre Reseller-.exe im Desktop-Emulator-Ordner liegt.</value></data>
+  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe wird in den unkclub(new)-Ordner auf dem Desktop kopiert. Ordner wird erstellt falls fehlend; vorhandene Datei wird überschrieben. (Nur UNKCLUB-Reseller)</value></data>
+  <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>Reseller-App in unkclub(new)-Ordner legen</value></data>
+  <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>Legen Sie Ihre Reseller-.exe in den Desktop-unkclub(new)-Ordner.</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>Reseller-App in unkclub(new)-Ordner legen</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>Stellen Sie vor dem letzten Schritt sicher, dass Ihre Reseller-.exe im Desktop-unkclub(new)-Ordner liegt.</value></data>
   <data name="Step_error-fix-install-prerequisites_Name" xml:space="preserve"><value>Fehlende Erstinstallationskomponenten installieren</value></data>
   <data name="Step_error-fix-install-prerequisites_Description" xml:space="preserve"><value>Prüft vcredist, DirectX und andere Dateien; installiert Fehlende, überspringt bereits Installierte.</value></data>
   <data name="Step_error-fix-disable-defender_Name" xml:space="preserve"><value>Windows Defender-Schutz deaktivieren</value></data>
@@ -91,7 +91,7 @@
   <data name="Step_error-fix-stop-riot_Name" xml:space="preserve"><value>Riot Client stoppen</value></data>
   <data name="Step_error-fix-stop-riot_Description" xml:space="preserve"><value>Beendet verbleibende Vanguard-Prozesse mit taskkill /F; stoppt Riot Client und zugehörige Dienste/Prozesse.</value></data>
   <data name="Step_error-fix-run-unkclub_Name" xml:space="preserve"><value>UNKCLUB-Anwendung ausführen</value></data>
-  <data name="Step_error-fix-run-unkclub_Description" xml:space="preserve"><value>Startet die Emulator-Anwendung als Administrator aus dem Desktop-Emulator-Ordner.</value></data>
+  <data name="Step_error-fix-run-unkclub_Description" xml:space="preserve"><value>Startet die Emulator-Anwendung als Administrator aus dem Desktop-unkclub(new)-Ordner.</value></data>
   <data name="ErrorFix_PostRebootPrompt" xml:space="preserve"><value>Schritte nach dem Neustart werden fortgesetzt. Starten Sie die Installation.</value></data>
   <data name="ErrorFix_PostRebootResuming" xml:space="preserve"><value>Installation nach Neustart wird automatisch fortgesetzt...</value></data>
   <data name="ErrorFix_PostRebootAutoResumeTitle" xml:space="preserve"><value>Fehlerbehebung wird fortgesetzt</value></data>
@@ -144,7 +144,7 @@
   <data name="ErrorFix_ProcessStopFailed" xml:space="preserve"><value>{0} konnte nicht gestoppt werden: {1}</value></data>
   <data name="ErrorFix_UnkclubLaunched" xml:space="preserve"><value>UNKCLUB gestartet.</value></data>
   <data name="ErrorFix_UnkclubNotFound" xml:space="preserve"><value>{1} nicht im Ordner {0} gefunden.</value></data>
-  <data name="ErrorFix_AnyAppNotFound" xml:space="preserve"><value>Keine .exe im Desktop-Emulator-Ordner gefunden. Bitte legen Sie Ihre Reseller-Anwendung dort ab.</value></data>
+  <data name="ErrorFix_AnyAppNotFound" xml:space="preserve"><value>Keine .exe im Desktop-unkclub(new)-Ordner gefunden. Bitte legen Sie Ihre Reseller-Anwendung dort ab.</value></data>
   <data name="ErrorFix_AppLaunched" xml:space="preserve"><value>Emulator-Anwendung gestartet.</value></data>
   <data name="ErrorFix_AppFollowStepsTitle" xml:space="preserve"><value>Emulator</value></data>
   <data name="ErrorFix_AppFollowSteps" xml:space="preserve"><value>Die Emulator-Anwendung wurde gestartet. Bitte folgen Sie den Schritten auf dem Bildschirm.</value></data>
@@ -215,7 +215,7 @@
   <data name="DefenderExclusionsPartial" xml:space="preserve"><value>Defender-Ausnahmen teilweise angewendet.</value></data>
   <data name="DefenderExclusionsWarning" xml:space="preserve"><value>Defender-Ausnahmewarnung. Exitcode: {0}</value></data>
   <data name="DefenderExclusionsInfoTitle" xml:space="preserve"><value>Sicherheitshinweis</value></data>
-  <data name="DefenderExclusionsInfoMessage" xml:space="preserve"><value>Um falsche Virenwarnungen beim Deaktivieren von Windows Defender zu vermeiden, wurden Ausnahmen hinzugefügt für: App-Ordner, Installers, Desktop\Emulator und PreInstallTool. Dies ist eine normale Vorsichtsmaßnahme; Sie können mit der Installation fortfahren.</value></data>
+  <data name="DefenderExclusionsInfoMessage" xml:space="preserve"><value>Um falsche Virenwarnungen beim Deaktivieren von Windows Defender zu vermeiden, wurden Ausnahmen hinzugefügt für: App-Ordner, Installers, Desktop\unkclub(new) und PreInstallTool. Dies ist eine normale Vorsichtsmaßnahme; Sie können mit der Installation fortfahren.</value></data>
   <data name="DefenderCloudDisabling" xml:space="preserve"><value>Cloudbasierten Schutz und Beispielübermittlung deaktivieren...</value></data>
   <data name="DefenderVerifyRetry" xml:space="preserve"><value>Einige Defender-Funktionen sind noch aktiv; erneuter Versuch ({0}/{1})...</value></data>
   <data name="DefenderVerifyWarning" xml:space="preserve"><value>Warnung: Folgende Defender-Funktionen sind noch aktiv: {0}</value></data>

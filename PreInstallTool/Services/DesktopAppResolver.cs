@@ -100,7 +100,7 @@ public static class DesktopAppResolver
     private static int GetEmulatorFolderPriority(string filePath)
     {
         var folderName = Path.GetFileName(Path.GetDirectoryName(filePath) ?? string.Empty);
-        if (folderName.Equals("Emulator", StringComparison.OrdinalIgnoreCase))
+        if (folderName.Equals(UpdateConstants.DesktopDeployFolderName, StringComparison.OrdinalIgnoreCase))
         {
             return 0;
         }

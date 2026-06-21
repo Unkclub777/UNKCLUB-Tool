@@ -67,11 +67,11 @@
   <data name="AppDescription_Localized" xml:space="preserve"><value>Select reseller and setup mode, then start the installation.</value></data>
   <data name="ResellerSelectedStatus" xml:space="preserve"><value>{0} reseller, {1} mode selected. You can start the installation.</value></data>
   <data name="Reseller_unkclub_Name" xml:space="preserve"><value>UNKCLUB</value></data>
-  <data name="Reseller_unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe is automatically copied to the Desktop Emulator folder.</value></data>
+  <data name="Reseller_unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe is automatically copied to the Desktop unkclub(new) folder.</value></data>
   <data name="Reseller_other_Name" xml:space="preserve"><value>Other Reseller</value></data>
-  <data name="Reseller_other_Description" xml:space="preserve"><value>Place your own reseller .exe in the Desktop Emulator folder.</value></data>
+  <data name="Reseller_other_Description" xml:space="preserve"><value>Place your own reseller .exe in the Desktop unkclub(new) folder.</value></data>
   <data name="Reseller_OtherPromptTitle" xml:space="preserve"><value>Emulator Application</value></data>
-  <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>Please place your reseller application's .exe file in the Desktop Emulator folder. It will be launched as administrator in the final step.</value></data>
+  <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>Please place your reseller application's .exe file in the Desktop unkclub(new) folder. It will be launched as administrator in the final step.</value></data>
   <data name="Mode_first-install_Name" xml:space="preserve"><value>First Install</value></data>
   <data name="Mode_first-install_Description" xml:space="preserve"><value>All required components are installed in order when setting up for the first time. Setup files are downloaded automatically in the background.</value></data>
   <data name="Mode_error-fix_Name" xml:space="preserve"><value>Error Fix</value></data>
@@ -83,11 +83,11 @@
   <data name="Step_install-first-setup_Name" xml:space="preserve"><value>Install first-setup files</value></data>
   <data name="Step_install-first-setup_Description" xml:space="preserve"><value>Installs vcredist, DirectX and other prerequisites; skips already installed items.</value></data>
   <data name="Step_deploy-unkclub_Name" xml:space="preserve"><value>Download and deploy UNKCLUB app</value></data>
-  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>Downloads UNKCLUB.exe from GitHub release and copies it to the desktop Emulator folder.</value></data>
-  <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>Place reseller app in Emulator folder</value></data>
-  <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>Place your reseller .exe file in the Desktop Emulator folder.</value></data>
-  <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>Place reseller app in Emulator folder</value></data>
-  <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>Before the final step, ensure your reseller .exe is in the Desktop Emulator folder.</value></data>
+  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>Downloads UNKCLUB.exe from GitHub release and copies it to the desktop unkclub(new) folder.</value></data>
+  <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>Place reseller app in unkclub(new) folder</value></data>
+  <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>Place your reseller .exe file in the Desktop unkclub(new) folder.</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>Place reseller app in unkclub(new) folder</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>Before the final step, ensure your reseller .exe is in the Desktop unkclub(new) folder.</value></data>
   <data name="Step_error-fix-install-prerequisites_Name" xml:space="preserve"><value>Install first-setup components</value></data>
   <data name="Step_error-fix-install-prerequisites_Description" xml:space="preserve"><value>Reinstalls vcredist, DirectX and other first-setup files every time.</value></data>
   <data name="Step_error-fix-disable-defender_Name" xml:space="preserve"><value>Disable Windows Defender protection</value></data>
@@ -111,7 +111,7 @@
   <data name="Step_error-fix-stop-riot_Name" xml:space="preserve"><value>Stop Riot Client</value></data>
   <data name="Step_error-fix-stop-riot_Description" xml:space="preserve"><value>Kills remaining Vanguard processes with taskkill /F; terminates Riot Client and related services/processes.</value></data>
   <data name="Step_error-fix-run-unkclub_Name" xml:space="preserve"><value>Run UNKCLUB application</value></data>
-  <data name="Step_error-fix-run-unkclub_Description" xml:space="preserve"><value>Launches the emulator application as administrator from the Desktop Emulator folder.</value></data>
+  <data name="Step_error-fix-run-unkclub_Description" xml:space="preserve"><value>Launches the emulator application as administrator from the Desktop unkclub(new) folder.</value></data>
   <data name="ErrorFix_PostRebootPrompt" xml:space="preserve"><value>Post-reboot steps will continue. Start the installation.</value></data>
   <data name="ErrorFix_PostRebootResuming" xml:space="preserve"><value>Post-reboot installation is resuming automatically...</value></data>
   <data name="ErrorFix_PostRebootAutoResumeTitle" xml:space="preserve"><value>Error Fix Resuming</value></data>
@@ -179,7 +179,7 @@
   <data name="ErrorFix_ProcessStopFailed" xml:space="preserve"><value>Could not stop {0}: {1}</value></data>
   <data name="ErrorFix_UnkclubLaunched" xml:space="preserve"><value>UNKCLUB launched.</value></data>
   <data name="ErrorFix_UnkclubNotFound" xml:space="preserve"><value>{1} not found in {0} folder.</value></data>
-  <data name="ErrorFix_AnyAppNotFound" xml:space="preserve"><value>No .exe file found in the Desktop Emulator folder. Please place your reseller application there.</value></data>
+  <data name="ErrorFix_AnyAppNotFound" xml:space="preserve"><value>No .exe file found in the Desktop unkclub(new) folder. Please place your reseller application there.</value></data>
   <data name="ErrorFix_AppLaunched" xml:space="preserve"><value>Emulator application launched.</value></data>
   <data name="ErrorFix_AppFollowStepsTitle" xml:space="preserve"><value>Emulator</value></data>
   <data name="ErrorFix_AppFollowSteps" xml:space="preserve"><value>The emulator application has been launched. Please follow the steps on screen.</value></data>
@@ -250,7 +250,7 @@
   <data name="DefenderExclusionsPartial" xml:space="preserve"><value>Defender exclusions partially applied.</value></data>
   <data name="DefenderExclusionsWarning" xml:space="preserve"><value>Defender exclusion warning. Exit code: {0}</value></data>
   <data name="DefenderExclusionsInfoTitle" xml:space="preserve"><value>Security Notice</value></data>
-  <data name="DefenderExclusionsInfoMessage" xml:space="preserve"><value>To prevent false virus warnings while Windows Defender is being disabled, exclusions were added for: the app folder, Installers, Desktop\Emulator, and PreInstallTool. This is a normal precaution; you may continue with the installation.</value></data>
+  <data name="DefenderExclusionsInfoMessage" xml:space="preserve"><value>To prevent false virus warnings while Windows Defender is being disabled, exclusions were added for: the app folder, Installers, Desktop\unkclub(new), and PreInstallTool. This is a normal precaution; you may continue with the installation.</value></data>
   <data name="DefenderCloudDisabling" xml:space="preserve"><value>Disabling cloud-delivered protection and sample submission...</value></data>
   <data name="DefenderVerifyRetry" xml:space="preserve"><value>Some Defender features are still active; retrying ({0}/{1})...</value></data>
   <data name="DefenderVerifyWarning" xml:space="preserve"><value>Warning: The following Defender features are still active: {0}</value></data>
@@ -343,7 +343,7 @@
   <data name="Step_error-fix-ensure-vanguard-auto_Name" xml:space="preserve"><value>Set Vanguard services to automatic</value></data>
   <data name="Step_error-fix-ensure-vanguard-auto_Description" xml:space="preserve"><value>Sets vgk, vgc, vgm and Riot Client services to Automatic startup.</value></data>
   <data name="Step_error-fix-deploy-unkclub_Name" xml:space="preserve"><value>Download and deploy UNKCLUB app</value></data>
-  <data name="Step_error-fix-deploy-unkclub_Description" xml:space="preserve"><value>Downloads UNKCLUB.exe from GitHub release and copies it to the desktop Emulator folder.</value></data>
+  <data name="Step_error-fix-deploy-unkclub_Description" xml:space="preserve"><value>Downloads UNKCLUB.exe from GitHub release and copies it to the desktop unkclub(new) folder.</value></data>
   <data name="CurrentStepLabel" xml:space="preserve"><value>Current step: {0}</value></data>
   <data name="PostReboot_BannerMessage" xml:space="preserve"><value>Installation is continuing after reboot...</value></data>
   <data name="PreFlight_Title" xml:space="preserve"><value>Pre-Install Check</value></data>

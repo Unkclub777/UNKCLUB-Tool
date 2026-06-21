@@ -949,7 +949,9 @@ public sealed class InstallOrchestrator
 
     private static InstallResult ExecuteRunDesktopApp(InstallStep step, IProgress<string>? log)
     {
-        var folderName = string.IsNullOrWhiteSpace(step.DesktopFolderName) ? "Emulator" : step.DesktopFolderName;
+        var folderName = string.IsNullOrWhiteSpace(step.DesktopFolderName)
+            ? UpdateConstants.DesktopDeployFolderName
+            : step.DesktopFolderName;
         var useAnyApp = ResellerSelectionService.IsOtherReseller ||
                         step.UseAnyDesktopApp ||
                         string.IsNullOrWhiteSpace(step.DesktopAppName) ||

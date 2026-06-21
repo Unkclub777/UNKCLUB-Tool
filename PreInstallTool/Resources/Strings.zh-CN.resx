@@ -47,11 +47,11 @@
   <data name="AppDescription_Localized" xml:space="preserve"><value>选择经销商和安装模式，然后开始安装。</value></data>
   <data name="ResellerSelectedStatus" xml:space="preserve"><value>已选择 {0} 经销商、{1} 模式。可以开始安装。</value></data>
   <data name="Reseller_unkclub_Name" xml:space="preserve"><value>UNKCLUB</value></data>
-  <data name="Reseller_unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe 将自动复制到桌面 Emulator 文件夹。</value></data>
+  <data name="Reseller_unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe 将自动复制到桌面 unkclub(new) 文件夹。</value></data>
   <data name="Reseller_other_Name" xml:space="preserve"><value>其他经销商</value></data>
-  <data name="Reseller_other_Description" xml:space="preserve"><value>将您自己的经销商 .exe 放入桌面 Emulator 文件夹。</value></data>
+  <data name="Reseller_other_Description" xml:space="preserve"><value>将您自己的经销商 .exe 放入桌面 unkclub(new) 文件夹。</value></data>
   <data name="Reseller_OtherPromptTitle" xml:space="preserve"><value>模拟器应用</value></data>
-  <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>请将经销商应用的 .exe 文件放入桌面 Emulator 文件夹。最后一步将以管理员身份运行。</value></data>
+  <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>请将经销商应用的 .exe 文件放入桌面 unkclub(new) 文件夹。最后一步将以管理员身份运行。</value></data>
   <data name="Mode_first-install_Name" xml:space="preserve"><value>首次安装</value></data>
   <data name="Mode_first-install_Description" xml:space="preserve"><value>首次设置时，所有必需组件将按顺序安装。安装文件已随应用程序打包。</value></data>
   <data name="Mode_error-fix_Name" xml:space="preserve"><value>错误修复</value></data>
@@ -63,11 +63,11 @@
   <data name="Step_install-first-setup_Name" xml:space="preserve"><value>安装首次设置文件</value></data>
   <data name="Step_install-first-setup_Description" xml:space="preserve"><value>嵌入式安装文件将以管理员身份按字母顺序运行。已安装的 vcredist 和 DirectX 组件将被跳过。</value></data>
   <data name="Step_deploy-unkclub_Name" xml:space="preserve"><value>将 UNKCLUB 应用复制到桌面</value></data>
-  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe 复制到桌面 Emulator 文件夹。若文件夹不存在则创建；现有文件将被覆盖。（仅 UNKCLUB 经销商）</value></data>
-  <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>将经销商应用放入 Emulator 文件夹</value></data>
-  <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>将经销商 .exe 文件放入桌面 Emulator 文件夹。</value></data>
-  <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>将经销商应用放入 Emulator 文件夹</value></data>
-  <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>最后一步之前，请确保经销商 .exe 已在桌面 Emulator 文件夹中。</value></data>
+  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe 复制到桌面 unkclub(new) 文件夹。若文件夹不存在则创建；现有文件将被覆盖。（仅 UNKCLUB 经销商）</value></data>
+  <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>将经销商应用放入 unkclub(new) 文件夹</value></data>
+  <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>将经销商 .exe 文件放入桌面 unkclub(new) 文件夹。</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>将经销商应用放入 unkclub(new) 文件夹</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>最后一步之前，请确保经销商 .exe 已在桌面 unkclub(new) 文件夹中。</value></data>
   <data name="Step_error-fix-install-prerequisites_Name" xml:space="preserve"><value>安装缺失的首次安装组件</value></data>
   <data name="Step_error-fix-install-prerequisites_Description" xml:space="preserve"><value>检查 vcredist、DirectX 等文件；安装缺失项，跳过已安装项。</value></data>
   <data name="Step_error-fix-disable-defender_Name" xml:space="preserve"><value>禁用 Windows Defender 保护</value></data>
@@ -91,7 +91,7 @@
   <data name="Step_error-fix-stop-riot_Name" xml:space="preserve"><value>停止 Riot Client</value></data>
   <data name="Step_error-fix-stop-riot_Description" xml:space="preserve"><value>停止剩余的 Vanguard 进程；优雅关闭 Riot Client 及相关服务/进程。</value></data>
   <data name="Step_error-fix-run-unkclub_Name" xml:space="preserve"><value>运行 UNKCLUB 应用程序</value></data>
-  <data name="Step_error-fix-run-unkclub_Description" xml:space="preserve"><value>从桌面 Emulator 文件夹以管理员身份启动模拟器应用。</value></data>
+  <data name="Step_error-fix-run-unkclub_Description" xml:space="preserve"><value>从桌面 unkclub(new) 文件夹以管理员身份启动模拟器应用。</value></data>
   <data name="ErrorFix_PostRebootPrompt" xml:space="preserve"><value>将继续执行重启后的步骤。请开始安装。</value></data>
   <data name="ErrorFix_PostRebootResuming" xml:space="preserve"><value>重启后安装正在自动继续...</value></data>
   <data name="ErrorFix_PostRebootAutoResumeTitle" xml:space="preserve"><value>错误修复继续</value></data>
@@ -144,7 +144,7 @@
   <data name="ErrorFix_ProcessStopFailed" xml:space="preserve"><value>无法停止 {0}：{1}</value></data>
   <data name="ErrorFix_UnkclubLaunched" xml:space="preserve"><value>UNKCLUB 已启动。</value></data>
   <data name="ErrorFix_UnkclubNotFound" xml:space="preserve"><value>在 {0} 文件夹中未找到 {1}。</value></data>
-  <data name="ErrorFix_AnyAppNotFound" xml:space="preserve"><value>桌面 Emulator 文件夹中未找到 .exe 文件。请将经销商应用放入该文件夹。</value></data>
+  <data name="ErrorFix_AnyAppNotFound" xml:space="preserve"><value>桌面 unkclub(new) 文件夹中未找到 .exe 文件。请将经销商应用放入该文件夹。</value></data>
   <data name="ErrorFix_AppLaunched" xml:space="preserve"><value>模拟器应用已启动。</value></data>
   <data name="ErrorFix_AppFollowStepsTitle" xml:space="preserve"><value>模拟器</value></data>
   <data name="ErrorFix_AppFollowSteps" xml:space="preserve"><value>模拟器应用已启动。请按照屏幕上的步骤操作。</value></data>
@@ -215,7 +215,7 @@
   <data name="DefenderExclusionsPartial" xml:space="preserve"><value>Defender 排除项部分应用。</value></data>
   <data name="DefenderExclusionsWarning" xml:space="preserve"><value>Defender 排除项警告。退出代码：{0}</value></data>
   <data name="DefenderExclusionsInfoTitle" xml:space="preserve"><value>安全提示</value></data>
-  <data name="DefenderExclusionsInfoMessage" xml:space="preserve"><value>为防止在禁用 Windows Defender 时出现误报病毒警告，已为以下位置添加排除项：应用文件夹、Installers、桌面\Emulator 和 PreInstallTool。这是正常的安全预防措施，您可以继续安装。</value></data>
+  <data name="DefenderExclusionsInfoMessage" xml:space="preserve"><value>为防止在禁用 Windows Defender 时出现误报病毒警告，已为以下位置添加排除项：应用文件夹、Installers、桌面\unkclub(new) 和 PreInstallTool。这是正常的安全预防措施，您可以继续安装。</value></data>
   <data name="DefenderCloudDisabling" xml:space="preserve"><value>正在禁用云提供的保护和样本提交...</value></data>
   <data name="DefenderVerifyRetry" xml:space="preserve"><value>部分 Defender 功能仍处于开启状态，正在重试 ({0}/{1})...</value></data>
   <data name="DefenderVerifyWarning" xml:space="preserve"><value>警告：以下 Defender 功能仍处于开启状态：{0}</value></data>

@@ -58,8 +58,8 @@ public static class DesktopPathService
         return Path.GetFullPath(expanded);
     }
 
-    public static string GetEmulatorFolderPath(string folderName = "Emulator") =>
-        Path.Combine(GetDesktopDirectory(), folderName);
+    public static string GetEmulatorFolderPath(string? folderName = null) =>
+        Path.Combine(GetDesktopDirectory(), folderName ?? UpdateConstants.DesktopDeployFolderName);
 
     public static string ResolveUniqueDestinationFolder(string destinationFolder, string? duplicateFolderStrategy)
     {

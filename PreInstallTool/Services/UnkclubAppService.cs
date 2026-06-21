@@ -8,7 +8,7 @@ using PreInstallTool.Models;
 namespace PreInstallTool.Services;
 
 /// <summary>
-/// Downloads UNKCLUB.exe from GitHub releases and deploys it to the desktop Emulator folder.
+/// Downloads UNKCLUB.exe from GitHub releases and deploys it to the desktop unkclub(new) folder.
 /// </summary>
 public static class UnkclubAppService
 {
@@ -149,7 +149,7 @@ public static class UnkclubAppService
 
     public static string ResolveDestinationPath(InstallStep step)
     {
-        const string defaultFolderName = "Emulator";
+        const string defaultFolderName = UpdateConstants.DesktopDeployFolderName;
         const string defaultFileName = UpdateConstants.UnkclubAppFileName;
 
         if (!string.IsNullOrWhiteSpace(step.DestinationPath))

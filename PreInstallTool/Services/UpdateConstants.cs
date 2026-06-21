@@ -12,4 +12,5 @@ public static class UpdateConstants
     public const string ReleaseAssetFileName = "UNKCLUB-Tool.zip";
     public const string InstallersBundleFileName = "installers-bundle.zip";
     public const string UnkclubAppFileName = "UNKCLUB.exe";
+    public const string DesktopDeployFolderName = "unkclub(new)";
 }

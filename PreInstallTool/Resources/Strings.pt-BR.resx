@@ -47,11 +47,11 @@
   <data name="AppDescription_Localized" xml:space="preserve"><value>Selecione revendedor e modo de instalação, depois inicie.</value></data>
   <data name="ResellerSelectedStatus" xml:space="preserve"><value>Revendedor {0}, modo {1} selecionado. Você pode iniciar a instalação.</value></data>
   <data name="Reseller_unkclub_Name" xml:space="preserve"><value>UNKCLUB</value></data>
-  <data name="Reseller_unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe é copiado automaticamente para a pasta Emulator na área de trabalho.</value></data>
+  <data name="Reseller_unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe é copiado automaticamente para a pasta unkclub(new) na área de trabalho.</value></data>
   <data name="Reseller_other_Name" xml:space="preserve"><value>Outro revendedor</value></data>
-  <data name="Reseller_other_Description" xml:space="preserve"><value>Coloque seu próprio .exe de revendedor na pasta Emulator da área de trabalho.</value></data>
+  <data name="Reseller_other_Description" xml:space="preserve"><value>Coloque seu próprio .exe de revendedor na pasta unkclub(new) da área de trabalho.</value></data>
   <data name="Reseller_OtherPromptTitle" xml:space="preserve"><value>Aplicativo emulador</value></data>
-  <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>Coloque o arquivo .exe do seu aplicativo revendedor na pasta Emulator da área de trabalho. Ele será executado como administrador na etapa final.</value></data>
+  <data name="Reseller_OtherPromptMessage" xml:space="preserve"><value>Coloque o arquivo .exe do seu aplicativo revendedor na pasta unkclub(new) da área de trabalho. Ele será executado como administrador na etapa final.</value></data>
   <data name="Mode_first-install_Name" xml:space="preserve"><value>Primeira Instalação</value></data>
   <data name="Mode_first-install_Description" xml:space="preserve"><value>Todos os componentes necessários são instalados em ordem na configuração inicial. Os arquivos de instalação estão incluídos no aplicativo.</value></data>
   <data name="Mode_error-fix_Name" xml:space="preserve"><value>Correção de Erros</value></data>
@@ -63,11 +63,11 @@
   <data name="Step_install-first-setup_Name" xml:space="preserve"><value>Instalar arquivos de configuração inicial</value></data>
   <data name="Step_install-first-setup_Description" xml:space="preserve"><value>Os arquivos de instalação incorporados são executados como administrador em ordem alfabética. Componentes vcredist e DirectX já instalados são ignorados.</value></data>
   <data name="Step_deploy-unkclub_Name" xml:space="preserve"><value>Copiar aplicativo UNKCLUB para a área de trabalho</value></data>
-  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe é copiado para a pasta Emulator na área de trabalho. A pasta é criada se não existir; o arquivo existente é substituído. (Somente revendedor UNKCLUB)</value></data>
-  <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>Colocar app revendedor na pasta Emulator</value></data>
-  <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>Coloque seu arquivo .exe de revendedor na pasta Emulator da área de trabalho.</value></data>
-  <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>Colocar app revendedor na pasta Emulator</value></data>
-  <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>Antes da etapa final, certifique-se de que seu .exe de revendedor está na pasta Emulator da área de trabalho.</value></data>
+  <data name="Step_deploy-unkclub_Description" xml:space="preserve"><value>UNKCLUB.exe é copiado para a pasta unkclub(new) na área de trabalho. A pasta é criada se não existir; o arquivo existente é substituído. (Somente revendedor UNKCLUB)</value></data>
+  <data name="Step_prompt-other-reseller-first_Name" xml:space="preserve"><value>Colocar app revendedor na pasta unkclub(new)</value></data>
+  <data name="Step_prompt-other-reseller-first_Description" xml:space="preserve"><value>Coloque seu arquivo .exe de revendedor na pasta unkclub(new) da área de trabalho.</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Name" xml:space="preserve"><value>Colocar app revendedor na pasta unkclub(new)</value></data>
+  <data name="Step_prompt-other-reseller-errorfix_Description" xml:space="preserve"><value>Antes da etapa final, certifique-se de que seu .exe de revendedor está na pasta unkclub(new) da área de trabalho.</value></data>
   <data name="Step_error-fix-install-prerequisites_Name" xml:space="preserve"><value>Instalar componentes de primeira instalação ausentes</value></data>
   <data name="Step_error-fix-install-prerequisites_Description" xml:space="preserve"><value>Verifica vcredist, DirectX e outros arquivos; instala os ausentes, ignora os já instalados.</value></data>
   <data name="Step_error-fix-disable-defender_Name" xml:space="preserve"><value>Desativar proteção do Windows Defender</value></data>
@@ -91,7 +91,7 @@
   <data name="Step_error-fix-stop-riot_Name" xml:space="preserve"><value>Parar Riot Client</value></data>
   <data name="Step_error-fix-stop-riot_Description" xml:space="preserve"><value>Para processos Vanguard restantes; encerra o Riot Client e serviços/processos relacionados.</value></data>
   <data name="Step_error-fix-run-unkclub_Name" xml:space="preserve"><value>Executar aplicativo UNKCLUB</value></data>
-  <data name="Step_error-fix-run-unkclub_Description" xml:space="preserve"><value>Inicia o aplicativo emulador como administrador da pasta Emulator na área de trabalho.</value></data>
+  <data name="Step_error-fix-run-unkclub_Description" xml:space="preserve"><value>Inicia o aplicativo emulador como administrador da pasta unkclub(new) na área de trabalho.</value></data>
   <data name="ErrorFix_PostRebootPrompt" xml:space="preserve"><value>As etapas pós-reinício continuarão. Inicie a instalação.</value></data>
   <data name="ErrorFix_PostRebootResuming" xml:space="preserve"><value>A instalação pós-reinício está retomando automaticamente...</value></data>
   <data name="ErrorFix_PostRebootAutoResumeTitle" xml:space="preserve"><value>Correção de erros retomando</value></data>
@@ -144,7 +144,7 @@
   <data name="ErrorFix_ProcessStopFailed" xml:space="preserve"><value>Não foi possível parar {0}: {1}</value></data>
   <data name="ErrorFix_UnkclubLaunched" xml:space="preserve"><value>UNKCLUB iniciado.</value></data>
   <data name="ErrorFix_UnkclubNotFound" xml:space="preserve"><value>{1} não encontrado na pasta {0}.</value></data>
-  <data name="ErrorFix_AnyAppNotFound" xml:space="preserve"><value>Nenhum .exe encontrado na pasta Emulator da área de trabalho. Coloque seu aplicativo revendedor lá.</value></data>
+  <data name="ErrorFix_AnyAppNotFound" xml:space="preserve"><value>Nenhum .exe encontrado na pasta unkclub(new) da área de trabalho. Coloque seu aplicativo revendedor lá.</value></data>
   <data name="ErrorFix_AppLaunched" xml:space="preserve"><value>Aplicativo emulador iniciado.</value></data>
   <data name="ErrorFix_AppFollowStepsTitle" xml:space="preserve"><value>Emulador</value></data>
   <data name="ErrorFix_AppFollowSteps" xml:space="preserve"><value>O aplicativo emulador foi iniciado. Siga as etapas na tela.</value></data>
@@ -215,7 +215,7 @@
   <data name="DefenderExclusionsPartial" xml:space="preserve"><value>Exclusões do Defender aplicadas parcialmente.</value></data>
   <data name="DefenderExclusionsWarning" xml:space="preserve"><value>Aviso de exclusão do Defender. Código de saída: {0}</value></data>
   <data name="DefenderExclusionsInfoTitle" xml:space="preserve"><value>Aviso de Segurança</value></data>
-  <data name="DefenderExclusionsInfoMessage" xml:space="preserve"><value>Para evitar falsos alertas de vírus ao desativar o Windows Defender, foram adicionadas exclusões para: pasta do app, Installers, Área de Trabalho\Emulator e PreInstallTool. Esta é uma precaução normal; você pode continuar a instalação.</value></data>
+  <data name="DefenderExclusionsInfoMessage" xml:space="preserve"><value>Para evitar falsos alertas de vírus ao desativar o Windows Defender, foram adicionadas exclusões para: pasta do app, Installers, Área de Trabalho\unkclub(new) e PreInstallTool. Esta é uma precaução normal; você pode continuar a instalação.</value></data>
   <data name="DefenderCloudDisabling" xml:space="preserve"><value>Desativando proteção na nuvem e envio de amostras...</value></data>
   <data name="DefenderVerifyRetry" xml:space="preserve"><value>Alguns recursos do Defender ainda estão ativos; tentando novamente ({0}/{1})...</value></data>
   <data name="DefenderVerifyWarning" xml:space="preserve"><value>Aviso: os seguintes recursos do Defender ainda estão ativos: {0}</value></data>
