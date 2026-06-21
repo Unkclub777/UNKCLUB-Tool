@@ -30,10 +30,7 @@ public static class ConfigLoader
         var config = JsonSerializer.Deserialize<InstallConfig>(json, JsonOptions)
                      ?? throw new InvalidOperationException(LocalizationService.Get("ConfigFileUnreadable"));
 
-        if (config.Modes.Count == 0 && config.Steps.Count == 0)
-        {
-            throw new InvalidOperationException(LocalizationService.Get("ConfigNoModesOrSteps"));
-        }
+        ConfigValidator.ValidateOrThrow(config);
 
         return config;
     }

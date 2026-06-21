@@ -140,6 +140,12 @@ public sealed class PreFlightCheckService
     private static async Task<List<PreFlightIssue>> CheckReleaseAssetsAsync(CancellationToken cancellationToken)
     {
         var issues = new List<PreFlightIssue>();
+
+        if (AppResourceService.HasLocalInstallResources())
+        {
+            return issues;
+        }
+
         var versionLabel = GetCurrentAssemblyVersionLabel();
 
         var bundleUrl = GitHubReleaseAssetResolver.BuildDirectDownloadUrl(
@@ -151,6 +157,11 @@ public sealed class PreFlightCheckService
                 IsCritical: true,
                 MessageKey: "PreFlight_BundleUnreachable",
                 Detail: UpdateConstants.InstallersBundleFileName));
+        }
+
+        if (File.Exists(UnkclubAppService.DefaultDesktopPath))
+        {
+            return issues;
         }
 
         var unkclubUrl = GitHubReleaseAssetResolver.BuildDirectDownloadUrl(

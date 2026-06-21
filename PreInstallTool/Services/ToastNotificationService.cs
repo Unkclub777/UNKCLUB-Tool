@@ -63,9 +63,14 @@ public static class ToastNotificationService
             xmlDocument.LoadXml(xml);
 
             dynamic toast = Activator.CreateInstance(toastXmlType, xmlDocument)!;
-            dynamic notifier = managerType
-                .GetMethod("CreateToastNotifier", [typeof(string)])!
+            dynamic? notifier = managerType
+                .GetMethod("CreateToastNotifier", [typeof(string)])?
                 .Invoke(null, [AppUserModelId]);
+
+            if (notifier is null)
+            {
+                return false;
+            }
 
             notifier.Show(toast);
             return true;

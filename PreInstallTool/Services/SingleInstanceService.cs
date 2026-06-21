@@ -9,6 +9,7 @@ public static class SingleInstanceService
     private const string ActivateEventName = "Global\\UNKCLUB_PreInstallTool_Activate_v1";
 
     private static Mutex? _mutex;
+    private static bool _ownsMutex;
     private static EventWaitHandle? _activateEvent;
     private static CancellationTokenSource? _listenerCts;
 
@@ -21,9 +22,11 @@ public static class SingleInstanceService
         {
             _mutex.Dispose();
             _mutex = null;
+            _ownsMutex = false;
             return false;
         }
 
+        _ownsMutex = true;
         _activateEvent = new EventWaitHandle(false, EventResetMode.AutoReset, ActivateEventName);
         StartActivationListener();
         return true;
@@ -51,9 +54,21 @@ public static class SingleInstanceService
         _activateEvent?.Dispose();
         _activateEvent = null;
 
-        _mutex?.ReleaseMutex();
+        if (_ownsMutex && _mutex is not null)
+        {
+            try
+            {
+                _mutex.ReleaseMutex();
+            }
+            catch (ApplicationException)
+            {
+                // Mutex was not owned by this process; ignore on shutdown.
+            }
+        }
+
         _mutex?.Dispose();
         _mutex = null;
+        _ownsMutex = false;
     }
 
     private static void StartActivationListener()

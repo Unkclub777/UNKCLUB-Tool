@@ -302,6 +302,42 @@ public static class AutoUpdateService
         IProgress<string>? progress,
         CancellationToken cancellationToken)
     {
+        const int maxAttempts = 3;
+        Exception? lastError = null;
+
+        for (var attempt = 1; attempt <= maxAttempts; attempt++)
+        {
+            try
+            {
+                await DownloadFileOnceAsync(url, destinationPath, progress, cancellationToken)
+                    .ConfigureAwait(false);
+                return;
+            }
+            catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                lastError = ex;
+                if (attempt < maxAttempts)
+                {
+                    UpdateDiagnostics.LogWarning(
+                        $"Update download attempt {attempt}/{maxAttempts} failed: {ex.Message}");
+                    await Task.Delay(TimeSpan.FromSeconds(attempt * 2), cancellationToken).ConfigureAwait(false);
+                }
+            }
+        }
+
+        throw lastError ?? new InvalidOperationException("Update download failed.");
+    }
+
+    private static async Task DownloadFileOnceAsync(
+        string url,
+        string destinationPath,
+        IProgress<string>? progress,
+        CancellationToken cancellationToken)
+    {
         using var response = await HttpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
             .ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
@@ -396,7 +432,7 @@ public static class AutoUpdateService
         return assembly.GetName().Version ?? new Version(1, 0, 0);
     }
 
-    private static bool TryParseVersion(string? value, out Version version)
+    internal static bool TryParseVersion(string? value, out Version version)
     {
         version = new Version(0, 0);
         if (string.IsNullOrWhiteSpace(value))
@@ -410,7 +446,17 @@ public static class AutoUpdateService
             normalized = normalized[1..];
         }
 
-        return Version.TryParse(normalized, out version!);
+        if (!Version.TryParse(normalized, out version!))
+        {
+            return false;
+        }
+
+        if (version.Revision < 0 && version.Build >= 0)
+        {
+            version = new Version(version.Major, version.Minor, version.Build, 0);
+        }
+
+        return true;
     }
 
     public static string GetExecutablePath() =>

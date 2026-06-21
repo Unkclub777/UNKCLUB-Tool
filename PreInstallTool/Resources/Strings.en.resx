@@ -258,6 +258,13 @@
   <data name="ConfigFileNotFound" xml:space="preserve"><value>Configuration file not found: {0}</value></data>
   <data name="ConfigFileUnreadable" xml:space="preserve"><value>Configuration file could not be read.</value></data>
   <data name="ConfigNoModesOrSteps" xml:space="preserve"><value>At least one installation mode or step must be defined.</value></data>
+  <data name="ConfigValidationFailed" xml:space="preserve"><value>install-config.json is invalid:{0}{0}{1}</value></data>
+  <data name="ConfigMissingMode" xml:space="preserve"><value>Required installation mode is missing: {0}</value></data>
+  <data name="ConfigModeMissingId" xml:space="preserve"><value>An installation mode is missing its id.</value></data>
+  <data name="ConfigModeHasNoSteps" xml:space="preserve"><value>Mode '{0}' has no steps defined.</value></data>
+  <data name="ConfigDuplicateStepId" xml:space="preserve"><value>Mode '{0}' has duplicate step id: {1}</value></data>
+  <data name="ConfigStepMissingId" xml:space="preserve"><value>Mode '{0}' contains a step without an id.</value></data>
+  <data name="ConfigStepMissingType" xml:space="preserve"><value>Mode '{0}' / step '{1}' is missing its type.</value></data>
   <data name="Downloading" xml:space="preserve"><value>Downloading: {0}</value></data>
   <data name="DownloadComplete" xml:space="preserve"><value>Download complete: {0}</value></data>
   <data name="InstallerAlreadyInstalledSkip" xml:space="preserve"><value>{0} is already installed, skipping.</value></data>

@@ -16,6 +16,7 @@ public static class ErrorFixStateService
     private const string StateFileName = "error-fix-state.json";
     private const string LegacyStateDirectory = "PreInstallTool";
     private const string StateDirectory = "UNKCLUB-Tool";
+    private static readonly TimeSpan MaxPendingAge = TimeSpan.FromDays(7);
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -79,8 +80,48 @@ public static class ErrorFixStateService
         };
     }
 
-    public static bool IsPostRebootContinuation() =>
-        GetPhase() == ErrorFixPhase.PostRebootPending;
+    public static bool IsPostRebootContinuation()
+    {
+        var state = LoadState();
+        if (state?.Phase != ErrorFixPhase.PostRebootPending)
+        {
+            return false;
+        }
+
+        if (DateTime.UtcNow - state.UpdatedAt.ToUniversalTime() > MaxPendingAge)
+        {
+            Reset();
+            return false;
+        }
+
+        var currentExecutable = Environment.ProcessPath
+            ?? System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName;
+
+        if (!string.IsNullOrWhiteSpace(state.ExecutablePath) &&
+            !string.IsNullOrWhiteSpace(currentExecutable) &&
+            !PathsEqual(state.ExecutablePath, currentExecutable))
+        {
+            Reset();
+            return false;
+        }
+
+        return true;
+    }
+
+    private static bool PathsEqual(string left, string right)
+    {
+        try
+        {
+            return string.Equals(
+                Path.GetFullPath(left),
+                Path.GetFullPath(right),
+                StringComparison.OrdinalIgnoreCase);
+        }
+        catch
+        {
+            return string.Equals(left, right, StringComparison.OrdinalIgnoreCase);
+        }
+    }
 
     private static ErrorFixState? LoadState()
     {

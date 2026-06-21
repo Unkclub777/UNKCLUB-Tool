@@ -1,8 +1,8 @@
 ﻿{
-  "version": "1.6.1",
-  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.1/UNKCLUB.Tool.exe",
-  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.1/installers-bundle.zip",
-  "installersBundleVersion": "1.6.1",
-  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.1/UNKCLUB.exe",
-  "releaseNotes": "v1.6.1: fix auto-update 404 when GitHub stores release exe as UNKCLUB.Tool.exe; verify download URL before prompting; skip blocking error on startup; 24h cache after 404."
+  "version": "1.6.2",
+  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.2/UNKCLUB%20Tool.exe",
+  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.2/installers-bundle.zip",
+  "installersBundleVersion": "1.6.2",
+  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.2/UNKCLUB.exe",
+  "releaseNotes": "v1.6.2: comprehensive testing and bug fixes — consistent UNKCLUB Tool.exe release naming, install progress bar, stale error-fix resume, pre-flight checks, config validation, auto-update download retry, unit tests."
 }

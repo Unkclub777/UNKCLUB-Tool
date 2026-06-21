@@ -304,6 +304,13 @@
   <data name="ConfigFileNotFound" xml:space="preserve"><value>Yapılandırma dosyası bulunamadı: {0}</value></data>
   <data name="ConfigFileUnreadable" xml:space="preserve"><value>Yapılandırma dosyası okunamadı.</value></data>
   <data name="ConfigNoModesOrSteps" xml:space="preserve"><value>En az bir kurulum modu veya adım tanımlanmalıdır.</value></data>
+  <data name="ConfigValidationFailed" xml:space="preserve"><value>install-config.json geçersiz:{0}{0}{1}</value></data>
+  <data name="ConfigMissingMode" xml:space="preserve"><value>Gerekli kurulum modu eksik: {0}</value></data>
+  <data name="ConfigModeMissingId" xml:space="preserve"><value>Bir kurulum modunun kimliği (id) boş.</value></data>
+  <data name="ConfigModeHasNoSteps" xml:space="preserve"><value>'{0}' modunda hiç adım tanımlı değil.</value></data>
+  <data name="ConfigDuplicateStepId" xml:space="preserve"><value>'{0}' modunda yinelenen adım kimliği: {1}</value></data>
+  <data name="ConfigStepMissingId" xml:space="preserve"><value>'{0}' modunda kimliği olmayan bir adım var.</value></data>
+  <data name="ConfigStepMissingType" xml:space="preserve"><value>'{0}' / '{1}' adımının type alanı boş.</value></data>
   <data name="Downloading" xml:space="preserve"><value>İndiriliyor: {0}</value></data>
   <data name="DownloadComplete" xml:space="preserve"><value>İndirme tamamlandı: {0}</value></data>
   <data name="InstallerAlreadyInstalledSkip" xml:space="preserve"><value>{0} zaten kurulu, atlanıyor.</value></data>

@@ -89,7 +89,7 @@ public sealed class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public bool IsProgressIndeterminate => IsBundlePreparing || IsRunning;
+    public bool IsProgressIndeterminate => IsBundlePreparing;
 
     public string BundlePrepStatusText
     {

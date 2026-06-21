@@ -28,6 +28,19 @@ public static class AppResourceService
 
     private static void ReportProgress(string message) => ProgressReported?.Invoke(message);
 
+    public static bool HasLocalInstallResources()
+    {
+        lock (InitLock)
+        {
+            if (_initialized && !string.IsNullOrWhiteSpace(_resourceRoot))
+            {
+                return IsValidResourceRoot(_resourceRoot);
+            }
+        }
+
+        return TryResolveDevResourceRoot() is not null;
+    }
+
     public static string ResourceRoot
     {
         get
