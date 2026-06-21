@@ -1,8 +1,7 @@
 {
-  "version": "1.6.3",
-  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.3/UNKCLUB.Tool.exe",
-  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.3/installers-bundle.zip",
   "installersBundleVersion": "1.6.3",
-  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.3/UNKCLUB.exe",
-  "releaseNotes": "v1.6.3: removed non-Microsoft service disabling step — it was cutting internet and causing issues. Vanguard/Riot service handling unchanged."
+  "version": "1.6.3",
+  "releaseNotes": "Release v1.6.3",
+  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.3/installers-bundle.zip",
+  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.3/UNKCLUB.Tool.exe"
 }
