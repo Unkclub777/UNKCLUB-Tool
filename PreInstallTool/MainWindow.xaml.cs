@@ -28,13 +28,14 @@ public partial class MainWindow : Window
     {
         Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, async () =>
         {
+            await RunStartupUpdateCheckSafelyAsync().ConfigureAwait(true);
+
             if (!await _viewModel.PrepareBundleAsync().ConfigureAwait(true))
             {
                 return;
             }
 
             await RunAutoResumeSafelyAsync().ConfigureAwait(true);
-            await RunStartupUpdateCheckSafelyAsync().ConfigureAwait(true);
         });
     }
 

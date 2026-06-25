@@ -20,6 +20,7 @@ public partial class App : Application
         }
 
         LocalizationService.Initialize();
+        UpdateAppliedMarker.ReconcileOnStartup();
         AppResourceService.InvalidateCacheIfAppVersionChanged();
 
         OsCompatibilityService.EnsureSupportedOrWarn();

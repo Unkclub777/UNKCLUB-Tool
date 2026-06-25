@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PreInstallTool.Services;
 
@@ -8,6 +9,13 @@ namespace PreInstallTool.Services;
 /// </summary>
 internal static class UpdateAppliedMarker
 {
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };
+
     private static string MarkerFilePath =>
         Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
@@ -43,6 +51,40 @@ internal static class UpdateAppliedMarker
         return false;
     }
 
+    /// <summary>
+    /// Reconciles marker state after a silent update restart (batch script writes camelCase JSON).
+    /// </summary>
+    public static void ReconcileOnStartup()
+    {
+        var entry = TryRead();
+        if (entry is null)
+        {
+            return;
+        }
+
+        var currentVersion = AutoUpdateService.CurrentVersion;
+        var targetPath = entry.TargetExecutablePath ?? AutoUpdateService.GetExecutablePath();
+
+        if (TryParseStoredVersion(entry.AppliedVersion, out var applied) &&
+            AutoUpdateService.IsAtLeastVersion(currentVersion, applied))
+        {
+            if (!string.IsNullOrWhiteSpace(entry.PendingVersion))
+            {
+                entry.PendingVersion = null;
+                entry.PendingUtc = null;
+                Write(entry);
+            }
+
+            return;
+        }
+
+        if (TryParseStoredVersion(entry.PendingVersion, out var pending) &&
+            AutoUpdateService.IsAtLeastVersion(currentVersion, pending))
+        {
+            RecordApplied(pending, targetPath);
+        }
+    }
+
     public static void RecordPending(Version remoteVersion, string targetExecutablePath)
     {
         var entry = TryRead() ?? new MarkerEntry();
@@ -74,7 +116,7 @@ internal static class UpdateAppliedMarker
                 return null;
             }
 
-            return JsonSerializer.Deserialize<MarkerEntry>(File.ReadAllText(MarkerFilePath));
+            return JsonSerializer.Deserialize<MarkerEntry>(File.ReadAllText(MarkerFilePath), JsonOptions);
         }
         catch
         {
@@ -92,7 +134,7 @@ internal static class UpdateAppliedMarker
                 Directory.CreateDirectory(directory);
             }
 
-            File.WriteAllText(MarkerFilePath, JsonSerializer.Serialize(entry));
+            File.WriteAllText(MarkerFilePath, JsonSerializer.Serialize(entry, JsonOptions));
         }
         catch (Exception ex)
         {

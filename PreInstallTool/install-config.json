@@ -11,13 +11,6 @@
       "description": "Tam kurulum: ön koşullar, UNKCLUB dağıtımı ve Vanguard/Riot hata düzeltme akışı. Yeniden başlatma sonrası otomatik devam eder.",
       "steps": [
         {
-          "id": "first-install-stop-user-apps",
-          "name": "Kullanıcı uygulamalarını durdur",
-          "description": "Kurulum başlamadan önce Windows sistem bileşenleri hariç çalışan kullanıcı uygulamaları sonlandırılır.",
-          "type": "stopUserProcesses",
-          "phase": "pre-reboot"
-        },
-        {
           "id": "first-install-ensure-vanguard-auto",
           "name": "Vanguard servislerini otomatik başlatmaya al",
           "description": "vgk, vgc, vgm ve Riot Client servisleri yeniden başlatma sonrası otomatik başlasın diye Automatic olarak ayarlanır.",
@@ -180,13 +173,6 @@
       "name": "Hata Düzeltme",
       "description": "Vanguard ve Riot Client sorunlarını düzeltir. Yeniden başlatma sonrası kurulum otomatik devam eder.",
       "steps": [
-        {
-          "id": "error-fix-stop-user-apps",
-          "name": "Kullanıcı uygulamalarını durdur",
-          "description": "Kurulum başlamadan önce Windows sistem bileşenleri hariç çalışan kullanıcı uygulamaları sonlandırılır.",
-          "type": "stopUserProcesses",
-          "phase": "pre-reboot"
-        },
         {
           "id": "error-fix-ensure-vanguard-auto",
           "name": "Vanguard servislerini otomatik başlatmaya al",
