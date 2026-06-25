@@ -1,7 +1,8 @@
 {
-  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.4/UNKCLUB.Tool.exe",
-  "releaseNotes": "Release v1.6.4",
-  "installersBundleVersion": "1.6.4",
-  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.4/installers-bundle.zip",
-  "version": "1.6.4"
+  "version": "1.6.5",
+  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.5/UNKCLUB%20Tool.exe",
+  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.5/installers-bundle.zip",
+  "installersBundleVersion": "1.6.5",
+  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.5/UNKCLUB.exe",
+  "releaseNotes": "v1.6.5: reliable silent auto-update on startup, update marker fix, no longer closes all user apps at install start."
 }

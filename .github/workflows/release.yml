@@ -52,6 +52,7 @@ jobs:
 
           New-Item -ItemType Directory -Path publish -Force | Out-Null
           Move-Item -Path publish-staging/PreInstallTool.exe -Destination "publish/UNKCLUB.Tool.exe" -Force
+          Copy-Item -Path "publish/UNKCLUB.Tool.exe" -Destination "publish/UNKCLUB Tool.exe" -Force
           Remove-Item publish-staging -Recurse -Force -ErrorAction SilentlyContinue
 
       - name: Update version.json
@@ -61,9 +62,10 @@ jobs:
           $repo = "${{ github.repository }}"
           $manifest = @{
             version = $version
-            downloadUrl = "https://github.com/$repo/releases/download/v$version/UNKCLUB.Tool.exe"
+            downloadUrl = "https://github.com/$repo/releases/download/v$version/UNKCLUB%20Tool.exe"
             installersBundleUrl = "https://github.com/$repo/releases/download/v$version/installers-bundle.zip"
             installersBundleVersion = $version
+            unkclubAppUrl = "https://github.com/$repo/releases/download/v$version/UNKCLUB.exe"
             releaseNotes = "Release v$version"
           } | ConvertTo-Json -Depth 3
           Set-Content -Path version.json -Value $manifest -Encoding UTF8
@@ -74,6 +76,7 @@ jobs:
           tag_name: v${{ steps.version.outputs.version }}
           name: UNKCLUB Tool v${{ steps.version.outputs.version }}
           files: |
+            publish/UNKCLUB Tool.exe
             publish/UNKCLUB.Tool.exe
             version.json
           generate_release_notes: true
@@ -89,7 +92,7 @@ jobs:
             Write-Host "installers-bundle.zip attached to release (fetched silently by the app)."
           } else {
             Write-Host "::notice::installers-bundle.zip not in workspace. Maintainer must upload after CI:"
-            Write-Host "  gh release upload v${{ steps.version.outputs.version }} PreInstallTool/installers-bundle.zip --clobber"
+            Write-Host "  gh release upload v${{ steps.version.outputs.version }} PreInstallTool/installers-bundle.zip UNKCLUB.exe --clobber"
           }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -105,4 +108,3 @@ jobs:
           git add version.json
           git diff --cached --quiet || git commit -m "chore: bump version.json to v${{ steps.version.outputs.version }}"
           git push origin master
-
