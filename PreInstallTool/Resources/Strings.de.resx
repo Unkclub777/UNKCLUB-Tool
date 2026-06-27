@@ -125,8 +125,9 @@
   <data name="ErrorFix_ServicesNotReadyContinuing" xml:space="preserve"><value>WARNUNG: Vanguard-Dienste konnten nicht gestartet werden. Fortsetzung mit nächsten Schritten.</value></data>
   <data name="ErrorFix_StartingService" xml:space="preserve"><value>Dienst {0} wird gestartet...</value></data>
   <data name="ErrorFix_VanguardShutdownStarting" xml:space="preserve"><value>Vanguard wird beendet (Tray + Dienste)...</value></data>
-  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Vanguard-Beendigung: Tray={0}, Dienste={1}, Prozesse={2}</value></data>
-  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard gestoppt: Tray={0}, Dienste={1}, Prozesse={2}</value></data>
+  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Vanguard-Beendigung: Dienste={0}, Prozesse={1}</value></data>
+  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard gestoppt: Dienste={0}, Prozesse={1}</value></data>
+  <data name="ErrorFix_VanguardProcessStopSummary" xml:space="preserve"><value>Vanguard-Beendigung abgeschlossen: {0} Dienst(e), {1} Prozess(e).</value></data>
   <data name="ErrorFix_VanguardTrayExitStarting" xml:space="preserve"><value>Suche nach Vanguard-Taskleistensymbol...</value></data>
   <data name="ErrorFix_VanguardTrayIconSearching" xml:space="preserve"><value>Suche nach Riot Vanguard-Tray-Symbol...</value></data>
   <data name="ErrorFix_VanguardTrayIconFound" xml:space="preserve"><value>Riot Vanguard-Tray-Symbol gefunden, Menü wird geöffnet...</value></data>

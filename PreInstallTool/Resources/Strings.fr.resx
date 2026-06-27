@@ -125,8 +125,9 @@
   <data name="ErrorFix_ServicesNotReadyContinuing" xml:space="preserve"><value>AVERTISSEMENT : impossible de démarrer les services Vanguard. Passage aux étapes suivantes.</value></data>
   <data name="ErrorFix_StartingService" xml:space="preserve"><value>Démarrage du service {0}...</value></data>
   <data name="ErrorFix_VanguardShutdownStarting" xml:space="preserve"><value>Arrêt de Vanguard (barre d'état + services)...</value></data>
-  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Arrêt Vanguard : barre={0}, services={1}, processus={2}</value></data>
-  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard arrêté : barre={0}, services={1}, processus={2}</value></data>
+  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Arrêt Vanguard : services={0}, processus={1}</value></data>
+  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard arrêté : services={0}, processus={1}</value></data>
+  <data name="ErrorFix_VanguardProcessStopSummary" xml:space="preserve"><value>Arrêt Vanguard terminé : {0} service(s), {1} processus.</value></data>
   <data name="ErrorFix_VanguardTrayExitStarting" xml:space="preserve"><value>Recherche de l'icône Vanguard dans la barre d'état...</value></data>
   <data name="ErrorFix_VanguardTrayIconSearching" xml:space="preserve"><value>Recherche de l'icône Riot Vanguard...</value></data>
   <data name="ErrorFix_VanguardTrayIconFound" xml:space="preserve"><value>Icône Riot Vanguard trouvée, ouverture du menu...</value></data>

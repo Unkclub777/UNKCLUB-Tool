@@ -125,8 +125,9 @@
   <data name="ErrorFix_ServicesNotReadyContinuing" xml:space="preserve"><value>AVISO: não foi possível iniciar os serviços Vanguard. Continuando para as próximas etapas.</value></data>
   <data name="ErrorFix_StartingService" xml:space="preserve"><value>Iniciando serviço {0}...</value></data>
   <data name="ErrorFix_VanguardShutdownStarting" xml:space="preserve"><value>Encerrando Vanguard (bandeja + serviços)...</value></data>
-  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Encerramento Vanguard: bandeja={0}, serviços={1}, processos={2}</value></data>
-  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard parado: bandeja={0}, serviços={1}, processos={2}</value></data>
+  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Encerramento Vanguard: serviços={0}, processos={1}</value></data>
+  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard parado: serviços={0}, processos={1}</value></data>
+  <data name="ErrorFix_VanguardProcessStopSummary" xml:space="preserve"><value>Encerramento Vanguard concluído: {0} serviço(s), {1} processo(s).</value></data>
   <data name="ErrorFix_VanguardTrayExitStarting" xml:space="preserve"><value>Procurando ícone do Vanguard na bandeja do sistema...</value></data>
   <data name="ErrorFix_VanguardTrayIconSearching" xml:space="preserve"><value>Procurando ícone Riot Vanguard na bandeja...</value></data>
   <data name="ErrorFix_VanguardTrayIconFound" xml:space="preserve"><value>Ícone Riot Vanguard encontrado, abrindo menu...</value></data>

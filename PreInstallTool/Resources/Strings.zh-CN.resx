@@ -125,8 +125,9 @@
   <data name="ErrorFix_ServicesNotReadyContinuing" xml:space="preserve"><value>警告：无法启动 Vanguard 服务。继续下一步。</value></data>
   <data name="ErrorFix_StartingService" xml:space="preserve"><value>正在启动服务 {0}...</value></data>
   <data name="ErrorFix_VanguardShutdownStarting" xml:space="preserve"><value>正在关闭 Vanguard（托盘 + 服务）...</value></data>
-  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Vanguard 关闭：托盘={0}，服务={1}，进程={2}</value></data>
-  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard 已停止：托盘={0}，服务={1}，进程={2}</value></data>
+  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Vanguard 关闭：服务={0}，进程={1}</value></data>
+  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard 已停止：服务={0}，进程={1}</value></data>
+  <data name="ErrorFix_VanguardProcessStopSummary" xml:space="preserve"><value>Vanguard 终止完成：{0} 个服务，{1} 个进程。</value></data>
   <data name="ErrorFix_VanguardTrayExitStarting" xml:space="preserve"><value>正在搜索 Vanguard 系统托盘图标...</value></data>
   <data name="ErrorFix_VanguardTrayIconSearching" xml:space="preserve"><value>正在搜索 Riot Vanguard 托盘图标...</value></data>
   <data name="ErrorFix_VanguardTrayIconFound" xml:space="preserve"><value>找到 Riot Vanguard 托盘图标，正在打开菜单...</value></data>

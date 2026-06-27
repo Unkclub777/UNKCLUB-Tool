@@ -125,8 +125,9 @@
   <data name="ErrorFix_ServicesNotReadyContinuing" xml:space="preserve"><value>경고: Vanguard 서비스를 시작할 수 없습니다. 다음 단계로 계속합니다.</value></data>
   <data name="ErrorFix_StartingService" xml:space="preserve"><value>{0} 서비스 시작 중...</value></data>
   <data name="ErrorFix_VanguardShutdownStarting" xml:space="preserve"><value>Vanguard 종료 중(트레이 + 서비스)...</value></data>
-  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Vanguard 종료: 트레이={0}, 서비스={1}, 프로세스={2}</value></data>
-  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard 중지됨: 트레이={0}, 서비스={1}, 프로세스={2}</value></data>
+  <data name="ErrorFix_VanguardShutdownSummary" xml:space="preserve"><value>Vanguard 종료: 서비스={0}, 프로세스={1}</value></data>
+  <data name="ErrorFix_VanguardStopCompleted" xml:space="preserve"><value>Vanguard 중지됨: 서비스={0}, 프로세스={1}</value></data>
+  <data name="ErrorFix_VanguardProcessStopSummary" xml:space="preserve"><value>Vanguard 종료 완료: 서비스 {0}개, 프로세스 {1}개.</value></data>
   <data name="ErrorFix_VanguardTrayExitStarting" xml:space="preserve"><value>Vanguard 시스템 트레이 아이콘 검색 중...</value></data>
   <data name="ErrorFix_VanguardTrayIconSearching" xml:space="preserve"><value>Riot Vanguard 트레이 아이콘 검색 중...</value></data>
   <data name="ErrorFix_VanguardTrayIconFound" xml:space="preserve"><value>Riot Vanguard 트레이 아이콘을 찾았습니다. 메뉴를 엽니다...</value></data>
