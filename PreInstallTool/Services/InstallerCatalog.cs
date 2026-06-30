@@ -17,7 +17,7 @@ public sealed record InstallerProfile(
 
 public static class InstallerCatalog
 {
-    public static readonly int[] StandardSuccessCodes = [0, 1638, 3010, 5100, -9, 2, 1];
+    public static readonly int[] StandardSuccessCodes = [0, 1638, 3010, 5100, 5101, 1618, 1641, -9, 2, 1];
 
     public static InstallerProfile GetProfile(string filePath)
     {

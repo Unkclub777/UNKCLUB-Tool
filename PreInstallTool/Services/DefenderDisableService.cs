@@ -6,14 +6,31 @@ using PreInstallTool.Models;
 namespace PreInstallTool.Services;
 
 /// <summary>
-/// Disables Windows Defender and SmartScreen using the same registry, PowerShell,
-/// service and MpCmdRun blocking approach as Defender Control (dControl.ini).
-/// Exclusions are applied first to prevent false-positive detections.
+/// Disables Windows Defender and SmartScreen using registry, PowerShell,
+/// service and MpCmdRun blocking. Exclusions are applied first.
 /// </summary>
 public static class DefenderDisableService
 {
     public const int MaxVerifyRetries = 5;
     public const int VerifyDelayMs = 2000;
+
+    private const string TamperDisableScript = """
+        $ErrorActionPreference = 'SilentlyContinue'
+
+        if (Get-Command Set-MpPreference -ErrorAction SilentlyContinue) {
+            Set-MpPreference -DisableTamperProtection $true -ErrorAction SilentlyContinue
+        }
+
+        $policyFeatures = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Features'
+        New-Item -Path $policyFeatures -Force | Out-Null
+        Set-ItemProperty -Path $policyFeatures -Name TamperProtection -Value 0 -Type DWord -Force
+
+        $runtimeFeatures = 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Features'
+        New-Item -Path $runtimeFeatures -Force | Out-Null
+        Set-ItemProperty -Path $runtimeFeatures -Name TamperProtection -Value 0 -Type DWord -Force
+
+        exit 0
+        """;
 
     private const string CloudDisableScript = """
         $ErrorActionPreference = 'SilentlyContinue'
@@ -26,10 +43,15 @@ public static class DefenderDisableService
                 -ErrorAction SilentlyContinue
         }
 
-        $spynet = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet'
-        New-Item -Path $spynet -Force | Out-Null
-        Set-ItemProperty -Path $spynet -Name SpynetReporting -Value 0 -Type DWord -Force
-        Set-ItemProperty -Path $spynet -Name SubmitSamplesConsent -Value 2 -Type DWord -Force
+        $spynetPolicy = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet'
+        New-Item -Path $spynetPolicy -Force | Out-Null
+        Set-ItemProperty -Path $spynetPolicy -Name SpynetReporting -Value 0 -Type DWord -Force
+        Set-ItemProperty -Path $spynetPolicy -Name SubmitSamplesConsent -Value 2 -Type DWord -Force
+
+        $spynetRuntime = 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Spynet'
+        New-Item -Path $spynetRuntime -Force | Out-Null
+        Set-ItemProperty -Path $spynetRuntime -Name SpynetReporting -Value 0 -Type DWord -Force
+        Set-ItemProperty -Path $spynetRuntime -Name SubmitSamplesConsent -Value 2 -Type DWord -Force
 
         exit 0
         """;
@@ -39,6 +61,7 @@ public static class DefenderDisableService
 
         if (Get-Command Set-MpPreference -ErrorAction SilentlyContinue) {
             Set-MpPreference `
+                -DisableTamperProtection $true `
                 -DisableRealtimeMonitoring $true `
                 -DisableIOAVProtection $true `
                 -DisableBehaviorMonitoring $true `
@@ -64,26 +87,59 @@ public static class DefenderDisableService
         Set-ItemProperty -Path $dp -Name DisableAntiSpyware -Value 1 -Type DWord -Force
         Set-ItemProperty -Path $dp -Name DisableAntiVirus -Value 1 -Type DWord -Force
 
-        $rtp = Join-Path $dp 'Real-Time Protection'
-        New-Item -Path $rtp -Force | Out-Null
-        Set-ItemProperty -Path $rtp -Name DisableRealtimeMonitoring -Value 1 -Type DWord -Force
-        Set-ItemProperty -Path $rtp -Name DisableBehaviorMonitoring -Value 1 -Type DWord -Force
-        Set-ItemProperty -Path $rtp -Name DisableOnAccessProtection -Value 1 -Type DWord -Force
-        Set-ItemProperty -Path $rtp -Name DisableScanOnRealtimeEnable -Value 1 -Type DWord -Force
+        $rtpPolicy = Join-Path $dp 'Real-Time Protection'
+        New-Item -Path $rtpPolicy -Force | Out-Null
+        Set-ItemProperty -Path $rtpPolicy -Name DisableRealtimeMonitoring -Value 1 -Type DWord -Force
+        Set-ItemProperty -Path $rtpPolicy -Name DisableBehaviorMonitoring -Value 1 -Type DWord -Force
+        Set-ItemProperty -Path $rtpPolicy -Name DisableOnAccessProtection -Value 1 -Type DWord -Force
+        Set-ItemProperty -Path $rtpPolicy -Name DisableScanOnRealtimeEnable -Value 1 -Type DWord -Force
+        Set-ItemProperty -Path $rtpPolicy -Name DisableIOAVProtection -Value 1 -Type DWord -Force
 
-        $spynet = Join-Path $dp 'Spynet'
-        New-Item -Path $spynet -Force | Out-Null
-        Set-ItemProperty -Path $spynet -Name SpynetReporting -Value 0 -Type DWord -Force
-        Set-ItemProperty -Path $spynet -Name SubmitSamplesConsent -Value 2 -Type DWord -Force
+        $rtpRuntime = 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection'
+        New-Item -Path $rtpRuntime -Force | Out-Null
+        Set-ItemProperty -Path $rtpRuntime -Name DisableRealtimeMonitoring -Value 1 -Type DWord -Force
+        Set-ItemProperty -Path $rtpRuntime -Name DisableBehaviorMonitoring -Value 1 -Type DWord -Force
+        Set-ItemProperty -Path $rtpRuntime -Name DisableOnAccessProtection -Value 1 -Type DWord -Force
+        Set-ItemProperty -Path $rtpRuntime -Name DisableScanOnRealtimeEnable -Value 1 -Type DWord -Force
+        Set-ItemProperty -Path $rtpRuntime -Name DisableIOAVProtection -Value 1 -Type DWord -Force
 
-        $mpEngine = Join-Path $dp 'MpEngine'
-        New-Item -Path $mpEngine -Force | Out-Null
-        Set-ItemProperty -Path $mpEngine -Name MpEnablePus -Value 0 -Type DWord -Force
+        $spynetPolicy = Join-Path $dp 'Spynet'
+        New-Item -Path $spynetPolicy -Force | Out-Null
+        Set-ItemProperty -Path $spynetPolicy -Name SpynetReporting -Value 0 -Type DWord -Force
+        Set-ItemProperty -Path $spynetPolicy -Name SubmitSamplesConsent -Value 2 -Type DWord -Force
 
-        $features = Join-Path $dp 'Features'
-        New-Item -Path $features -Force | Out-Null
-        Set-ItemProperty -Path $features -Name TamperProtection -Value 0 -Type DWord -Force
-        Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Features' -Name TamperProtection -Value 0 -Type DWord -Force
+        $spynetRuntime = 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Spynet'
+        New-Item -Path $spynetRuntime -Force | Out-Null
+        Set-ItemProperty -Path $spynetRuntime -Name SpynetReporting -Value 0 -Type DWord -Force
+        Set-ItemProperty -Path $spynetRuntime -Name SubmitSamplesConsent -Value 2 -Type DWord -Force
+
+        $mpEnginePolicy = Join-Path $dp 'MpEngine'
+        New-Item -Path $mpEnginePolicy -Force | Out-Null
+        Set-ItemProperty -Path $mpEnginePolicy -Name MpEnablePus -Value 0 -Type DWord -Force
+
+        $mpEngineRuntime = 'HKLM:\SOFTWARE\Microsoft\Windows Defender\MpEngine'
+        New-Item -Path $mpEngineRuntime -Force | Out-Null
+        Set-ItemProperty -Path $mpEngineRuntime -Name MpEnablePus -Value 0 -Type DWord -Force
+
+        $puaPolicy = Join-Path $dp 'PUA Protection'
+        New-Item -Path $puaPolicy -Force | Out-Null
+        Set-ItemProperty -Path $puaPolicy -Name PUAProtection -Value 0 -Type DWord -Force
+
+        $featuresPolicy = Join-Path $dp 'Features'
+        New-Item -Path $featuresPolicy -Force | Out-Null
+        Set-ItemProperty -Path $featuresPolicy -Name TamperProtection -Value 0 -Type DWord -Force
+
+        $featuresRuntime = 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Features'
+        New-Item -Path $featuresRuntime -Force | Out-Null
+        Set-ItemProperty -Path $featuresRuntime -Name TamperProtection -Value 0 -Type DWord -Force
+
+        $networkPolicy = Join-Path $dp 'Windows Defender Exploit Guard\Network Protection'
+        New-Item -Path $networkPolicy -Force | Out-Null
+        Set-ItemProperty -Path $networkPolicy -Name EnableNetworkProtection -Value 0 -Type DWord -Force
+
+        $networkRuntime = 'HKLM:\SOFTWARE\Microsoft\Windows Defender\Windows Defender Exploit Guard\Network Protection'
+        New-Item -Path $networkRuntime -Force | Out-Null
+        Set-ItemProperty -Path $networkRuntime -Name EnableNetworkProtection -Value 0 -Type DWord -Force
 
         $secCenter = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications'
         New-Item -Path $secCenter -Force | Out-Null
@@ -96,14 +152,27 @@ public static class DefenderDisableService
 
         Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -Name SmartScreenEnabled -Value 'Off' -Type String -Force -ErrorAction SilentlyContinue
 
-        $edgePol = 'HKLM:\SOFTWARE\Policies\Microsoft\Edge'
-        New-Item -Path $edgePol -Force | Out-Null
-        Set-ItemProperty -Path $edgePol -Name SmartScreenEnabled -Value 0 -Type DWord -Force
+        $appHostLm = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost'
+        New-Item -Path $appHostLm -Force | Out-Null
+        Set-ItemProperty -Path $appHostLm -Name EnableWebContentEvaluation -Value 0 -Type DWord -Force
+
+        $appHostCu = 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppHost'
+        New-Item -Path $appHostCu -Force | Out-Null
+        Set-ItemProperty -Path $appHostCu -Name EnableWebContentEvaluation -Value 0 -Type DWord -Force
+
+        $edgePolLm = 'HKLM:\SOFTWARE\Policies\Microsoft\Edge'
+        New-Item -Path $edgePolLm -Force | Out-Null
+        Set-ItemProperty -Path $edgePolLm -Name SmartScreenEnabled -Value 0 -Type DWord -Force
+
+        $edgePolCu = 'HKCU:\SOFTWARE\Policies\Microsoft\Edge'
+        New-Item -Path $edgePolCu -Force | Out-Null
+        Set-ItemProperty -Path $edgePolCu -Name SmartScreenEnabled -Value 0 -Type DWord -Force
+
         $edgeLegacy = 'HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter'
         New-Item -Path $edgeLegacy -Force | Out-Null
         Set-ItemProperty -Path $edgeLegacy -Name EnabledV9 -Value 0 -Type DWord -Force
 
-        foreach ($svc in @('WinDefend','WdFilter','WdNisDrv','WdNisSvc','Sense','SecurityHealthService')) {
+        foreach ($svc in @('WinDefend','WdFilter','WdNisDrv','WdNisSvc','WdBoot','Sense','SecurityHealthService')) {
             $sk = 'HKLM:\SYSTEM\CurrentControlSet\Services\' + $svc
             if (Test-Path $sk) {
                 Set-ItemProperty -Path $sk -Name Start -Value 4 -Type DWord -Force
@@ -124,6 +193,9 @@ public static class DefenderDisableService
     public static InstallResult Disable(IProgress<string>? log = null, Action? refreshStatus = null)
     {
         DefenderExclusionService.AddExclusions(log);
+
+        log?.Report(LocalizationService.Get("DefenderDisabling"));
+        RunPowerShell(TamperDisableScript, 60, log);
 
         log?.Report(LocalizationService.Get("DefenderCloudDisabling"));
         RunPowerShell(CloudDisableScript, 60, log);

@@ -1,8 +1,8 @@
 {
-  "version": "1.6.6",
-  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.6/UNKCLUB.Tool.exe",
-  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.6/installers-bundle.zip",
-  "installersBundleVersion": "1.6.6",
-  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.6/UNKCLUB.exe",
-  "releaseNotes": "v1.6.6: fix Vanguard stop step FormatException in pt-BR, de, fr, zh-CN, and ko translations."
+  "version": "1.6.7",
+  "downloadUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.7/UNKCLUB.Tool.exe",
+  "installersBundleUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.7/installers-bundle.zip",
+  "installersBundleVersion": "1.6.7",
+  "unkclubAppUrl": "https://github.com/Unkclub777/UNKCLUB-Tool/releases/download/v1.6.7/UNKCLUB.exe",
+  "releaseNotes": "v1.6.7: skip already-installed prerequisites, stronger Defender registry disable, installer exit-code fixes."
 }
